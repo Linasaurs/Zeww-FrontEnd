@@ -1,0 +1,14 @@
+#addMembers {
+    display: flex; 
+    float: right; 
+    margin-top: 1rem;
+  }  
+  #addIcon {
+    height: 20px; 
+    margin-right: 0.5rem;
+    
+  }
+  #addTxt {
+    font-size: 0.9rem;
+  } 
+  

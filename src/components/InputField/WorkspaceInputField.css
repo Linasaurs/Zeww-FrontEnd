@@ -1,0 +1,11 @@
+.inputField {
+  border-radius: 15px;
+  background-color: #FFFCE6;
+  height: 45px;
+} 
+.labelStyle {
+  margin-bottom: 1rem;
+  margin-left: 0.3rem; 
+  margin-top: 1.5rem;
+
+}

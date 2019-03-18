@@ -1,0 +1,29 @@
+.zewwNavBar {
+    background-image: linear-gradient( #808080,rgba(255,0,0,0)); 
+    border: none;
+    height: 100px;
+} 
+
+.logo {
+   height: 70px; 
+   margin: 1rem; 
+   margin-right: 5rem;
+} 
+.nav {
+    padding: 1.8rem;
+    margin-left: 5rem;
+    color: white;
+}  
+
+
+.navbar-expand-lg .navbar-nav .nav-link {
+    padding-right: 2.5rem;
+    padding-left: 2.5rem; 
+    color: white; 
+    font-size: 1.3rem;
+} 
+.navbar-expand-lg .navbar-nav .nav-link:hover {
+    color:#FFEB3B; 
+    text-decoration: underline;
+    text-decoration-color: #FFEB3B; 
+} 

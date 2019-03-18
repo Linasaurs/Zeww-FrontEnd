@@ -1,0 +1,12 @@
+.createWS {
+    background-color: #FFEB3B; 
+    color: black; 
+    display: flex;
+    margin: 0 auto; 
+    border-radius: 15px;
+    height: 55px; 
+    width: 200px;
+    justify-content: center; 
+    margin-bottom: 4rem;
+    margin-top: 4rem;
+  } 
