@@ -26,6 +26,7 @@ class ModalLayout extends Component {
                 <ModalFooter>
                     <Button color="secondary" onClick={this.toggle}>Cancel</Button>
                 </ModalFooter>
+                <button/>
             </Modal>
          );
     }
