@@ -1,0 +1,9 @@
+.wsCreated {
+    display: flex;
+    flex-direction: column;
+  } 
+  .createdText {
+    justify-content: center;
+    text-align: center;
+    margin-top: 4rem;
+  }

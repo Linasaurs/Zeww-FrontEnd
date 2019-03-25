@@ -1,17 +1,17 @@
 import React, { Component } from 'react'
-import CreateWorkspaceForm from '../CreateWorkspaceForm/CreateWorkspaceForm';
 import AddMembersWorkspace from '../AddMembersWorkspaceForm/AddMembersWorkspaceForm'; 
 import '../CreateWorkspaceLayout/CreateWorkspace.css'
+import CreateWorkspaceFormContainer from '../CreateWorkspaceForm/CreateWorkspaceFormContainer';
 class CreateWorkspace extends Component {
     render () {
         return (
             <div>
        <h2>Create a new workspace</h2>
    <div className="container formWrapper"> 
-           <CreateWorkspaceForm/>
+           <CreateWorkspaceFormContainer/>
            <AddMembersWorkspace/>
    </div> 
-   </div>
+           </div>
         )
     }
 }
