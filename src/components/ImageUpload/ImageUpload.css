@@ -1,0 +1,12 @@
+.imageUpload{
+    align-items: center;
+    justify-content: center;
+    display: flex; 
+    flex-direction: column;
+    margin-top: 2rem;
+} 
+
+.imageUploadLabel{
+    font-weight: 600;
+    margin-bottom: 2rem;
+}

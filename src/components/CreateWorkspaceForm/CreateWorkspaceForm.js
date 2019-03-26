@@ -12,9 +12,7 @@ const CreateWorkspaceForm = props =>
             <InputField labelStyle="labelStyle" inputClassName="form-control inputField" label="Company Name" name="companyName" small="(Optional)" onChange={props.change}/> 
             <InputField labelStyle="labelStyle" inputClassName="form-control inputField" label="Project you're working on" name="projectName" small="(Optional)" onChange={props.change} />
             <Button text="Create Workspace" type="submit" buttonStyle="btn createWS" /> 
-            
            </form> 
-           <ImageUpload label="Add workspace Image" /> 
         </div>
         
     

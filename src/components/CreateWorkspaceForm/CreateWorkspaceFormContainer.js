@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import CreateWorkspaceForm from './CreateWorkspaceForm';
+import CreateWorkspaceForm from '../CreateWorkspaceForm/CreateWorkspaceForm'
 import axios from 'axios' 
 import WorkspaceCreated from '../WorkspaceCreated/WorkspaceCreated';
-import {Link, Route} from 'react-router-dom'
+import {Redirect, Route} from 'react-router-dom'
 class CreateWorkspaceFormContainer extends Component { 
     constructor(props){
         super(props)
@@ -24,6 +24,7 @@ class CreateWorkspaceFormContainer extends Component {
                 this.setState({data: res.data}); 
                 console.log(res);
                 console.log(res.data); 
+                
             }
           })
     } 
@@ -34,9 +35,9 @@ class CreateWorkspaceFormContainer extends Component {
     } 
     render () {
         return ( 
-            <React.Fragment> 
-            {this.state.data != null ? <Link to={"/created"}>Created</Link> :  <CreateWorkspaceForm submit={this.handelSubmit.bind(this)} change={this.handleInputChange.bind(this)} data={this.state.data}/>  }; 
-            <Route path="/created" render={() =><WorkspaceCreated/>} />
+            <React.Fragment>  
+                <CreateWorkspaceForm submit={this.handelSubmit.bind(this)} change={this.handleInputChange.bind(this)}/>
+            {this.state.data != null && <Redirect to={"/created"}>Created</Redirect> }
             </React.Fragment>
         )
     }

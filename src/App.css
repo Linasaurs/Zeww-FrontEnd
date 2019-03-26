@@ -1,4 +1,29 @@
 body {
     background-color: #F6F6F6;  
     font-family: 'Montserrat', sans-serif;
-  }  
+  }   
+   /* width */
+   ::-webkit-scrollbar {
+    width: 25px;
+    color: #FFFFFF;
+    border-color: #707070;
+    background-color: #757575
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+/* box-shadow: 0 0 0 0.1rem #707070; */
+    border-radius: 20px;
+    background-color: #FFFFFF;
+    margin-top: 4rem;
+    /* margin-bottom: 1rem; */
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #B8B8B8;
+    width: 20px;
+    border-radius: 20px;
+    border: 5px solid #FFFFFF;
+    /* border-color: #707070; */
+  }

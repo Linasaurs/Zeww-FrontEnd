@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import '../WorkspaceCreated/WorkspaceCreated.css'
+import '../WorkspaceCreated/WorkspaceCreated.css' 
+import ImageUpload from '../ImageUpload/ImageUpload'
+import {Link } from 'react-router-dom';
 class WorkspaceCreated extends Component {
     render () {
         return (
@@ -11,8 +13,9 @@ class WorkspaceCreated extends Component {
                      A channel brings together every part of your project 
                      – the people, conversations, ideas, updates, and files <br/>
                      –  so your team can move forward and get more done.
-                     </p> 
-                     <button type="button" className="btn createWS">Go to workspace</button> 
+                     </p>  
+                     <ImageUpload label="Add image to your workspace" /> 
+                     <Link to="/workspace" style={{alignItems: "center"}}className="btn createWS">Go to workspace</Link> 
                      </div>
                 </div> 
             </div>

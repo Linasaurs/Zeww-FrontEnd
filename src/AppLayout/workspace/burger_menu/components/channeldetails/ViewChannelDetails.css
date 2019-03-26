@@ -1,0 +1,23 @@
+#danger {
+    color: #000000;
+    font-weight: bold;
+    background-color: #ffeb3b;
+    border: transparent;
+  }
+  
+  #close {
+    color: #000000;
+    background-color: #ffeb3b;
+    border: transparent;
+  }
+  #submit {
+    color: #000000;
+    background-color: #ffeb3b;
+    border: transparent;
+  }
+  #form {
+    margin: 1rem;
+    width: 50%;
+    /* align-self:  center; */
+  }
+  

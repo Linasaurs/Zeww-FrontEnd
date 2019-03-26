@@ -1,0 +1,190 @@
+  
+  .home {
+    background-image: url(/imgs/SPINIFYIMAGE.jpg), linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+    background-blend-mode: overlay;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+  }
+  
+  .main {
+    margin-left: 218px;
+    margin-right: 217px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 2rem;
+  }
+  
+  #header {
+    color: white;
+    font-size: 4vw;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  #joinbtn {
+    text-transform: uppercase;
+    background-color: #FFEB3B;
+    width: 20vw;
+    height: 6vw;
+    font-size: 2vw;
+    font-weight: bolder;
+    border-radius: 12px;
+    margin-top: 1rem;
+    margin-bottom: 5rem;
+    text-align: center;
+  }
+  
+  #signinbtn {
+    width: 12vw;
+    height: 4vw;
+    font-size: 1.5vw;
+    font-weight: bold;
+    border-radius: 7px;
+    text-align: center;
+    background-color: white;
+    margin-bottom: 2rem;
+  }
+  
+  .break {
+    height: 1rem;
+  }
+  
+  /*For WorkSpace*/
+  :root {
+    --custom--grey: #757575;
+    --custom-light-grey: #F6F6F6;
+    --custome-yellow: #FFEB3B
+  }
+  
+  .class-sticky {
+    position: sticky;
+    top: 0;
+  }
+  
+  #workspace-header {
+    padding: 1rem;
+    background-color: var(--custom--grey);
+    color: var(--custome-yellow);
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
+  }
+  
+  #workspace-header-details {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  #workspace-header-img {
+    height: 40px;
+    width: auto;
+  }
+  
+  #workspace-header-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0px;
+    margin-left: 0.8rem;
+  
+  }
+  
+  #workspace-header-img {
+    background-color: white;
+    border: 1px white solid;
+    border-radius: 20px;
+  }
+  
+  #workspace-header-channeltitle {
+    font-size: 1.4rem;
+  }
+  
+  #workspace-header-icons {
+    font-size: 1.4rem;
+    color: white;
+    display: inline-flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  
+  #workspace-header-icons svg {
+    margin-left: 1rem;
+  }
+  
+  #workspace-header-icons .fa-bars {
+    font-size: 2rem;
+  }
+  
+  #workspace-body{
+    background-color: var(--custom-light-grey);
+    height: 100vh;
+    padding-top: 0.6rem;
+    display: flex;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
+  }
+  
+  .workspace-body-title {
+    color: var(--custom--grey);
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
+    font-size: 1.3rem;
+    display:flex;
+    padding-top: 0.6rem;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .workspace-body-title svg{
+    font-size: 1rem;
+  }
+  
+  .workspace-body-information{
+      color: var(--custom--grey);
+      opacity: 0.5;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
+    font-size: 1.1rem;
+    margin-left: auto !important;
+  }
+  
+  #workspace-body-chat .fa-comments {
+    font-size: 15rem;
+    color:var(--custom--grey);
+    opacity: 0.5;
+    margin-top:0;
+  }
+  
+  #loading-bg{
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--custom-light-grey);
+  }
+  
+  .loading-img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 25rem;
+    height: 25rem;
+    margin: -12rem 0 0 -12rem;
+    -webkit-animation: spin 4s linear infinite;
+    -moz-animation: spin 4s linear infinite;
+    animation: spin 4s linear infinite;
+  }
+  
+  @-moz-keyframes spin {
+    100% {
+      -moz-transform: rotate(360deg);
+    }
+  }
+  
+  @-webkit-keyframes spin {
+    100% {
+      -webkit-transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes spin {
+    100% {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }

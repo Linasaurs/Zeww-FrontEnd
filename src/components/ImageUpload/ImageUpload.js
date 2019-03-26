@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-
+import '../ImageUpload/ImageUpload.css'
 class ImageUpload extends Component {
     render () {
         return (
-            <div className="form-group">
-        <label htmlFor="name">{this.props.label}</label>
+            <div className="form-group imageUpload">
+        <label className="imageUploadLabel"htmlFor="name">{this.props.label}</label>
         <form method="post" encType="multipart/form-data">
           <input type="file" id="files"  name="files" multiple />
           <input type="button"  id="upload"  value="Upload" />
