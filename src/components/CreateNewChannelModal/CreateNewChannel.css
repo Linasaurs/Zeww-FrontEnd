@@ -1,0 +1,65 @@
+label > input.form-control {
+    background-color: #fffce6;
+}
+
+.Modal {
+    border: none;
+    margin-top: 10rem;
+    width: 40rem;
+    border-radius: 20% !important;
+}
+
+.ModalHeader {
+    display: flex;
+    border: none;
+    align-content: center;
+}
+
+.modal-title {
+    margin-left: 4.5rem;
+}
+
+.ModalFooter {
+    border: none;
+}
+
+.text-entry-area {
+    margin-right: 1.5rem;
+    margin-left: 1.5rem;
+    margin-top: 1rem;
+    width: max-content;
+}
+
+.textboxes-area {
+    display: flex;
+    flex-direction: row;
+}
+
+.textbox {
+    width: 27.5;
+}
+
+.submit-btn {
+    background-color: #ffeb3b;
+    color: black;
+    border: none;
+    height: 4rem;
+    margin-top: 2rem;
+}
+
+.submit-area {
+    display: flex;
+    justify-content: center;
+}
+
+.border-radius-2 div {
+    border-radius: 20% !important;
+}
+
+.modal-title {
+    font-size: 2rem;
+}
+
+.form-control {
+    border-radius: 10px;
+}
