@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import CreateWorkspace from "./components/CreateWorkspaceLayout/CreateWorkspace";
-import NavBar from "./components/NavBar/NavBar";
-import ModalLayout from "./components/ModalLayout/ModalLayout";
+import Routing from "./Routing/Routing";
 import CreateNewChannel from "./components/CreateNewChannelModal/CreateNewChannel";
 
 class App extends Component {
