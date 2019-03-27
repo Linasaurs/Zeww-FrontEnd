@@ -7,18 +7,19 @@ import LandingPage from '../AppLayout/Landingpage/LandingPage';
 import WorkspaceCreated from '../components/WorkspaceCreated/WorkspaceCreated'; 
 import CreateWorkspace from '../components/CreateWorkspaceLayout/CreateWorkspace';
 import Workspace from '../AppLayout/workspace/Workspace'
+import SelectOrJoinWorkspaces from '../AppLayout/SelectOrJoinWorkspaces/SelectOrJoinWorkspaces';
 
 class Routing extends Component {
     render () {
         return (
             <Router>
-                <MainNavLayout path="/" render={()=><LandingPage/>}exact/>
+                <Route path="/" render={()=><LandingPage/>}exact/>
                 <MainNavLayout path="/signup" render={()=><Signup/>}/>   
                 <MainNavLayout path="/login" render={()=><Login/>}/>   
                 <MainNavLayout path="/createWorkspace" render={()=><CreateWorkspace/>}/> 
                 <MainNavLayout path="/created/:id"  render={(props)=><WorkspaceCreated data={props.location.state} id={props.match.params.id}/>} /> 
-                <Route path="/workspace" render={()=><Workspace/>}/>
-            </Router>
+                <MainNavLayout path="/workspaces" render={()=><SelectOrJoinWorkspaces/>}/>
+                <Route path="/workspace/:id" render={(props)=><Workspace {...props}/>}/>            </Router>
         )
     }
 }

@@ -1,0 +1,51 @@
+.homeDiv{
+    font-family: 'Roboto', sans-serif;
+}
+.homeContainer{
+    min-width: -webkit-fill-available;
+}
+.homeRow{
+    background-image: url(./imgs/SPINIFYIMAGE.jpg), linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5));
+    background-blend-mode: overlay;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+}
+.home{
+    margin-left: 17rem;
+    margin-right: 17rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#header{
+    color: white;
+    font-size: 3rem;
+    text-align: center;
+    font-weight: bold;
+}
+#joinbtn{
+    text-transform: uppercase;
+    background-color: #FFEB3B;
+    width: 15rem;
+    height: 5.3rem;
+    font-size: 2rem;
+    font-weight: bolder;
+    border-radius: 17px;
+    margin-top: 1rem;
+    margin-bottom: 3.5rem;
+    text-align: center;
+    color: black;
+}
+#signinbtn{
+    width: 11rem;
+    height: 3.5rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-radius: 10px;
+    text-align: center;
+    background-color: white;
+    margin-bottom: 4rem;
+    color: black;
+}

@@ -1,0 +1,47 @@
+.workspacesDiv{
+    margin-left: 5rem;
+    width: 22rem;
+    height: 18rem;
+    border: 1px solid gray;
+    border-radius: 16px;
+    background-color: #FFFCE6;
+    overflow-y: auto;
+}
+.workspaceTag{
+    border: 1px solid gray;
+    margin-left: 1rem;
+    margin-top: 1rem;
+    width: 18rem;
+    height: 4rem;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: white;
+}
+.workspaceImage{
+    width: 2rem;
+    height: 2rem;
+    margin-right: 2rem;
+    margin-left: 1rem;
+}
+.workspaceName{
+    font-size: 1.5rem;
+    color: gray;
+}
+.workspacesHeader{
+    margin-left: 6rem;
+    margin-bottom: 2rem;
+}
+.mainDiv{
+    display: flex;
+    flex-direction: row;
+    margin-top: 3rem;
+}
+.JoinWorkspace{
+    margin-left: 17rem;
+}
+#joinDiv{
+    margin-left: -5rem;
+    margin-right: -6rem;
+}

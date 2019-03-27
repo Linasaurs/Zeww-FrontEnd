@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './login.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import auth from '../../Services/authService'
+import {Redirect } from 'react-router';
 
 class Login extends Component {
     constructor(props) {
@@ -16,7 +17,9 @@ class Login extends Component {
 
     render() {  
         return ( 
-            <div id="loginComponent">
+            <React.Fragment>
+                {this.state.loginSucceeded? <Redirect to="/workspaces"/>:
+                <div id="loginComponent">
                 <h2>Login</h2>
                 <form>
                     <div id="loginInputs">
@@ -44,7 +47,9 @@ class Login extends Component {
                         </label>
                     </div>
                 </form>
-            </div>
+            </div> }
+            </React.Fragment>
+           
          )
     }
 
@@ -62,7 +67,6 @@ class Login extends Component {
                 loginMessage: "Congratulations! You Logged in successfully"
             })
         }catch(exception){
-            console.log(auth.getCurrentUserId())
             if(exception.response && exception.response.status === 400){
                 this.setState({
                     loginSucceeded: false,

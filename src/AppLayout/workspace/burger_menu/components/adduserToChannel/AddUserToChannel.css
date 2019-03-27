@@ -1,0 +1,14 @@
+#addUserInput{
+    border-radius: 17px;
+    height: 3rem;
+    background-color: #FFFCE6;
+}
+#addUserBtn{
+    margin-left: 75%;
+    margin-top: 1rem;
+    border-radius: 13px;
+    height: 3rem;
+    background-color: #FFEB3B;
+    border: none;
+    color: black;
+}
