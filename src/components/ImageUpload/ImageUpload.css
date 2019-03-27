@@ -1,0 +1,24 @@
+.imageUpload{
+    align-items: center;
+    justify-content: center;
+    display: flex; 
+    flex-direction: column;
+    margin-top: 2rem;
+} 
+
+.imageUploadLabel{
+    font-weight: 600;
+    margin-left: 1.2rem;
+} 
+
+.WSNameImage {
+    display: flex; 
+    align-items: center; 
+    margin-bottom: 2rem;
+} 
+.wsName {
+    color: #757575; 
+    font-size: 1.3rem; 
+    margin-left: 0.5rem; 
+    font-weight: 700;
+}

@@ -1,0 +1,19 @@
+.wsCreated {
+    display: flex;
+    flex-direction: column;
+  } 
+  .createdText {
+    justify-content: center;
+    text-align: center;
+    margin-top: 4rem;
+  } 
+
+  .wsImage{
+    width: 60px; 
+    height: 60px;
+  } 
+
+  .WSNameImage {
+    display: flex; 
+    justify-content: center;
+  }
