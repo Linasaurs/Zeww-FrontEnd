@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
 import "./CreateNewChannel.css";
 import axios from "axios";
+import auth from "../../Services/authService";
 
 const Joi = require("joi");
 
@@ -62,15 +63,16 @@ class CreateNewChannel extends Component {
 
         console.log(chat);
 
-        axios
-            .post("http://10.0.67.127:8080/api/chats/createnewchannel", chat)
-            .then(function(response) {
-                console.log(response);
-                this.setState({ modal: 0 });
+        axios(
+            auth.includeAuth({
+                method: "post",
+                url: "http://10.0.67.127:8080/api/chats/createnewchannel",
+                responseType: "json",
+                data: chat
             })
-            .catch(function(error) {
-                console.log(error);
-            });
+        ).then(function(response) {
+            console.log(response);
+        });
     }
 
     render() {
