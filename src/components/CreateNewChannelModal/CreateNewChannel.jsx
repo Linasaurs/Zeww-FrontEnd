@@ -14,6 +14,8 @@ const channelNameSchema = Joi.object().keys({
         .required()
 });
 
+
+
 class CreateNewChannel extends Component {
     constructor(props) {
         super(props);
@@ -26,9 +28,13 @@ class CreateNewChannel extends Component {
             dataToSend: null,
             result: null
         };
-
+        
         this.toggle = this.toggle.bind(this);
         this.setState = this.setState.bind(this);
+    }
+    
+    componentDidMount () {
+        auth.login("ziadalikhalifa@gmail.com", "Password");
     }
 
     toggle() {
@@ -36,7 +42,7 @@ class CreateNewChannel extends Component {
             modal: !prevState.modal
         }));
     }
-
+    
     handleChange(event) {
         const target = event.target;
         const value = target.value;
@@ -57,11 +63,12 @@ class CreateNewChannel extends Component {
         var chat = {};
 
         chat.workspaceId = this.props.workspaceId;
-        chat.channelName = this.state.channelName;
+        chat.name = this.state.channelName;
         chat.isPrivate = this.state.isPrivate;
         chat.channelPurpose = this.state.channelPurpose;
 
         console.log(chat);
+
 
         axios(
             auth.includeAuth({
@@ -71,9 +78,11 @@ class CreateNewChannel extends Component {
                 data: chat
             })
         ).then(function(response) {
-            console.log(response);
+            console.log(response.data);
         });
     }
+
+    
 
     render() {
         return (
