@@ -9,7 +9,7 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-                <CreateNewChannel />
+                <CreateNewChannel workspaceId="1" />
             </div>
         );
     }

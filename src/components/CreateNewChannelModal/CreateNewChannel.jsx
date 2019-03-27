@@ -20,7 +20,7 @@ class CreateNewChannel extends Component {
             modal: 1,
             channelName: "",
             workspaceId: "",
-            isPrivate: "",
+            isPrivate: false,
             channelPurpose: "",
             dataToSend: null,
             result: null
@@ -47,19 +47,23 @@ class CreateNewChannel extends Component {
         console.log(result);
     }
 
-    handleSubmit() {
+    handleSubmit(event) {
+        event.preventDefault();
         console.log("Submit pressed!");
-        if (this.state.result.error) alert("Channel name is not a valid name!");
+        if (this.state.result.error != null)
+            alert("Channel name is not a valid name!");
 
-        var chat;
+        var chat = {};
 
-        chat.workspaceId = this.state.workspaceId;
+        chat.workspaceId = this.props.workspaceId;
         chat.channelName = this.state.channelName;
         chat.isPrivate = this.state.isPrivate;
         chat.channelPurpose = this.state.channelPurpose;
 
+        console.log(chat);
+
         axios
-            .post("Edit with route to CreateNewChannel", chat)
+            .post("http://10.0.67.127:8080/api/chats/createnewchannel", chat)
             .then(function(response) {
                 console.log(response);
                 this.setState({ modal: 0 });
@@ -82,7 +86,7 @@ class CreateNewChannel extends Component {
                     <p className="modal-title">Create new channel</p>
                 </ModalHeader>
                 <ModalBody>
-                    <form onSubmit={this.handleSubmit}>
+                    <form onSubmit={event => this.handleSubmit(event)}>
                         <div className="textboxes-area">
                             <div className="text-entry-area">
                                 <label>
