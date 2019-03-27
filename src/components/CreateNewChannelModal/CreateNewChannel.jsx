@@ -1,21 +1,33 @@
 import React, { Component } from "react";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
 import "./CreateNewChannel.css";
+import axios from "axios";
+
+const Joi = require("joi");
+
+const channelNameSchema = Joi.object().keys({
+    channelName: Joi.string()
+        .alphanum()
+        .min(3)
+        .max(30)
+        .required()
+});
 
 class CreateNewChannel extends Component {
     constructor(props) {
         super(props);
         this.state = {
             modal: 1,
-            channel: {
-                channelName: "",
-                channelUsers: []
-            },
-            workspaceName: "",
-            dataToSend: null
+            channelName: "",
+            workspaceId: "",
+            isPrivate: "",
+            channelPurpose: "",
+            dataToSend: null,
+            result: null
         };
 
         this.toggle = this.toggle.bind(this);
+        this.setState = this.setState.bind(this);
     }
 
     toggle() {
@@ -24,8 +36,37 @@ class CreateNewChannel extends Component {
         }));
     }
 
+    handleChange(event) {
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+        this.setState({ [name]: value });
+
+        const result = Joi.validate({ channelName: value }, channelNameSchema);
+        this.setState({ result: result });
+        console.log(result);
+    }
+
     handleSubmit() {
         console.log("Submit pressed!");
+        if (this.state.result.error) alert("Channel name is not a valid name!");
+
+        var chat;
+
+        chat.workspaceId = this.state.workspaceId;
+        chat.channelName = this.state.channelName;
+        chat.isPrivate = this.state.isPrivate;
+        chat.channelPurpose = this.state.channelPurpose;
+
+        axios
+            .post("Edit with route to CreateNewChannel", chat)
+            .then(function(response) {
+                console.log(response);
+                this.setState({ modal: 0 });
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
     }
 
     render() {
@@ -45,25 +86,31 @@ class CreateNewChannel extends Component {
                         <div className="textboxes-area">
                             <div className="text-entry-area">
                                 <label>
-                                    Channel Name <br />
+                                    Channel Name * <br />
                                     <input
                                         name="channelName"
                                         type="text"
-                                        defaultValue={
-                                            this.state.channel.channelName
-                                        }
+                                        value={this.state.channelName}
                                         className="form-control"
-                                        onChange={this.handleChange}
+                                        onChange={this.handleChange.bind(this)}
+                                    />
+                                </label>
+                            </div>
+                            <div className="text-entry-area">
+                                <label>
+                                    Channel Pupose <br />
+                                    <input
+                                        name="channelPurpose"
+                                        type="text"
+                                        value={this.state.channelPurpose}
+                                        className="form-control"
+                                        onChange={this.handleChange.bind(this)}
                                     />
                                 </label>
                             </div>
                         </div>
                         <div className="submit-area">
-                            <Button
-                                className="submit-btn"
-                                type="Sumbit"
-                                size="lg"
-                            >
+                            <Button className="submit-btn" size="lg">
                                 Create Channel
                             </Button>
                         </div>
