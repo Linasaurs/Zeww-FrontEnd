@@ -8,4 +8,12 @@
     margin-top: 4rem;
   } 
 
-  
+  .wsImage{
+    width: 60px; 
+    height: 60px;
+  } 
+
+  .WSNameImage {
+    display: flex; 
+    justify-content: center;
+  }

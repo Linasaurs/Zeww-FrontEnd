@@ -10,7 +10,8 @@ class CreateWorkspaceFormContainer extends Component {
             workspaceName :null,
             companyName :null,
             projectName :null,
-            data: null, 
+            data: null,  
+            workspaceNameExists: false
         }
     }
     handelSubmit(event){  
@@ -19,12 +20,16 @@ class CreateWorkspaceFormContainer extends Component {
         const companyName =  this.state.companyName 
         const projectName = this.state.projectName 
         const data = {workspaceName, companyName, projectName} 
-        axios.post('https://localhost:44346/api/workspaces/CreateWorkspace',data).then(res => { 
-            if(res != null){ 
-                this.setState({data: res.data}); 
-                console.log(res);
-                console.log(res.data); 
-                
+        axios.post('https://localhost:44346/api/workspaces/CreateWorkspace',data).then(res => {  
+            console.log(res)
+            if(res != null){  
+                this.setState({data: res.data});     
+            } 
+          }).catch(err => { 
+              if(err!=null){
+                if(JSON.parse(JSON.stringify(err)).response.status == 400){
+                    this.setState({workspaceNameExists:true});
+                } 
             }
           })
     } 
@@ -36,8 +41,8 @@ class CreateWorkspaceFormContainer extends Component {
     render () {
         return ( 
             <React.Fragment>  
-                <CreateWorkspaceForm submit={this.handelSubmit.bind(this)} change={this.handleInputChange.bind(this)}/>
-            {this.state.data != null && <Redirect to={"/created"}>Created</Redirect> }
+   <CreateWorkspaceForm submit={this.handelSubmit.bind(this)} change={this.handleInputChange.bind(this)} validationErr={this.state.workspaceNameExists}/>
+    {this.state.data != null && <Redirect to={{pathname:`/created/${this.state.data.id}`,state:this.state.data}}>Created</Redirect> }
             </React.Fragment>
         )
     }

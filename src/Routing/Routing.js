@@ -11,11 +11,11 @@ class Routing extends Component {
     render () {
         return (
             <Router>
-                <MainNavLayout path="/" component={LandingPage}exact/>
-                <MainNavLayout path="/signup" component={Signup}/>   
-                <MainNavLayout path="/createWorkspace" component={CreateWorkspace}/>
-                <MainNavLayout path="/created"  component={WorkspaceCreated} /> 
-                <Route path="/workspace" component={Workspace}/>
+                <MainNavLayout path="/" render={()=><LandingPage/>}exact/>
+                <MainNavLayout path="/signup" render={()=><Signup/>}/>   
+                <MainNavLayout path="/createWorkspace" render={()=><CreateWorkspace/>}/> 
+                <MainNavLayout path="/created/:id"  render={(props)=><WorkspaceCreated data={props.location.state} id={props.match.params.id}/>} /> 
+                <Route path="/workspace" render={()=><Workspace/>}/>
             </Router>
         )
     }
