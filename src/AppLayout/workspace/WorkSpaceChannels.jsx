@@ -12,6 +12,7 @@ export default class WorkSpaceChannels extends React.Component {
         channels: this.props.channels
     }
     render() {
+        console.log(this.state.users)
         return (
             <Col xs="2" >
                 <Row className="workspace-body-title">
