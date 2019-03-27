@@ -1,12 +1,11 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-
+import './DirectMessage.css'
 export default class NameTagComponant extends React.Component {
     render() {
       return (
-        <div className="NameTags">
+        <div key={this.props.i}className="NameTags">
         <label className="UserName">
-          {this.props.name}
+          {this.props.username}
         </label>
     </div>
       )

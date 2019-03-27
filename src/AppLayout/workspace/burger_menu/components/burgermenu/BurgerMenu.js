@@ -25,6 +25,9 @@ class BurgerMenu extends Component {
                 <li className="burger-menu-li" onClick={()=>this.props.toggleViewChannelDetails()}>
                     Channel Details
                 </li>
+                <li className="burger-menu-li" onClick={()=>this.props.toggleAddUserToChannel()}>
+                    Add member to Channel
+                </li>
             </ul>
         </div>
         

@@ -1,71 +1,65 @@
-import React, { Component } from 'react';
-import './whyZeww.css';
+import React, { Component } from 'react'
+import './css/WhyZeww.css'
+import {
+    Card, Button, CardImg, CardTitle, CardText, CardDeck,
+    CardSubtitle, CardBody
+} from 'reactstrap';
 
 class WhyZeww extends Component {
+    
     render() {
         return (
-            <div id="whyZeww" className="container container-fluid">
+            <div className="whyzewwDiv">
                 <h1 id="whyHeader">Why Zeww?</h1>
-                <div className="row whyDiv">
-                    <div className="col-xs-6 col-sm-6 col-md-4 col-lg-3 channels">
-                        <div id="titleDiv">
-                            <h4>Channels</h4>
-                            <i className='fas fa-comments'></i>
-                        </div>
-                        <p id="description">
-                            Lorem ipsum dolor sit amet,
+                <CardDeck style={{"margin-left": "4rem", "margin-right": "4rem"}}>
+                    <Card className="channels" style={{"background": "#cccccc8a", "border-radius": "17px", "border": "none", "height": "20rem", "overflow": "hidden"}}>
+                        <CardBody className="deck">
+                            <CardTitle className="title">Channels <i className='fas fa-comments'></i></CardTitle>
+                            <CardText id="description">Lorem ipsum dolor sit amet,
                             eirmod intellegat incorrupte per te.
                             Magna omittantur necessitatibus in mel.
                             Iriure corpora temporibus pri et.
                             Ut ius clita maiorum vulputate,
-                            cibo facer mei ut.
-                    </p>
-                    </div>
+                            cibo facer mei ut.</CardText>
+                        </CardBody>
+                    </Card>
 
-                    <div className="col-xs-6 col-sm-6 col-md-4 col-lg-3 search">
-                        <div id="titleDiv">
-                            <h4>Search</h4>
-                            <i className="fa fa-search"></i>
-                        </div>
-                        <p id="description">
-                            Lorem ipsum dolor sit amet,
+                    <Card className="search" style={{"background": "#cccccc8a", "border-radius": "17px", "border": "none", "height": "20rem", "overflow": "hidden"}}>
+                        <CardBody className="deck">
+                            <CardTitle className="title">Search <i className="fa fa-search"></i></CardTitle>
+                            <CardText id="description">Lorem ipsum dolor sit amet,
                             eirmod intellegat incorrupte per te.
                             Magna omittantur necessitatibus in mel.
                             Iriure corpora temporibus pri et.
                             Ut ius clita maiorum vulputate,
-                            cibo facer mei ut.
-                    </p>
-                    </div>
+                            cibo facer mei ut.</CardText>
+                        </CardBody>
+                    </Card>
 
-                    <div className="col-xs-6 col-sm-6 col-md-4 col-lg-3 integration">
-                        <div id="titleDiv">
-                            <h4>Integration</h4>
-                            <i className="fa fa-sitemap"></i>
-                        </div>
-                        <p id="description">
-                            Lorem ipsum dolor sit amet,
+                    <Card className="integration" style={{"background": "#cccccc8a", "border-radius": "17px", "border": "none", "height": "20rem", "overflow": "hidden"}}>
+                        <CardBody className="deck">
+                            <CardTitle className="title">Integration <i className="fa fa-sitemap"></i></CardTitle>
+                            <CardText id="description">Lorem ipsum dolor sit amet,
                             eirmod intellegat incorrupte per te.
                             Magna omittantur necessitatibus in mel.
                             Iriure corpora temporibus pri et.
                             Ut ius clita maiorum vulputate,
-                            cibo facer mei ut.
-                    </p>
-                    </div>
-                    <div className="col-xs-6 col-sm-6 col-md-4 col-lg-3 security">
-                        <div id="titleDiv">
-                            <h4>Security</h4>
-                            <i className='fa fa-shield'></i>
-                        </div>
-                        <p id="description">
-                            Lorem ipsum dolor sit amet,
+                            cibo facer mei ut.</CardText>
+                        </CardBody>
+                    </Card>
+
+                    <Card className="security" style={{"background": "#cccccc8a", "border-radius": "17px", "border": "none", "height": "20rem", "overflow": "hidden"}}>
+                        <CardBody className="deck">
+                            <CardTitle className="title">Security <i className='fa fa-shield'></i></CardTitle>
+                            <CardText id="description">Lorem ipsum dolor sit amet,
                             eirmod intellegat incorrupte per te.
                             Magna omittantur necessitatibus in mel.
                             Iriure corpora temporibus pri et.
                             Ut ius clita maiorum vulputate,
-                            cibo facer mei ut.
-                    </p>
-                    </div>
-                </div>
+                            cibo facer mei ut.</CardText>
+                        </CardBody>
+                    </Card>
+                </CardDeck>
             </div>
         )
     }

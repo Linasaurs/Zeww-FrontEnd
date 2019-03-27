@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import './Signup.css'
 import 'bootstrap/dist/css/bootstrap.css'
+import {Redirect } from 'react-router';
+
 import axios from 'axios';
 const Joi = require('joi');
-const USERS_BASE_URL = "https://localhost:44346/api/users"
+const USERS_BASE_URL = "http://localhost:5000/api/users"
 
 class Signup extends Component {
     constructor(props) {
@@ -57,90 +59,97 @@ class Signup extends Component {
     render() {  
         return ( 
             <div id="signupComponent">
-                <h2>Sign Up</h2>
-                <form>
-                    <div id="signupInputs">
-                        <input 
-                            id="name"  
-                            type="text" 
-                            className={this.state.isNameValid? "form-control is-valid":
-                                (this.state.isNameValid == null)?"form-control":"form-control is-invalid"} 
-                            onChange={this.dataChanged.bind(this)}
-                            onBlur={this.validateName.bind(this)}
-                            placeholder="*Full name..."/>
-                        <label className="invalidLabel text-danger">{this.state.nameError}</label>
-                        
-                        <div className="inputWithSpinner">
+                {
+                    this.state.signUpSucceeded?
+                    <Redirect to="/login"/>
+                    :
+                    <React.Fragment>
+                    <h2>Sign Up</h2>
+                    <form>
+                        <div id="signupInputs">
                             <input 
-                                id="username" 
+                                id="name"  
                                 type="text" 
-                                className={this.state.isUserNameValid? "form-control is-valid":
-                                    (this.state.isUserNameValid == null)?"form-control":"form-control is-invalid"} 
-                                onChange={this.dataChanged.bind(this)} 
-                                onBlur={this.validateUsername.bind(this)} 
-                                placeholder="*Username..."/>
-                                {this.state.validatingUserName?
-                                    <div className="spinner-grow spinner-grow-sm text-primary" role="status">
-                                        <span className="sr-only">Loading...</span>
-                                    </div>:""
-                                }
-                        </div>
-                        <label className="invalidLabel text-danger">{this.state.usernameError}</label>
-                        
-                        <div className="inputWithSpinner">
+                                className={this.state.isNameValid? "form-control is-valid":
+                                    (this.state.isNameValid == null)?"form-control":"form-control is-invalid"} 
+                                onChange={this.dataChanged.bind(this)}
+                                onBlur={this.validateName.bind(this)}
+                                placeholder="*Full name..."/>
+                            <label className="invalidLabel text-danger">{this.state.nameError}</label>
+                            
+                            <div className="inputWithSpinner">
+                                <input 
+                                    id="username" 
+                                    type="text" 
+                                    className={this.state.isUserNameValid? "form-control is-valid":
+                                        (this.state.isUserNameValid == null)?"form-control":"form-control is-invalid"} 
+                                    onChange={this.dataChanged.bind(this)} 
+                                    onBlur={this.validateUsername.bind(this)} 
+                                    placeholder="*Username..."/>
+                                    {this.state.validatingUserName?
+                                        <div className="spinner-grow spinner-grow-sm text-primary" role="status">
+                                            <span className="sr-only">Loading...</span>
+                                        </div>:""
+                                    }
+                            </div>
+                            <label className="invalidLabel text-danger">{this.state.usernameError}</label>
+                            
+                            <div className="inputWithSpinner">
+                                <input 
+                                    id="email" 
+                                    type="email" 
+                                    className={this.state.isEmailValid? "form-control is-valid":
+                                        (this.state.isEmailValid == null)?"form-control":"form-control is-invalid"} 
+                                    onChange={this.dataChanged.bind(this)} 
+                                    onBlur={this.validateEmail.bind(this)} 
+                                    placeholder="*Email..."/>
+                                    {this.state.validatingEmail?
+                                        <div className="spinner-grow spinner-grow-sm text-primary" role="status">
+                                            <span className="sr-only">Loading...</span>
+                                        </div>:""
+                                    }
+                            </div>
+                            <label className="invalidLabel text-danger">{this.state.emailError}</label>
+                            
                             <input 
-                                id="email" 
-                                type="email" 
-                                className={this.state.isEmailValid? "form-control is-valid":
-                                    (this.state.isEmailValid == null)?"form-control":"form-control is-invalid"} 
+                                id="phoneNumber" 
+                                type="tel" 
+                                className={this.state.isPhoneNumberValid? "form-control is-valid":
+                                    (this.state.isPhoneNumberValid == null)?"form-control":"form-control is-invalid"} 
                                 onChange={this.dataChanged.bind(this)} 
-                                onBlur={this.validateEmail.bind(this)} 
-                                placeholder="*Email..."/>
-                                {this.state.validatingEmail?
-                                    <div className="spinner-grow spinner-grow-sm text-primary" role="status">
-                                        <span className="sr-only">Loading...</span>
-                                    </div>:""
-                                }
-                        </div>
-                        <label className="invalidLabel text-danger">{this.state.emailError}</label>
-                        
-                        <input 
-                            id="phoneNumber" 
-                            type="tel" 
-                            className={this.state.isPhoneNumberValid? "form-control is-valid":
-                                (this.state.isPhoneNumberValid == null)?"form-control":"form-control is-invalid"} 
-                            onChange={this.dataChanged.bind(this)} 
-                            onBlur={this.validatePhoneNumber.bind(this)}
-                            placeholder="Phone number..."/>
-                        <label className="invalidLabel text-danger">{this.state.phoneNumberError}</label>
-                        
-                        <input 
-                            id="password" 
-                            type="password" 
-                            className={this.state.isPasswordValid? "form-control is-valid":
-                                (this.state.isPasswordValid == null)?"form-control":"form-control is-invalid"} 
-                            onChange={this.dataChanged.bind(this)}
-                            onBlur={this.validatePassword.bind(this)}
-                            placeholder="*Password..."/>
-                        <label className="invalidLabel text-danger">{this.state.passwordError}</label>
-                        
-                        <input 
-                            id="confirmPassword" 
-                            type="password" 
-                            className={this.state.isConfirmPasswordValid? "form-control is-valid":
-                                (this.state.isConfirmPasswordValid == null)?"form-control":"form-control is-invalid"} 
-                            onChange={this.dataChanged.bind(this)} 
-                            onBlur={this.validateConfirmPassword.bind(this)} 
-                            placeholder="*Confirm password..."/>
-                        <label className="invalidLabel text-danger">{this.state.confirmPasswordError}</label>
+                                onBlur={this.validatePhoneNumber.bind(this)}
+                                placeholder="Phone number..."/>
+                            <label className="invalidLabel text-danger">{this.state.phoneNumberError}</label>
+                            
+                            <input 
+                                id="password" 
+                                type="password" 
+                                className={this.state.isPasswordValid? "form-control is-valid":
+                                    (this.state.isPasswordValid == null)?"form-control":"form-control is-invalid"} 
+                                onChange={this.dataChanged.bind(this)}
+                                onBlur={this.validatePassword.bind(this)}
+                                placeholder="*Password..."/>
+                            <label className="invalidLabel text-danger">{this.state.passwordError}</label>
+                            
+                            <input 
+                                id="confirmPassword" 
+                                type="password" 
+                                className={this.state.isConfirmPasswordValid? "form-control is-valid":
+                                    (this.state.isConfirmPasswordValid == null)?"form-control":"form-control is-invalid"} 
+                                onChange={this.dataChanged.bind(this)} 
+                                onBlur={this.validateConfirmPassword.bind(this)} 
+                                placeholder="*Confirm password..."/>
+                            <label className="invalidLabel text-danger">{this.state.confirmPasswordError}</label>
 
-                        <button type="submit" className="btn" onClick={this.signUp.bind(this)}>Sign up</button>
-                        <label id="statusLabel" className={this.state.signUpSucceeded?"text-success":
-                            (this.state.signUpSucceeded == null)?"":"text-danger"}>
-                                {this.state.signUpMessage}
-                        </label>
-                    </div>
-                </form>
+                            <button type="submit" className="btn" id="signupBtn" onClick={this.signUp.bind(this)}>Sign up</button>
+                            <label id="statusLabel" className={this.state.signUpSucceeded?"text-success":
+                                (this.state.signUpSucceeded == null)?"":"text-danger"}>
+                                    {this.state.signUpMessage}
+                            </label>
+                        </div>
+                    </form>
+                    </React.Fragment>
+                }
             </div>
          )
     }
@@ -174,6 +183,8 @@ class Signup extends Component {
                         signUpMessage: "Congratulations! You signed up successfully"
                     })
                     console.log(response)
+
+                    
                })
                 .catch(error => {
                   this.setState({
@@ -244,6 +255,7 @@ class Signup extends Component {
             validatingUserName: true
         })
 
+        console.log(USERS_BASE_URL + '/verifyusernameisunique')
         axios({
             method: 'get',
             url: USERS_BASE_URL + '/verifyusernameisunique',
@@ -259,7 +271,7 @@ class Signup extends Component {
             .catch(error => {
               this.setState({
                   isUserNameValid: false,
-                  usernameError: error.response==null? "The server encountered an error" : error.response.data,
+                  usernameError: error.response==null? "The server encountered an error" : "ERRORRRRRRRRRR",
                   validatingUserName: false
               })
            })
