@@ -1,4 +1,6 @@
 .workspaceData {
     max-width: 500px;
   } 
-
+.wsExists {
+  color:red; 
+}

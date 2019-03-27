@@ -1,18 +1,15 @@
-import React, { Component } from "react";
-import "./App.css";
-import CreateWorkspace from "./components/CreateWorkspaceLayout/CreateWorkspace";
-import NavBar from "./components/NavBar/NavBar";
-import ModalLayout from "./components/ModalLayout/ModalLayout";
-import CreateNewChannel from "./components/CreateNewChannelModal/CreateNewChannel";
+import React, { Component } from 'react';
+import './App.css';
+import Routing from './Routing/Routing';
 
 class App extends Component {
-    render() {
-        return (
-            <div className="App">
-                <CreateNewChannel />
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div className="App"> 
+       <Routing/>
+      </div>
+    );
+  }
 }
 
 export default App;
