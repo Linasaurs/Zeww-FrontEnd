@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import '../NavBar/NavBar.css'
-class NavBar extends Component {
+import '../NavBar/NavBar.css' 
+import {Link} from 'react-router-dom'
+class NavBar extends Component { 
     render() {
         return ( 
 <nav className="navbar navbar-expand-lg navbar-light bg-light zewwNavBar">
@@ -11,16 +12,16 @@ class NavBar extends Component {
   <div className="collapse navbar-collapse" id="navbarSupportedContent">
     <ul className="navbar-nav mr-auto">
       <li className="nav-item">
-        <a className="nav-link" href="#">Home</a>
+        <Link className="navBarLinks" to="/">Home</Link>
       </li>
       <li className="nav-item">
-        <a className="nav-link" href="#">Why Zeww?</a>
+        <a className="navBarLinks" href="#">Why Zeww?</a>
       </li>
       <li className="nav-item">
-        <a className="nav-link" href="#" > Pricing </a>
+        <a className="navBarLinks" href="#" > Pricing </a>
       </li> 
       <li className="nav-item">
-        <a className="nav-link" href="#" > About Us </a>
+        <a className="navBarLinks" href="#" > About Us </a>
       </li>
     </ul>
   </div>
