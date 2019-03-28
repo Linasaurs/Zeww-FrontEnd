@@ -13,7 +13,7 @@ class ImageUploadContainer extends Component {
         this.setState({file:e.target.files[0]})
       }
     uploadImage(file) {  
-       const url = `https://localhost:44346/api/workspaces/Upload/${this.props.wsId}`
+       const url = `http://10.0.67.127:8080/api/workspaces/Upload/${this.props.wsId}`
        const formData = new FormData();
        formData.append('file',file)
        const config = {
@@ -27,12 +27,15 @@ class ImageUploadContainer extends Component {
     submitForm(e) {
         e.preventDefault()
         this.uploadImage(this.state.file).then((response)=>{  
+            console.log(response.data);  
              if(response!=null){
-                console.log(response.data); 
+                console.log(response.status); 
                 this.setState({imageUrl:response.data})
              }
-         
-        })
+             console.log(this.state.imageUrl); 
+        }).catch(err => {
+               console.log(JSON.parse(JSON.stringify(err)).response);
+        });
     }
     render () {
         return (

@@ -3,6 +3,7 @@ import CreateWorkspaceForm from '../CreateWorkspaceForm/CreateWorkspaceForm'
 import axios from 'axios' 
 import WorkspaceCreated from '../WorkspaceCreated/WorkspaceCreated';
 import {Redirect, Route} from 'react-router-dom'
+import auth from '../../Services/authService'
 class CreateWorkspaceFormContainer extends Component { 
     constructor(props){
         super(props)
@@ -19,8 +20,14 @@ class CreateWorkspaceFormContainer extends Component {
         const workspaceName= this.state.workspaceName
         const companyName =  this.state.companyName 
         const projectName = this.state.projectName 
-        const data = {workspaceName, companyName, projectName} 
-        axios.post('https://localhost:44346/api/workspaces/CreateWorkspace',data).then(res => {  
+        const _data = {workspaceName, companyName, projectName}  
+
+        axios(auth.includeAuth({
+            method: "post",
+            headers: { "Content-Type": "application/json" },
+            url: 'http://10.0.67.127:8080/api/workspaces/CreateWorkspace',
+            data: _data 
+        })).then(res => {  
             console.log(res)
             if(res != null){  
                 this.setState({data: res.data});     

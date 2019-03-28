@@ -9,4 +9,16 @@
     justify-content: center; 
     margin-bottom: 4rem;
     margin-top: 4rem;
-  } 
+  }  
+
+  .inviteBtn{
+    background-color: #FFEB3B; 
+    color: black;  
+    height: 35px; 
+    width: 150px; 
+    justify-content: center;
+    margin-top: 2rem;
+    font-size: 0.8rem;
+    border-radius: 15px;
+    float: right;
+  }
