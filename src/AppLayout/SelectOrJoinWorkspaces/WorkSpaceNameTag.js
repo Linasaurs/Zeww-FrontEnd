@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './ListofWorkspacesPage.css';
 import {Link } from 'react-router-dom';
 
-
 class WorkSpaceNameTag extends Component {
     render () {
         return (
