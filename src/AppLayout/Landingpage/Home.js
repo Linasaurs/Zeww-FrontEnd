@@ -11,7 +11,7 @@ class Home extends Component {
                 <div className="homeWrapper">
                     <NavBar styleClass="navbar navbar-expand-lg homeNavBar" />
                     <div className="ay7aga">
-                        <h1 id="headeray7aga">First group chat developed by a bunch of freshies!</h1>
+                        <h1 id="headeray7aga">A group chat for those who don't Slack at work...</h1>
                         <Link to="/signup" id="joinbtnay7aga">join zeww</Link>
                         <Link to="/login" id="signinbtnay7aga">Sign In</Link>
                     </div>
