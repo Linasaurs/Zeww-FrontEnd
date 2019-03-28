@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import SelectWorkspace from './SelectWorkspace';
 import JoinWorkspace from './JoinWorkspace';
 import './ListofWorkspacesPage.css' 
+import withAuthentication from '../../HOC/withAuthentication';
 
 
 class SelectOrJoinWorkspaces extends Component {
@@ -19,4 +20,4 @@ class SelectOrJoinWorkspaces extends Component {
     }
 }
 
-export default SelectOrJoinWorkspaces
+export default withAuthentication(SelectOrJoinWorkspaces)
