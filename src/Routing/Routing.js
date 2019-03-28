@@ -8,6 +8,7 @@ import WorkspaceCreated from '../components/WorkspaceCreated/WorkspaceCreated';
 import CreateWorkspace from '../components/CreateWorkspaceLayout/CreateWorkspace';
 import Workspace from '../AppLayout/workspace/Workspace'
 import SelectOrJoinWorkspaces from '../AppLayout/SelectOrJoinWorkspaces/SelectOrJoinWorkspaces';
+import ChangeWorkspacename from "../AppLayout/workspace/burger_menu/components/ChangeWorkspaceName/ChangeWorkspacename";
 import Axios from 'axios';
 
 class Routing extends Component {
@@ -21,10 +22,10 @@ class Routing extends Component {
                 <MainNavLayout path="/created/:id"  render={(props)=><WorkspaceCreated data={props.location.state} id={props.match.params.id}/>} /> 
                 <MainNavLayout path="/workspaces" render={()=><SelectOrJoinWorkspaces/>}/>
                 <Route path="/workspace/:id" render={(props)=><Workspace {...props}/>}/>     
-                
+                <Route path="/ChangeWorkspaceName/:id" render={props => <ChangeWorkspacename {...props} />} />
             </Router>
         )
     }
 }
 
-export default Routing
+export default Routing;
