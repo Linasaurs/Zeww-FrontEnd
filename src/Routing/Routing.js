@@ -12,6 +12,7 @@ import CreateWorkspace from '../components/CreateWorkspaceLayout/CreateWorkspace
 import Workspace from '../AppLayout/workspace/Workspace'
 import SelectOrJoinWorkspaces from '../AppLayout/SelectOrJoinWorkspaces/SelectOrJoinWorkspaces';
 import ChangeWorkspacename from "../AppLayout/workspace/burger_menu/components/ChangeWorkspaceName/ChangeWorkspacename";
+import Logout from '../AppLayout/logout/Logout';
 import Axios from 'axios';
 
 class Routing extends Component {
@@ -21,6 +22,7 @@ class Routing extends Component {
                 <Route path="/" render={()=><Home/>}exact/>
                 <Route path="/why-zeww" render={()=><WhyZeww/>}exact/>
                 <Route path="/aboutus" render={()=><AboutUs/>}exact/>
+                <Route path="/logout" render={()=><Logout/>}exact/>
                 <MainNavLayout path="/signup" render={()=><Signup/>}/>   
                 <MainNavLayout path="/login" render={()=><Login/>}/>   
                 <MainNavLayout path="/createworkspace" render={()=><CreateWorkspace/>} exact/> 

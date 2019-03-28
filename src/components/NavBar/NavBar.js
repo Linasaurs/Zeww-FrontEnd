@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import '../NavBar/NavBar.css' 
 import {Link} from 'react-router-dom'
-class NavBar extends Component { 
+import auth from '../../Services/authService'
+class NavBar extends Component {
     render() {
         return ( 
 <nav className={this.props.styleClass}>
@@ -23,6 +24,13 @@ class NavBar extends Component {
       <li className="nav-item">
         <a className="navBarLinks" href="/aboutus" > About Us </a>
       </li>
+      {
+        auth.getCurrentUserId()===null?"":
+        <li className="nav-item">
+          <Link className="navBarLinks" to="/logout" > Logout </Link>
+        </li>
+      }
+      
     </ul>
   </div>
 </nav>
