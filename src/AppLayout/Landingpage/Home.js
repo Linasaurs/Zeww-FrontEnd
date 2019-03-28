@@ -12,10 +12,10 @@ class Home extends Component {
             <div className='homeDiv'>
                 <Container className='homeContainer'>
                     <Row className="homeRow">
-                        <Col className="home">
-                            <h1 id="header">First group chat developed by a bunch of freshies!</h1>
-                            <Link to="/signup" id="joinbtn">join zeww</Link>
-                            <Link to="/login" id="signinbtn">Sign In</Link>
+                        <Col className="ay7aga">
+                            <h1 id="headeray7aga">First group chat developed by a bunch of freshies!</h1>
+                            <Link to="/signup" id="joinbtnay7aga">join zeww</Link>
+                            <Link to="/login" id="signinbtnay7aga">Sign In</Link>
                         </Col>
                     </Row>
                 </Container>

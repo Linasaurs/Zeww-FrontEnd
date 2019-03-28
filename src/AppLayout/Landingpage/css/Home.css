@@ -12,33 +12,34 @@
     background-attachment: fixed;
     background-position: center;
 }
-.home{
+.ay7aga{
     margin-left: 17rem;
     margin-right: 17rem;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-#header{
+#headeray7aga{
     color: white;
     font-size: 3rem;
     text-align: center;
     font-weight: bold;
 }
-#joinbtn{
+#joinbtnay7aga{
     text-transform: uppercase;
     background-color: #FFEB3B;
     width: 15rem;
-    height: 5.3rem;
-    font-size: 2rem;
-    font-weight: bolder;
-    border-radius: 17px;
+    height: 4.8rem;
+    font-size: 1.8rem;
+    font-weight: bold;
+    border-radius: 15px;
     margin-top: 1rem;
     margin-bottom: 3.5rem;
     text-align: center;
+    padding-top: 1rem;
     color: black;
 }
-#signinbtn{
+#signinbtnay7aga{
     width: 11rem;
     height: 3.5rem;
     font-size: 1.5rem;
