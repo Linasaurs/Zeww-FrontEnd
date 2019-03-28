@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import AddMembersWorkspace from '../AddMembersWorkspaceForm/AddMembersWorkspaceForm'; 
 import '../CreateWorkspaceLayout/CreateWorkspace.css'
 import CreateWorkspaceFormContainer from '../CreateWorkspaceForm/CreateWorkspaceFormContainer';
+import withAuthentication from '../../HOC/withAuthentication'
 class CreateWorkspace extends Component {
     render () {
         return (
@@ -16,4 +17,4 @@ class CreateWorkspace extends Component {
     }
 }
 
-export default CreateWorkspace
+export default withAuthentication(CreateWorkspace)
