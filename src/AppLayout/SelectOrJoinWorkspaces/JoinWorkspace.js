@@ -13,7 +13,7 @@ class JoinWorkspace extends Component {
                     <InputField labelStyle="labelStyle" inputClassName="form-control inputField" placeholder="Workspace Url" name="workspaceName" />
                     <Button text="Join Workspace" type="submit" buttonStyle="btn joinWSBtn"/>  
                     <div style={{textAlign:'center'}}>
-                    <Link to="/createWorkspace" className="createLink">Create your own workspace</Link> 
+                    <Link to="/createworkspace" className="createLink">Create your own workspace</Link> 
                     </div>
                    
                 </div>
