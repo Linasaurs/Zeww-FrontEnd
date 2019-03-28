@@ -6,7 +6,7 @@ import auth from '../../Services/authService';
 
 class SelectWorkspace
  extends Component {
-     state={isloading:true, workspaces:[]}
+     state={isloading:false, workspaces:[], dummydata:[{workspaceName:"SaraWS"},{workspaceName:"SaraWS"},{workspaceName:"SaraWS"}]}
      componentDidMount(){
         var config = {
             headers: { 'Authorization': "bearer " + localStorage.getItem('token')
@@ -20,13 +20,15 @@ class SelectWorkspace
         return (
          
             <div>
-                {this.state.isloading?"Lodding": 
+                {this.state.isloading?"Loading": 
                 <React.Fragment>
-              {this.state.workspaces.length!==0?  
-              <React.Fragment>
+              {this.state.dummydata.length!==0?  
+              <React.Fragment> 
+                  <div className="workspacesWrapper">
                    <h4 className="workspacesHeader">Your workspaces</h4>
                 <div className="workspacesDiv">
-                {this.state.workspaces.map((w,i)=><WorkSpaceNameTag key={i}workspace={w}/>)}
+                {this.state.dummydata.map((w,i)=><WorkSpaceNameTag key={i}workspace={w}/>)}
+                </div> 
                 </div>
                 </React.Fragment>:<React.Fragment>No reasluts found</React.Fragment>}
                 </React.Fragment> }
