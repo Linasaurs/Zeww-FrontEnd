@@ -11,7 +11,8 @@ class JoinWorkspace extends Component {
     constructor (props) {
         super(props)
         this.state={
-            workspaceURL:""
+            workspaceURL:"",
+            textBoxVisable:this.props.textBoxVisable
         }
         this.joinworkspace=this.joinworkspace.bind(this)
     }
@@ -20,6 +21,7 @@ class JoinWorkspace extends Component {
       }    
     
     joinworkspace(){
+        if(this.state.textBoxVisable===""){
         var elements=this.state.workspaceURL.trim().split("/")
         if(elements.length===3&&!elements.includes("")){
              
@@ -46,7 +48,10 @@ class JoinWorkspace extends Component {
             console.log("Invalid Input string");
 
         }
-         
+    }else{
+        this.setState({textBoxVisable:""});
+
+    }
        
     }
     render() {
@@ -54,8 +59,8 @@ class JoinWorkspace extends Component {
             <div className="JoinWorkspace">
                 <h4 className="joinWorkspaceLeft">Join new Workspace</h4>
                 <div id="joinDiv">
-                    <InputField labelStyle="labelStyle" inputClassName="form-control inputField" placeholder="Workspace Url" name="workspaceURL" onChange={this.onChange.bind(this)}/>
-                    <Button text="Join Workspace" type="submit" buttonStyle="btn createWS" onclick={this.joinworkspace} />
+                    <InputField labelStyle="labelStyle" inputClassName="form-control inputField" placeholder="Workspace Url" name="workspaceURL" onChange={this.onChange.bind(this)} display={this.state.textBoxVisable}/>
+                    <Button text="Join Workspace" type="submit" buttonStyle="btn createWS" onclick={this.joinworkspace}  />
                 </div>
             </div>
         )

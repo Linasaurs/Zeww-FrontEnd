@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import WorkSpaceNameTag from './WorkSpaceNameTag';
 import './ListofWorkspacesPage.css'
+import NoWorkspaceFound from './NoWorkspacesFound';
 
 class SelectWorkspace
  extends Component {
@@ -14,7 +15,7 @@ class SelectWorkspace
                 <div className="workspacesDiv">
                 {this.state.workspaces.map((w,i)=><WorkSpaceNameTag key={i}workspace={w}/>)}
                 </div>
-                </React.Fragment>:<React.Fragment>No reasluts found</React.Fragment>}
+                </React.Fragment>:<NoWorkspaceFound/>}
                 </React.Fragment> 
                 
             </div>
