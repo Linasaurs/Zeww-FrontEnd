@@ -20,7 +20,7 @@ class CreateWorkspaceFormContainer extends Component {
         const companyName =  this.state.companyName 
         const projectName = this.state.projectName 
         const data = {workspaceName, companyName, projectName} 
-        axios.post('https://localhost:44346/api/workspaces/CreateWorkspace',data).then(res => {  
+        axios.post('http://10.0.67.127:8080/api/workspaces/CreateWorkspace',data).then(res => {  
             console.log(res)
             if(res != null){  
                 this.setState({data: res.data});     
