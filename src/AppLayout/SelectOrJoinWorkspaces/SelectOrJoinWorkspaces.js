@@ -4,6 +4,9 @@ import JoinWorkspace from './JoinWorkspace';
 import './ListofWorkspacesPage.css'
 import auth from '../../Services/authService';
 import axios from "axios";
+import withAuthentication from '../../HOC/withAuthentication';
+
+
 class SelectOrJoinWorkspaces extends Component {
     state={isloading:true, workspaces:[]}
     componentDidMount(){
@@ -19,7 +22,8 @@ class SelectOrJoinWorkspaces extends Component {
             <React.Fragment>
             {this.state.isloading?<React.Fragment>
                 </React.Fragment>: <React.Fragment>
-                <h4 className="NoworkspaceHeader"> Ooops! Seems like you don't have any workspaces in your account</h4>
+                {/* style= here=>vvv {{display:this.state.workspaces.length>0?"":"none"}} */}
+                <h4 className="NoworkspaceHeader" > Ooops! Seems like you don't have any workspaces in your account</h4>
                 <div className="mainDiv">
                 <SelectWorkspace workspaces={this.state.workspaces}/>
                <JoinWorkspace textBoxVisable={this.state.workspaces.length>0?"":"none"}/>
@@ -30,4 +34,4 @@ class SelectOrJoinWorkspaces extends Component {
     }
 }
 
-export default SelectOrJoinWorkspaces
+export default withAuthentication(SelectOrJoinWorkspaces)

@@ -97,6 +97,8 @@
   
   #workspace-header-channeltitle {
     font-size: 1.4rem;
+    justify-content: center;
+    display: flex;
   }
   
   #workspace-header-icons {

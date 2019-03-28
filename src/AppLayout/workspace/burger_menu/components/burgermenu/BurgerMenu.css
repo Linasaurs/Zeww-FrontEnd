@@ -30,3 +30,13 @@
     height: 7rem;
     background-color: white;
 }
+
+a{
+    color: #757575;
+    text-decoration: none;
+}
+
+a:hover{
+    color: #757575;
+    text-decoration: none;
+}

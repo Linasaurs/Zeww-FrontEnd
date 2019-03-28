@@ -28,14 +28,14 @@ function getCurrentUserId() {
 function logout() {
     try {
         localStorage.removeItem("token");
-    } catch (ex) {}
+    } catch (ex) { }
 }
 
 function includeAuth(request) {
     let jwt = "";
     try {
         jwt = localStorage.getItem("token");
-    } catch (ex) {}
+    } catch (ex) { }
 
     if (request.headers) {
         request.headers["Authorization"] = "Bearer " + jwt;
