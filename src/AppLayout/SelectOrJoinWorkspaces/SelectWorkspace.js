@@ -9,11 +9,10 @@ class SelectWorkspace
     state = { isloading: false, workspaces: [] }
     componentDidMount() {
         var config = {
-            headers: {
-                'Authorization': "bearer " + localStorage.getItem('token')
-            }
-        };
-        axios.get(`http://localhost:5000/api/users/GetworkspacesbyUserId/${auth.getCurrentUserId()}`, config).then(x => this.setState({ workspaces: x.data, isloading: false }));
+            headers: { 'Authorization': "bearer " + localStorage.getItem('token')
+           }
+          };
+          axios.get(`http://10.0.67.127:8080/api/users/GetworkspacesbyUserId/${auth.getCurrentUserId()}`, config).then(x => this.setState({ workspaces: x.data ,isloading:false}));
 
     }
     render() {

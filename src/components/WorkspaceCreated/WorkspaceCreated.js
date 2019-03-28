@@ -3,6 +3,7 @@ import '../WorkspaceCreated/WorkspaceCreated.css'
 import ImageUpload from '../ImageUpload/ImageUpload'
 import {Link } from 'react-router-dom';
 import ImageUploadContainer from '../ImageUpload/ImageUploadContainer';
+import withAuthentication from '../../HOC/withAuthentication';
 class WorkspaceCreated extends Component {
     render () {
         return (
@@ -27,4 +28,4 @@ class WorkspaceCreated extends Component {
     }
 }
 
-export default WorkspaceCreated
+export default withAuthentication(WorkspaceCreated)

@@ -10,6 +10,7 @@ import FilesContainer from "./burger_menu/components/files/FilesContainer";
 import ViewChannelDetails from "./burger_menu/components/channeldetails/ViewChannelDetails";
 import AddUserToChannel from "./burger_menu/components/adduserToChannel/AddUserToChannel";
 import "../workspace/ChannelView.css";
+import withAuthentication from "../../HOC/withAuthentication";
 class Workspace extends React.Component {
   constructor(props) {
     super(props);
@@ -200,4 +201,4 @@ class Workspace extends React.Component {
   }
 }
 
-export default Workspace;
+export default withAuthentication(Workspace);

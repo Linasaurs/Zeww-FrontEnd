@@ -1,47 +1,57 @@
-.homeDiv{
-    font-family: 'Roboto', sans-serif;
+.homeNavBar{
+    background: transparent; 
+    border: none;
+    height: 100px;
 }
-.homeContainer{
-    min-width: -webkit-fill-available;
-}
-.homeRow{
+.homeWrapper{
     background-image: url(./imgs/SPINIFYIMAGE.jpg), linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5));
     background-blend-mode: overlay;
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
+    background-size: cover;
+    min-height: 100vh;
+
 }
-.home{
-    margin-left: 17rem;
-    margin-right: 17rem;
+.ay7aga{
+    margin-left: auto;
+    margin-right: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 6rem;
 }
-#header{
+
+
+#headeray7aga{
     color: white;
     font-size: 3rem;
     text-align: center;
     font-weight: bold;
+    margin-left: 2rem;
+    margin-right: 2rem;
 }
-#joinbtn{
+#joinbtnay7aga{
     text-transform: uppercase;
     background-color: #FFEB3B;
-    width: 15rem;
-    height: 5.3rem;
-    font-size: 2rem;
-    font-weight: bolder;
-    border-radius: 17px;
+    font-size: 1.5rem;
+    width: 13rem;
+    height: 4rem;
+    line-height: 2rem;
+    font-weight: bold;
+    border-radius: 15px;
     margin-top: 1rem;
-    margin-bottom: 3.5rem;
+    margin-bottom: 1.8rem;
     text-align: center;
+    padding-top: 1rem;
     color: black;
 }
-#signinbtn{
-    width: 11rem;
-    height: 3.5rem;
-    font-size: 1.5rem;
+#signinbtnay7aga{
+    width: 9rem;
+    height: 2.8rem;
+    font-size: 1.3rem;
+    line-height: 1.5rem;
     font-weight: bold;
     border-radius: 10px;
     text-align: center;
@@ -49,3 +59,22 @@
     margin-bottom: 4rem;
     color: black;
 }
+
+@media only screen  and (min-width: 600px){
+    #headeray7aga{
+        font-size:4rem
+    }
+    #joinbtnay7aga{
+        margin-bottom: 3.5rem;
+        line-height: inherit;
+        width: 15rem;
+        height: 4.8rem;
+        font-size: 1.8rem;
+    }
+    #signinbtnay7aga{
+        width: 11rem;
+     height: 3.8rem;
+    font-size: 1.5rem;
+    line-height:inherit;
+    }
+    }

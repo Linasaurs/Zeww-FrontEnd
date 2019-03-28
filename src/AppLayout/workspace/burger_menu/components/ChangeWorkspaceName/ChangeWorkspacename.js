@@ -3,6 +3,7 @@ import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import { Redirect } from 'react-router-dom'
 import "./ChangeWorkspacename.css";
 import axios from "axios";
+import withAuthentication from "../../../../../HOC/withAuthentication";
 const Joi = require("joi");
 
 class ChangeWorkspacename extends Component {
@@ -116,4 +117,4 @@ class ChangeWorkspacename extends Component {
   }
 }
 
-export default ChangeWorkspacename;
+export default withAuthentication(ChangeWorkspacename);
