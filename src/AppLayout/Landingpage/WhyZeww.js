@@ -4,12 +4,14 @@ import {
     Card, Button, CardImg, CardTitle, CardText, CardDeck,
     CardSubtitle, CardBody
 } from 'reactstrap';
+import NavBar from '../../components/NavBar/NavBar'
 
 class WhyZeww extends Component {
     
     render() {
         return (
             <div className="whyzewwDiv">
+                <NavBar styleClass="navbar navbar-expand-lg homeNavBar" />
                 <h1 id="whyHeader">Why Zeww?</h1>
                 <CardDeck style={{"margin-left": "4rem", "margin-right": "4rem"}}>
                     <Card className="channels" style={{"background": "#cccccc8a", "border-radius": "17px", "border": "none", "height": "20rem", "overflow": "hidden"}}>

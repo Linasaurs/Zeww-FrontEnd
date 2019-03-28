@@ -2,11 +2,12 @@
     background-image: radial-gradient(rgb(212, 107, 2),rgb(189,189,189), rgb(218, 201, 49));
     background-blend-mode: overlay;
     background-repeat: no-repeat;
-    background-size: cover;
     background-attachment: fixed;
     background-position: center;
     padding-bottom: 6rem;
     font-family: 'Lato', sans-serif;
+    background-size: cover;
+    min-height: 100vh;
 }
 #whyHeader{
     color: white;
