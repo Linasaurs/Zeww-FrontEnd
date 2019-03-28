@@ -13,11 +13,8 @@ class BurgerMenu extends Component {
     render() {
       return (
        <>
-        <div className='Ziad'>
-            <h1>Ziad</h1>
-        </div>
         <div className="burger-menu-div-ul">
-        
+        <div className="User"></div>
             <ul className="burger-menu-ul">
                 <li className="burger-menu-li" onClick={()=>this.props.toggleFilesContainer()}>
                 Files

@@ -8,6 +8,7 @@ import WorkspaceCreated from '../components/WorkspaceCreated/WorkspaceCreated';
 import CreateWorkspace from '../components/CreateWorkspaceLayout/CreateWorkspace';
 import Workspace from '../AppLayout/workspace/Workspace'
 import SelectOrJoinWorkspaces from '../AppLayout/SelectOrJoinWorkspaces/SelectOrJoinWorkspaces';
+import CreateNewChannel from '../components/CreateNewChannelModal/CreateNewChannel';
 
 class Routing extends Component {
     render () {
@@ -19,7 +20,9 @@ class Routing extends Component {
                 <MainNavLayout path="/createWorkspace" render={()=><CreateWorkspace/>}/> 
                 <MainNavLayout path="/created/:id"  render={(props)=><WorkspaceCreated data={props.location.state} id={props.match.params.id}/>} /> 
                 <MainNavLayout path="/workspaces" render={()=><SelectOrJoinWorkspaces/>}/>
-                <Route path="/workspace/:id" render={(props)=><Workspace {...props}/>}/>            </Router>
+                <Route path="/workspace/:id" render={(props)=><Workspace {...props}/>}/>   
+                <Route path="/createNewChannelModal" render={(props)=><CreateNewChannel {...props}/>}/>
+                        </Router>
         )
     }
 }

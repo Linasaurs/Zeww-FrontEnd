@@ -31,7 +31,8 @@ class CreateWorkspaceFormContainer extends Component {
                     this.setState({workspaceNameExists:true});
                 } 
             }
-          })
+          });
+
     } 
     handleInputChange(event){
      this.setState({

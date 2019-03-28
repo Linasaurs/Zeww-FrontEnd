@@ -13,7 +13,7 @@ class SelectWorkspace
               <React.Fragment>
                    <h4 className="workspacesHeader">Your workspaces</h4>
                 <div className="workspacesDiv">
-                {this.state.workspaces.map((w,i)=><WorkSpaceNameTag key={i}workspace={w}/>)}
+                {this.props.workspaces.map((w,i)=><WorkSpaceNameTag key={i}workspace={w}/>)}
                 </div>
                 </React.Fragment>:<NoWorkspaceFound/>}
                 </React.Fragment> 
