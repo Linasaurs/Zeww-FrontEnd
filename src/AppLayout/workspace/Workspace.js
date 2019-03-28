@@ -18,7 +18,7 @@ class Workspace extends React.Component {
     this.state = {
       users: [],
       channels: [],
-      CurrentWorkspace: this.props.location.workspace,
+      CurrentWorkspace: this.props.location.CurrentWorkspace,
       channelName: "Boss Channel",
       workSpaceImg: null,
       isLoading: true,
@@ -123,27 +123,35 @@ class Workspace extends React.Component {
     this.setState({ sidebarOpen: open });
   }
 
-  componentDidMount() {
+  getUsersByWorkspaceId() {
     var config = {
       headers: {
-        Authorization:
-          "bearer " +
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjgiLCJuYmYiOjE1NTIzMTMyOTYsImV4cCI6MTU1MjkxODA5NiwiaWF0IjoxNTUyMzEzMjk2fQ.WvHOnsYCgtNFSEmoxzB_h0h09XRBkx0SGIZekKpGYoI"
+        Authorization: "bearer " + localStorage.getItem('token')
       }
     };
-    var self = this;
     axios
       .get(
-        `http://localhost:5000/api/workspaces/getusersbyworkspaceid/${
-          self.state.CurrentWorkspace.Id
-        }`,
+        `http://localhost:5000/api/workspaces/getusersbyworkspaceid/${this.state.CurrentWorkspace.Id}`,
         config
       )
       .then(x => this.setState({ users: x.data }));
+  }
+
+
+  componentDidMount() {
+    console.log("Workspace the Workspace:")
+    console.log(this.props.location.CurrentWorkspace)
+    if (this.props.location.CurrentWorkspace != null) {
+      this.setState({ CurrentWorkspace: this.props.location.CurrentWorkspace }, this.getUsersByWorkspaceId())
+    }
+    else {
+      this.getUsersByWorkspaceId();
+    }
+
 
     //Remove SetTimeOut Function and leave setstate for DEMO purposes for loading screen
     setTimeout(
-      function() {
+      function () {
         this.setState({ isLoading: false });
       }.bind(this),
       1500
@@ -153,43 +161,43 @@ class Workspace extends React.Component {
     return this.state.isLoading ? (
       <WorkSpaceLoadingScreen />
     ) : (
-      <Sidebar
-        sidebar={this.burgerMenuComponentSwitch()}
-        open={this.state.sidebarOpen}
-        onSetOpen={this.onSetSidebarOpen}
-        pullRight={true}
-        styles={{ sidebar: { width: "30rem", height: "100%" } }}
-      >
-        <div>
-          <ViewChannelDetails
-            channelDetails={this.state.ChannelDetails}
-            setChannelDetails={this.setChannelDetails}
-            toggle={this.state.viewChannelDetailsToggle}
-            toggleViewChannelDetails={this.toggleViewChannelDetails}
-          />
-
-          <AddUserToChannel
-            toggle={this.state.addUserToChannelToggleFlag}
-            toggleAddUserToChannel={this.toggleAddUserToChannel}
-          />
-
-          <WorkSpaceHeader
-            workspaceName={this.state.CurrentWorkspace.WorkspaceName}
-            channelName={this.state.channelName}
-            onSetSidebarOpen={this.onSetSidebarOpen}
-          />
-
-          <div id="workspace-body">
-            <WorkSpaceChannels
-              users={this.state.users}
-              channels={this.state.channels}
-              workSpaceImg={this.state.workSpaceImg}
+        <Sidebar
+          sidebar={this.burgerMenuComponentSwitch()}
+          open={this.state.sidebarOpen}
+          onSetOpen={this.onSetSidebarOpen}
+          pullRight={true}
+          styles={{ sidebar: { width: "30rem", height: "100%" } }}
+        >
+          <div>
+            <ViewChannelDetails
+              channelDetails={this.state.ChannelDetails}
+              setChannelDetails={this.setChannelDetails}
+              toggle={this.state.viewChannelDetailsToggle}
+              toggleViewChannelDetails={this.toggleViewChannelDetails}
             />
-            <WorkSpaceChat />
+
+            <AddUserToChannel
+              toggle={this.state.addUserToChannelToggleFlag}
+              toggleAddUserToChannel={this.toggleAddUserToChannel}
+            />
+
+            <WorkSpaceHeader
+              workspaceName={this.state.CurrentWorkspace.WorkspaceName}
+              channelName={this.state.channelName}
+              onSetSidebarOpen={this.onSetSidebarOpen}
+            />
+
+            <div id="workspace-body">
+              <WorkSpaceChannels
+                users={this.state.users}
+                channels={this.state.channels}
+                workSpaceImg={this.state.workSpaceImg}
+              />
+              <WorkSpaceChat />
+            </div>
           </div>
-        </div>
-      </Sidebar>
-    );
+        </Sidebar>
+      );
   }
 }
 
