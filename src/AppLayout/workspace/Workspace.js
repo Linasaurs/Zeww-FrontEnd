@@ -8,6 +8,7 @@ import Sidebar from "react-sidebar";
 import BurgerMenu from './burger_menu/components/burgermenu/BurgerMenu'
 import FilesContainer from './burger_menu/components/files/FilesContainer'
 import ViewChannelDetails from './burger_menu/components/channeldetails/ViewChannelDetails'
+import AddUserToChannel from './burger_menu/components/adduserToChannel/AddUserToChannel'
 import '../workspace/ChannelView.css'
 class Workspace extends React.Component {
   constructor(props) {
@@ -17,7 +18,7 @@ class Workspace extends React.Component {
     this.state = {
       users: [],
       channels: [],
-      workspaceName: "TGP 1.8",
+      CurrentWorkspace:this.props.location.workspace,
       channelName: "Boss Channel",
       workSpaceImg: null,
       isLoading: true,
@@ -59,7 +60,10 @@ class Workspace extends React.Component {
         numberOfMembers: 0
       },
       filesContainerOpen : false,
-      viewChannelDetailsToggle : false
+
+      viewChannelDetailsToggle : false,
+
+      addUserToChannelToggleFlag: false
       
 
     }
@@ -87,15 +91,29 @@ class Workspace extends React.Component {
     console.log(flag)
   }
 
+
+   // add user to channel modal toggle
+   toggleAddUserToChannel = () => {
+    var flag = !this.state.addUserToChannelToggleFlag;
+    this.setState({ addUserToChannelToggleFlag: flag});
+    console.log("Add User toggle setting : " + flag)
+  }
+
   burgerMenuComponentSwitch()
   {
     if(this.state.filesContainerOpen)
     {
-      return <FilesContainer files={this.state.files} getfiles={this.setFiles} toggleFilesContainer={this.toggleFilesContainer}/>
+      return <FilesContainer 
+              files={this.state.files} 
+              getfiles={this.setFiles} 
+              toggleFilesContainer={this.toggleFilesContainer}/>
     }
     else
     {
-      return <BurgerMenu toggleFilesContainer={this.toggleFilesContainer} toggleViewChannelDetails={this.toggleViewChannelDetails}/>
+      return <BurgerMenu 
+              toggleFilesContainer={this.toggleFilesContainer} 
+              toggleViewChannelDetails={this.toggleViewChannelDetails}
+              toggleAddUserToChannel={this.toggleAddUserToChannel}/>
     }
   }
 
@@ -115,8 +133,8 @@ class Workspace extends React.Component {
     var config = {
       headers: { 'Authorization': "bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjgiLCJuYmYiOjE1NTIzMTMyOTYsImV4cCI6MTU1MjkxODA5NiwiaWF0IjoxNTUyMzEzMjk2fQ.WvHOnsYCgtNFSEmoxzB_h0h09XRBkx0SGIZekKpGYoI" }
     };
-    var users = axios.get("https://localhost:44346/api/workspaces/getusersbyworkspaceid/3", config).then(x => x.data);
-    this.setState({ users: users })
+    var self= this;
+    axios.get(`http://localhost:5000/api/workspaces/getusersbyworkspaceid/${self.state.CurrentWorkspace.Id}`, config).then(x => this.setState({ users: x.data }));
 
     //Remove SetTimeOut Function and leave setstate for DEMO purposes for loading screen
     setTimeout(
@@ -145,7 +163,12 @@ class Workspace extends React.Component {
             toggle={this.state.viewChannelDetailsToggle}
             toggleViewChannelDetails={this.toggleViewChannelDetails}/>
 
-            <WorkSpaceHeader workspaceName={this.state.workspaceName} channelName={this.state.channelName} onSetSidebarOpen={this.onSetSidebarOpen} />
+          <AddUserToChannel
+            toggle={this.state.addUserToChannelToggleFlag}
+            toggleAddUserToChannel={this.toggleAddUserToChannel}/>
+
+
+            <WorkSpaceHeader workspaceName={this.state.CurrentWorkspace.WorkspaceName} channelName={this.state.channelName} onSetSidebarOpen={this.onSetSidebarOpen} />
 
             <div id="workspace-body">
               <WorkSpaceChannels users={this.state.users} channels={this.state.channels} workSpaceImg={this.state.workSpaceImg} />

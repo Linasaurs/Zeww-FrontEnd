@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
 import "./CreateNewChannel.css";
 import axios from "axios";
+import auth from "../../Services/authService";
 
 const Joi = require("joi");
 
@@ -13,6 +14,8 @@ const channelNameSchema = Joi.object().keys({
         .required()
 });
 
+
+
 class CreateNewChannel extends Component {
     constructor(props) {
         super(props);
@@ -20,14 +23,18 @@ class CreateNewChannel extends Component {
             modal: 1,
             channelName: "",
             workspaceId: "",
-            isPrivate: "",
+            isPrivate: false,
             channelPurpose: "",
             dataToSend: null,
             result: null
         };
-
+        
         this.toggle = this.toggle.bind(this);
         this.setState = this.setState.bind(this);
+    }
+    
+    componentDidMount () {
+        auth.login("ziadalikhalifa@gmail.com", "Password");
     }
 
     toggle() {
@@ -35,7 +42,7 @@ class CreateNewChannel extends Component {
             modal: !prevState.modal
         }));
     }
-
+    
     handleChange(event) {
         const target = event.target;
         const value = target.value;
@@ -47,27 +54,35 @@ class CreateNewChannel extends Component {
         console.log(result);
     }
 
-    handleSubmit() {
+    handleSubmit(event) {
+        event.preventDefault();
         console.log("Submit pressed!");
-        if (this.state.result.error) alert("Channel name is not a valid name!");
+        if (this.state.result.error != null)
+            alert("Channel name is not a valid name!");
 
-        var chat;
+        var chat = {};
 
-        chat.workspaceId = this.state.workspaceId;
-        chat.channelName = this.state.channelName;
+        chat.workspaceId = this.props.workspaceId;
+        chat.name = this.state.channelName;
         chat.isPrivate = this.state.isPrivate;
         chat.channelPurpose = this.state.channelPurpose;
 
-        axios
-            .post("Edit with route to CreateNewChannel", chat)
-            .then(function(response) {
-                console.log(response);
-                this.setState({ modal: 0 });
+        console.log(chat);
+
+
+        axios(
+            auth.includeAuth({
+                method: "post",
+                url: "http://10.0.67.127:8080/api/chats/createnewchannel",
+                responseType: "json",
+                data: chat
             })
-            .catch(function(error) {
-                console.log(error);
-            });
+        ).then(function(response) {
+            console.log(response.data);
+        });
     }
+
+    
 
     render() {
         return (
@@ -82,7 +97,7 @@ class CreateNewChannel extends Component {
                     <p className="modal-title">Create new channel</p>
                 </ModalHeader>
                 <ModalBody>
-                    <form onSubmit={this.handleSubmit}>
+                    <form onSubmit={event => this.handleSubmit(event)}>
                         <div className="textboxes-area">
                             <div className="text-entry-area">
                                 <label>

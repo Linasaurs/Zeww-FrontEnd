@@ -17,7 +17,8 @@
     "react-scripts": "2.1.8",
     "react-sidebar": "^3.0.2",
     "reactstrap": "^7.1.0",
-    "typescript": "^3.3.3333"
+    "typescript": "^3.3.3333",
+    "jwt-decode": "^2.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
