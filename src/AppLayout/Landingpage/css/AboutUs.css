@@ -1,6 +1,6 @@
 .aboutContainer{
     min-width: -webkit-fill-available;
-    background-image:url(./imgs/background.png), linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5));
+    background-image:url(./imgs/test2.jpg), linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5));
     background-blend-mode: overlay;
     background-repeat: no-repeat;
     background-attachment: fixed;
