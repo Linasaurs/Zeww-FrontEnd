@@ -10,6 +10,8 @@ class BurgerMenu extends Component {
   }
 
   render() {
+    console.log("Burger Menu :")
+    console.log(this.props.CurrentWorkspace)
     return (
       <>
         <div className="Ziad">
@@ -35,12 +37,24 @@ class BurgerMenu extends Component {
             >
               Add member to Channel
             </li>
-            <Link
-              className="burger-menu-li"
-              to={`/ChangeWorkspaceName/${this.props.CurrentWorkspace.Id}`}
-            >
-              Change Workspace Name
-            </Link>
+            <li className="burger-menu-li">
+              <Link
+                to={{ pathname: `/ChangeWorkspaceName/${this.props.CurrentWorkspace.Id}`, CurrentWorkspace: this.props.CurrentWorkspace }}>
+                Change Workspace Name
+              </Link>
+            </li>
+            <li className="burger-menu-li">
+              <Link
+                to={{ pathname: `/ChangeWorkspaceUrl/${this.props.CurrentWorkspace.Id}`, CurrentWorkspace: this.props.CurrentWorkspace }}>
+                Change Workspace URL
+              </Link>
+            </li>
+            <li className="burger-menu-li">
+              <Link
+                to={{ pathname: `/SetDefaultWorkspaceHours/${this.props.CurrentWorkspace.Id}`, CurrentWorkspace: this.props.CurrentWorkspace }}>
+                Set Default Workspace Hours
+               </Link>
+            </li>
           </ul>
         </div>
       </>
