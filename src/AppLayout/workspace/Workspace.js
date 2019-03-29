@@ -24,7 +24,6 @@ class Workspace extends React.Component {
       CurrentWorkspace:this.props.location.Currentworkspace,
       currentUser:{},
       channelName: "Boss Channel",
-      workSpaceImg: null,
       isLoading: true,
       sidebarOpen: false,
       files: [
@@ -224,7 +223,8 @@ class Workspace extends React.Component {
        
      }
   }
-  render() {
+  render() { 
+    console.log(this)
     return this.state.isLoading ? (
       <WorkSpaceLoadingScreen />
     ) : (
@@ -251,11 +251,12 @@ class Workspace extends React.Component {
             <WorkSpaceHeader
               workspaceName={this.state.CurrentWorkspace.WorkspaceName}
               channelName={this.state.channelName}
-              onSetSidebarOpen={this.onSetSidebarOpen}
+              onSetSidebarOpen={this.onSetSidebarOpen} 
+              workSpaceImg={this.props.location.state.workSpaceImg}
             />
 
             <div id="workspace-body">
-              <WorkSpaceChannels CurrentUser={this.state.currentUser} users={this.state.users} channels={this.state.channels} workSpaceImg={this.state.workSpaceImg} workspaceId={this.props.match.params.id}/>
+              <WorkSpaceChannels CurrentUser={this.state.currentUser} users={this.state.users} channels={this.state.channels} workspaceId={this.props.match.params.id}/>
               <WorkSpaceChat />
             </div>
           </div>

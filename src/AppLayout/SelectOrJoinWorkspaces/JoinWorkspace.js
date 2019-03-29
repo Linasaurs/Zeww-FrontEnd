@@ -7,7 +7,7 @@ import './ListofWorkspacesPage.css';
 import axios from 'axios';
 import auth from '../../Services/authService';
 import {Redirect } from 'react-router';
-
+import {Link} from 'react-router-dom'
 
 const USERS_BASE_URL = "http://10.0.67.127:8080/api/workspaces"
 class JoinWorkspace extends Component {
@@ -67,13 +67,15 @@ class JoinWorkspace extends Component {
         return (
             <React.Fragment>
             {this.state.joinedWorkspace?<Redirect to={`/workspace/${this.state.workspaceId}`}/>:
-            <div className="JoinWorkspace">
-                <h4 className="joinWorkspaceLeft">Join new Workspace</h4>
-                <div id="joinDiv">
+            <div className="joinDiv">
+                <h4 className="joinWorkspaceTile">Join new Workspace</h4>
                     <InputField labelStyle="labelStyle" inputClassName="form-control inputField" placeholder="Workspace Url" name="workspaceURL" onChange={this.onChange.bind(this)} display={this.state.textBoxVisable}/>
-                    <Button text="Join Workspace" type="submit" buttonStyle="btn createWS" onclick={this.joinworkspace}  />
-                </div>
-            </div>}
+                    <Button text="Join Workspace" type="submit" buttonStyle="btn joinWSBtn" onclick={this.joinworkspace}  />
+                    <div style={{textAlign:'center'}}>
+                    <Link to="/createworkspace" className="createLink">Create your own workspace</Link> 
+                    </div>  
+            </div>}         
+            
             </React.Fragment>
         )
     }

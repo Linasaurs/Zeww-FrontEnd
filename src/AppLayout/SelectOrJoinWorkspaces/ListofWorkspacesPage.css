@@ -7,26 +7,26 @@
     border: 1px solid #ced4da;
 }
 .workspaceTag{
-    margin-left: 1rem; 
+   
     border: 1px solid #ced4da;
-    margin-top: 1rem;
+    margin: 1rem;
     width: 18rem;
     height: 4rem;
     border-radius: 15px;
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: center; 
+    justify-content: center;
     background-color: white;
 }
 .workspaceImage{
     width: 2rem;
     height: 2rem;
-    margin-right: 2rem;
-    margin-left: 1rem;
 }
 .workspaceName{
-    font-size: 1.5rem;
-    color: gray;
+    font-size: 1.1rem;
+    color: gray; 
+    margin: 0 auto;
 }
 .workspacesHeader{
     margin-bottom: 2rem;
@@ -38,7 +38,7 @@
     justify-content: center;
 }
 
-#joinDiv{ 
+.joinDiv{ 
     width:30%; 
     margin: 5rem;
 } 
@@ -68,29 +68,6 @@
 .createLink:hover{
     background-color: none;
 }  
-.wsNameLink{
-    
-}
-#joinDiv{
-    margin-left: -5rem;
-    margin-right: -6rem;
-}
-.NoworkspaceHeader{
-    margin-top: 10rem;
-    margin-left: 19rem;
-    margin-bottom: 4rem;
-}
-.createWorkspace{
-text-decoration: none;
-padding: 0rem;
-height: 0rem;
-margin-left: 5rem;
-}
-.createWorkspace:hover{
-    text-decoration: none;
-    /* background-color: white; */
-    padding: 0rem;
-    }
 .wsNameLink:hover {
    text-decoration: none; 
 

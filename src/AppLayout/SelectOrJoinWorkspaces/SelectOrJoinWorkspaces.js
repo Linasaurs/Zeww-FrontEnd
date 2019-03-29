@@ -23,12 +23,12 @@ class SelectOrJoinWorkspaces extends Component {
             {this.state.isloading?<React.Fragment>
                 </React.Fragment>: <React.Fragment>
                 {/* style= here=>vvv {{display:this.state.workspaces.length>0?"":"none"}} */}
-                <h4 className="NoworkspaceHeader" > Ooops! Seems like you don't have any workspaces in your account</h4>
+                {/* <h4 className="NoworkspaceHeader" > Ooops! Seems like you don't have any workspaces in your account</h4> */}
                 <div className="mainDiv">
                 <SelectWorkspace workspaces={this.state.workspaces}/>
-               <JoinWorkspace textBoxVisable={this.state.workspaces.length>0?"":"none"}/>
+               <JoinWorkspace textBoxVisable={this.state.workspaces.length>0?"":"none"}/>       
                </div>
-               </React.Fragment>}
+               </React.Fragment>} 
            </React.Fragment>
         );
     }

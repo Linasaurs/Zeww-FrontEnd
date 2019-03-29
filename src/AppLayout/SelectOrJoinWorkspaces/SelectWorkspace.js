@@ -7,18 +7,19 @@ class SelectWorkspace
  extends Component {
     render () {
         return (
-            <div>
+         
                 <React.Fragment>
               {this.props.workspaces.length!==0?  
-              <React.Fragment>
+              <React.Fragment> 
+                  <div className="workspacesWrapper">
                    <h4 className="workspacesHeader">Your workspaces</h4>
                 <div className="workspacesDiv">
                 {this.props.workspaces.map((w,i)=><WorkSpaceNameTag key={i}workspace={w}/>)}
+                </div> 
                 </div>
                 </React.Fragment>:<NoWorkspaceFound/>}
                 </React.Fragment> 
                 
-            </div>
         )
     }
 }

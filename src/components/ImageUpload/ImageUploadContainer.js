@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import ImageUpload from './ImageUpload';
 import axios, { post } from 'axios'; 
-import auth from '../../Services/authService'
+import auth from '../../Services/authService' 
+import {Link} from 'react-router-dom'
 class ImageUploadContainer extends Component { 
     constructor(props){
         super(props)
@@ -41,7 +42,8 @@ class ImageUploadContainer extends Component {
     render () {
         return (
             <div>
-                <ImageUpload imageUrl={this.state.imageUrl} onchange={this.onchange.bind(this)} uploadImage={this.submitForm.bind(this)} wsId={this.props.wsId} label={this.props.label} wsName={this.props.wsName}/>
+                <ImageUpload imageUrl={this.state.imageUrl} onchange={this.onchange.bind(this)} uploadImage={this.submitForm.bind(this)} wsId={this.props.wsId} label={this.props.label} wsName={this.props.wsName}/> 
+                <Link to={{ pathname:`/workspace/${this.props.wsId}`, state: {workSpaceImg: this.state.imageUrl} }} style={{alignItems: "center"}}className="btn createWS">Go to workspace</Link>  
             </div>
         )
     }

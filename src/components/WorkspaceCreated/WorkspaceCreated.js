@@ -19,9 +19,8 @@ class WorkspaceCreated extends Component {
                      <div className="WSNameImage"> 
                        <ImageUploadContainer wsId={this.props.id} label={"Add image to"} wsName={this.props.data ? this.props.data.workspaceName : "WS Name"} /> 
                      </div>
-                    
-                     <Link to={`/workspace/${this.props.id}`} style={{alignItems: "center"}}className="btn createWS">Go to workspace</Link> 
-                     </div>
+                   
+                     </div> 
                 </div> 
             </div>
         )
