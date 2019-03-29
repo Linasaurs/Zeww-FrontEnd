@@ -224,7 +224,6 @@ class Workspace extends React.Component {
      }
   }
   render() { 
-    console.log(this)
     return this.state.isLoading ? (
       <WorkSpaceLoadingScreen />
     ) : (
@@ -233,7 +232,7 @@ class Workspace extends React.Component {
           open={this.state.sidebarOpen}
           onSetOpen={this.onSetSidebarOpen}
           pullRight={true}
-          styles={{ sidebar: { width: "30rem", height: "100%" } }}
+          styles={{ sidebar: { width: "24rem", height: "100%" } }}
         >
           <div>
             <ViewChannelDetails
