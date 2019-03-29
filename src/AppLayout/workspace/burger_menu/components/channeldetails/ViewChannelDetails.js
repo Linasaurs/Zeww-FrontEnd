@@ -18,14 +18,14 @@ class ViewChannelDetails extends Component {
   fetchData() {
     /*Axios.get(`https://localhost:5000/api/chats/GetChannelDetails/1`).then(
       res => {
-        console.log(res.data);
+        // console.log(res.data);
         var channelDetailObject = new Object();
         channelDetailObject.name = res.data.chatDetails.name;
         channelDetailObject.url = res.data.url;
         channelDetailObject.purpose = res.data.chatDetails.purpose;
         channelDetailObject.creator = res.data.chatDetails.creatorID;
         channelDetailObject.numberOfMembers = res.data.numberOfUsers;
-        console.log(channelDetailObject);
+        // console.log(channelDetailObject);
         this.props.setChannelDetails(channelDetailObject);
       }
     );*/
@@ -36,8 +36,9 @@ class ViewChannelDetails extends Component {
       modal: !prevState.modal
     }));
   }
-  componentDidUpdate() {
-    console.log(this.props.toggle)
+  componentDidUpdate()
+  {
+    // console.log(this.props.toggle)
   }
   componentDidMount() {
     this.fetchData();

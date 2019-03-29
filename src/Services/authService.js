@@ -1,7 +1,7 @@
 import axios from "axios";
 import jwtDecode from "jwt-decode";
-
-const USERS_BASE_URL = "http://localhost:5000/api/users";
+// 
+const USERS_BASE_URL = "http://10.0.67.127:8080/api/users";
 
 async function login(email, password) {
     const { data: jwt } = await axios({

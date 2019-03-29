@@ -5,12 +5,15 @@ import WorkSpaceHeader from "./WorkSpaceHeader";
 import WorkSpaceChannels from "./WorkSpaceChannels";
 import WorkSpaceChat from "./WorkSpaceChat";
 import Sidebar from "react-sidebar";
-import BurgerMenu from "./burger_menu/components/burgermenu/BurgerMenu";
-import FilesContainer from "./burger_menu/components/files/FilesContainer";
-import ViewChannelDetails from "./burger_menu/components/channeldetails/ViewChannelDetails";
-import AddUserToChannel from "./burger_menu/components/adduserToChannel/AddUserToChannel";
-import "../workspace/ChannelView.css";
+import BurgerMenu from './burger_menu/components/burgermenu/BurgerMenu'
+import FilesContainer from './burger_menu/components/files/FilesContainer'
+import ViewChannelDetails from './burger_menu/components/channeldetails/ViewChannelDetails'
+import AddUserToChannel from './burger_menu/components/adduserToChannel/AddUserToChannel'
+import '../workspace/ChannelView.css'
+import auth from '../../Services/authService';
 import withAuthentication from "../../HOC/withAuthentication";
+
+const USERS_BASE_URL = "http://10.0.67.127:8080/api/"
 class Workspace extends React.Component {
   constructor(props) {
     super(props);
@@ -18,7 +21,8 @@ class Workspace extends React.Component {
     this.state = {
       users: [],
       channels: [],
-      CurrentWorkspace: this.props.location.CurrentWorkspace,
+      CurrentWorkspace:this.props.location.Currentworkspace,
+      currentUser:{},
       channelName: "Boss Channel",
       workSpaceImg: null,
       isLoading: true,
@@ -139,23 +143,86 @@ class Workspace extends React.Component {
 
 
   componentDidMount() {
-    console.log("Workspace the Workspace:")
-    console.log(this.props.location.CurrentWorkspace)
-    if (this.props.location.CurrentWorkspace != null) {
-      this.setState({ CurrentWorkspace: this.props.location.CurrentWorkspace }, this.getUsersByWorkspaceId())
-    }
-    else {
-      this.getUsersByWorkspaceId();
-    }
-
-
-    //Remove SetTimeOut Function and leave setstate for DEMO purposes for loading screen
-    setTimeout(
-      function () {
-        this.setState({ isLoading: false });
-      }.bind(this),
-      1500
-    );
+    if(this.state.CurrentWorkspace!==undefined&&this.state.isLoading){
+      axios(auth.includeAuth({
+        method: 'get',
+        url: USERS_BASE_URL + `workspaces/GetUsersByWorkspaceId/${this.state.CurrentWorkspace.Id}`,
+    }))
+        .then(response => {
+            this.setState({
+              users: response.data, isLoading:false 
+            })
+         
+       })
+        .catch(error => {
+        
+          console.log(error)
+       })
+  
+       axios(auth.includeAuth({
+        method: 'get',
+        url: USERS_BASE_URL + `users/${auth.getCurrentUserId()}`,
+    }))
+        .then(response => {
+            this.setState({
+              currentUser:response.data
+            })
+         
+       })
+        .catch(error => {
+        
+          console.log(error)
+       })}
+  }
+  componentDidUpdate() {
+  if(this.state.CurrentWorkspace!==undefined&&this.state.isLoading){
+    axios(auth.includeAuth({
+      method: 'get',
+      url: USERS_BASE_URL + `workspaces/GetUsersByWorkspaceId/${this.state.CurrentWorkspace.id}`,
+  }))
+      .then(response => {
+          this.setState({
+            users: response.data, isLoading:false 
+          })
+       
+     })
+      .catch(error => {
+      
+        console.log(error)
+     })
+     axios(auth.includeAuth({
+      method: 'get',
+      url: USERS_BASE_URL + `users/${auth.getCurrentUserId()}`,
+  }))
+      .then(response => {
+          this.setState({
+            currentUser:response.data
+          })
+       
+     })
+      .catch(error => {
+      
+        console.log(error)
+     })
+  }   }
+  componentWillMount(){
+    if(this.state.CurrentWorkspace===undefined){
+      axios(auth.includeAuth({
+        method: 'get',
+        url: USERS_BASE_URL + `workspaces/getworkspaceById/${this.props.match.params.id}`,
+    }))
+        .then(response => {
+            this.setState({
+             CurrentWorkspace:response.data
+            })
+         
+       })
+        .catch(error => {
+        
+          console.log(error)
+       })
+       
+     }
   }
   render() {
     return this.state.isLoading ? (
@@ -188,11 +255,7 @@ class Workspace extends React.Component {
             />
 
             <div id="workspace-body">
-              <WorkSpaceChannels
-                users={this.state.users}
-                channels={this.state.channels}
-                workSpaceImg={this.state.workSpaceImg}
-              />
+              <WorkSpaceChannels CurrentUser={this.state.currentUser} users={this.state.users} channels={this.state.channels} workSpaceImg={this.state.workSpaceImg} workspaceId={this.props.match.params.id}/>
               <WorkSpaceChat />
             </div>
           </div>
