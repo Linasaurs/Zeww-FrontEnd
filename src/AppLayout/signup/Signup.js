@@ -271,7 +271,7 @@ class Signup extends Component {
             .catch(error => {
               this.setState({
                   isUserNameValid: false,
-                  usernameError: error.response==null? "The server encountered an error" : "ERRORRRRRRRRRR",
+                  usernameError: error.response==null? "The server encountered an error" : error.response.data,
                   validatingUserName: false
               })
            })
