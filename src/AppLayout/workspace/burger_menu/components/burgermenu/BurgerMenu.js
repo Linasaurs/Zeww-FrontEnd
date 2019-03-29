@@ -1,23 +1,35 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"; 
+import UserProfile from '../UserProfile/UserProfile'
 import "./BurgerMenu.css";
 
 class BurgerMenu extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {};
+    this.state = { showProfile: false}; 
+    
   }
-
   render() {
-    console.log("Burger Menu :")
-    console.log(this.props.CurrentWorkspace)
-    return (
-      <>
-        <div className="Ziad">
-          <h1>Ziad</h1>
+    return ( 
+      <React.Fragment>
+      <div className="userPlaceholder"> 
+        <div className="userInfo">
+          <img className="userImg" src={require('../burgermenu/logoplaceholder.svg')}/> 
+          <div className="userStatus"> 
+            <div style={{display:'flex'}}>
+             <label style={{fontSize: '1.2rem'}}>Zeww User</label>    
+             </div>
+          <div style={{display:'flex'}}>  
+              <div className="status"></div>
+              <small>Online</small>
+          </div> 
+          </div>
+          </div>
+          <button className="profileBtn" onClick={()=>{this.state.showProfile? this.setState({showProfile:false}): this.setState({showProfile:true})}}><img src={require('../burgermenu/arrow.png')}style={{float:'right',width:'20px',height:'20px'}}/></button> 
+        
         </div>
-        <div className="burger-menu-div-ul">
+        <div className="burger-menu-div-ul">  
+          {this.state.showProfile && <UserProfile/> }
           <ul className="burger-menu-ul">
             <li
               className="burger-menu-li"
@@ -57,7 +69,7 @@ class BurgerMenu extends Component {
             </li>
           </ul>
         </div>
-      </>
+        </React.Fragment>
     );
   }
 }
