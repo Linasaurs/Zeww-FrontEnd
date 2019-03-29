@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import ImageUpload from './ImageUpload';
-import axios, { post } from 'axios';
+import axios, { post } from 'axios'; 
+import auth from '../../Services/authService'
 class ImageUploadContainer extends Component { 
     constructor(props){
         super(props)
@@ -18,10 +19,10 @@ class ImageUploadContainer extends Component {
        formData.append('file',file)
        const config = {
         headers: {
-            'content-type': 'multipart/form-data'
+            'content-type': 'multipart/form-data',
         }
      }   
-     return  post(url, formData,config)
+     return  post(url, formData,auth.includeAuth(config))
     } 
 
     submitForm(e) {
