@@ -96,7 +96,17 @@ class Workspace extends React.Component {
     }).catch(err => console.log('Error while establishing connection :('));
     });
 
-
+    // async function connect(conn){
+    //   hubConnection.start().catch( e => {
+    //       sleep(5000);
+    //       console.log("Reconnecting Socket");
+    //       connect(hubConnection);  
+    //   })
+    // }
+  
+    // hubConnection.onclose(function (e) {
+    //   connect(connection);
+    // });
 
     var config = {
       headers: { 'Authorization': "bearer " + localStorage.getItem('token')
@@ -186,6 +196,12 @@ class Workspace extends React.Component {
     })
   }
 
+  setCurrentChannelName = (channelName) =>{
+    this.setState({
+      channelName: channelName
+    })
+  }
+
  // Associated Helper Functions END
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/ 
    
@@ -213,7 +229,8 @@ class Workspace extends React.Component {
             <div id="workspace-body">
               <WorkSpaceChannels users={this.state.users}
                                  CurrentWorkspace={this.state.CurrentWorkspace} 
-                                 setCurrentChatId = {this.setCurrentChatId} 
+                                 setCurrentChatId = {this.setCurrentChatId}
+                                 setCurrentChannelName = {this.setCurrentChannelName}
                                  channels={this.state.channels}
                                  hubConnection={this.state.hubConnection}
                                  workSpaceImg={this.state.workSpaceImg} />

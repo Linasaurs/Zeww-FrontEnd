@@ -17,6 +17,7 @@ export default class DirectMessagesOrChannelsComponent extends React.Component {
                               CurrentWorkspace={this.props.CurrentWorkspace} 
                               isPrivate={this.props.title === "Channels"?false:true}
                               setCurrentChatId= {this.props.setCurrentChatId}
+                              setCurrentChannelName = {this.props.setCurrentChannelName}
                               hubConnection={this.props.hubConnection || null}/>)
           :
           <div className="workspace-body-information" 

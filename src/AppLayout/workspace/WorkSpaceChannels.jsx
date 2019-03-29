@@ -22,13 +22,15 @@ export default class WorkSpaceChannels extends React.Component {
                     <DirectMessagesOrChannelsComponent title="Channels"
                                                        CurrentWorkspace={this.props.CurrentWorkspace}
                                                        list={this.state.channels}
-                                                       setCurrentChatId ={this.props.setCurrentChatId}/>
+                                                       setCurrentChatId ={this.props.setCurrentChatId}
+                                                       setCurrentChannelName = {this.props.setCurrentChannelName}/>
                 </Row>
                 <Row className="workspace-body-title">
                     <DirectMessagesOrChannelsComponent title="Direct Messages" 
                                                        CurrentWorkspace={this.props.CurrentWorkspace}
                                                        list={this.state.users}
                                                        setCurrentChatId ={this.props.setCurrentChatId}
+                                                       setCurrentChannelName = {this.props.setCurrentChannelName}
                                                        hubConnection={this.props.hubConnection}/>
                 </Row>
             </Col>

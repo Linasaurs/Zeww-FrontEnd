@@ -7,9 +7,11 @@ const BASE_URL = "http://localhost:5000/api"
 export default class NameTagComponant extends React.Component {
     handleClick = () => {
       if(this.props.isPrivate){
+        this.props.setCurrentChannelName(this.props.obj.userName)
         this.userClicked(this.props.obj.id)
       }
       else{
+        this.props.setCurrentChannelName(this.props.obj.name)
         this.props.setCurrentChatId(this.props.obj.id)
       }                 
     }  
@@ -20,6 +22,7 @@ export default class NameTagComponant extends React.Component {
         url: `${BASE_URL}/users/getprivatechat/${userId}/${this.props.CurrentWorkspace.Id}`,
       }))
       .then(response => {
+        console.log(response.data)
         const chatId = response.data.id;
         this.props.setCurrentChatId(chatId);
         
