@@ -71,6 +71,26 @@
 .wsNameLink{
     
 }
+#joinDiv{
+    margin-left: -5rem;
+    margin-right: -6rem;
+}
+.NoworkspaceHeader{
+    margin-top: 10rem;
+    margin-left: 19rem;
+    margin-bottom: 4rem;
+}
+.createWorkspace{
+text-decoration: none;
+padding: 0rem;
+height: 0rem;
+margin-left: 5rem;
+}
+.createWorkspace:hover{
+    text-decoration: none;
+    /* background-color: white; */
+    padding: 0rem;
+    }
 .wsNameLink:hover {
    text-decoration: none; 
 

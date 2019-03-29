@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 //import ReactDOM from 'react-dom';
 import "bootstrap/dist/css/bootstrap.css";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import { Modal, ModalHeader, ModalBody } from "reactstrap";
 import Axios from "axios";
 
 class ViewChannelDetails extends Component {
@@ -11,24 +11,24 @@ class ViewChannelDetails extends Component {
       modal: this.props.viewChannelDetailsToggle
     };
 
-    
+
   }
 
 
   fetchData() {
-    Axios.get(`https://localhost:44346/api/chats/GetChannelDetails/1`).then(
+    /*Axios.get(`https://localhost:5000/api/chats/GetChannelDetails/1`).then(
       res => {
-        console.log(res.data);
+        // console.log(res.data);
         var channelDetailObject = new Object();
         channelDetailObject.name = res.data.chatDetails.name;
         channelDetailObject.url = res.data.url;
         channelDetailObject.purpose = res.data.chatDetails.purpose;
         channelDetailObject.creator = res.data.chatDetails.creatorID;
         channelDetailObject.numberOfMembers = res.data.numberOfUsers;
-        console.log(channelDetailObject);
+        // console.log(channelDetailObject);
         this.props.setChannelDetails(channelDetailObject);
       }
-    );
+    );*/
   }
 
   toggle() {
@@ -38,7 +38,7 @@ class ViewChannelDetails extends Component {
   }
   componentDidUpdate()
   {
-    console.log(this.props.toggle)
+    // console.log(this.props.toggle)
   }
   componentDidMount() {
     this.fetchData();
@@ -53,7 +53,7 @@ class ViewChannelDetails extends Component {
       numberOfMembers
     } = this.props.channelDetails;
     return (
-      <div> 
+      <div>
         <Modal
           isOpen={this.props.toggle}
           toggle={this.props.toggleViewChannelDetails}
