@@ -8,12 +8,14 @@ import Sidebar from "react-sidebar";
 import BurgerMenu from './burger_menu/components/burgermenu/BurgerMenu'
 import FilesContainer from './burger_menu/components/files/FilesContainer'
 import ViewChannelDetails from './burger_menu/components/channeldetails/ViewChannelDetails'
-import AddUserToChannel from './burger_menu/components/adduserToChannel/AddUserToChannel'
 import '../workspace/ChannelView.css'
-import auth from '../../Services/authService';
+import auth from '../../Services/authService'
 import withAuthentication from "../../HOC/withAuthentication";
+import ChatComponent from './ChatComponent'
+import AddUserToChannel from './burger_menu/components/adduserToChannel/AddUserToChannel'
+const signalR = require("@aspnet/signalr");
+const BASE_URL = "http://localhost:5000/api/"
 
-const USERS_BASE_URL = "http://10.0.67.127:8080/api/"
 class Workspace extends React.Component {
   constructor(props) {
     super(props);
@@ -21,9 +23,13 @@ class Workspace extends React.Component {
     this.state = {
       users: [],
       channels: [],
+      directMessages: [],
+      currentChatMessages: [],
+      hubConnection : null,
+      channelName:"",
+      workSpaceImg: null,
       CurrentWorkspace:this.props.location.Currentworkspace,
       currentUser:{},
-      channelName: "Boss Channel",
       isLoading: true,
       sidebarOpen: false,
       files: [
@@ -60,17 +66,54 @@ class Workspace extends React.Component {
         creator: -1,
         numberOfMembers: 0
       },
-      filesContainerOpen: false,
-
-      viewChannelDetailsToggle: false,
-
+      filesContainerOpen : false,
+      viewChannelDetailsToggle : false,
+      currentChatId: null,
+      currentUserID: undefined,
       addUserToChannelToggleFlag: false
+
     };
 
     this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this);
   }
 
-  setChannelDetails = Details => {
+ fetchNotifications= () =>{
+  axios(auth.includeAuth({
+    method: 'get',
+    url: `${BASE_URL}workspaces/GetUnseenMessagesCountPerChat/${this.state.CurrentWorkspace.Id}`,
+
+  }))
+  .then(response =>{
+    const channels = this.state.channels
+    channels.forEach(channel => {
+      channel.notificationCount = response.data[channel.id]
+    });
+
+    const directMessages = this.state.directMessages
+    directMessages.forEach(directMessage => {
+      directMessage.notificationCount = response.data[directMessage.id]
+    });
+
+    const users = this.state.users
+    users.forEach(user => {
+      //user.notificationCount
+      var userId = user.id
+      directMessages.forEach(directMessage => {
+        const user1Id = directMessage.name.substring(2).split(",")[0];
+        const user2Id = directMessage.name.substring(2).split(",")[1];
+
+        if(userId == user1Id || userId == user2Id){
+          user.notificationCount = directMessage.notificationCount
+        }
+      })
+    });
+  })
+  .catch(error =>{
+    console.log("GetUnseenMessagesCountPerChat :",error)
+  })
+}
+
+ setChannelDetails = Details => {
     this.setState({
       ChannelDetails: Details
     });
@@ -122,34 +165,114 @@ class Workspace extends React.Component {
     });
   };
 
+  
+
   onSetSidebarOpen(open) {
     this.setState({ sidebarOpen: open });
   }
 
-  getUsersByWorkspaceId() {
-    var config = {
-      headers: {
-        Authorization: "bearer " + localStorage.getItem('token')
-      }
-    };
-    axios
-      .get(
-        `http://localhost:5000/api/workspaces/getusersbyworkspaceid/${this.state.CurrentWorkspace.Id}`,
-        config
-      )
-      .then(x => this.setState({ users: x.data }));
+  OnWorkspaceConnect = () => {
+    this.state.hubConnection
+      .invoke('OnWorkspaceConnect', this.state.currentUserID,this.state.CurrentWorkspace.Id)
+      .catch(err => console.error(err));
+  };
+
+  setCurrentChatId = (id) =>{
+
+    var channels = this.state.channels
+    var directMessages = this.state.directMessages
+    var users = this.state.users
+
+    const channel = this.state.channels.find(channel => channel.id == id);
+    const directMessage = this.state.directMessages.find(directMessage => directMessage.id == id);
+
+    if(channel != null){
+      channel.notificationCount = 0;
+      this.setState({channels})
+    }
+    else if(directMessage != null){
+      const user1Id = directMessage.name.substring(2).split(",")[0];
+      const user2Id = directMessage.name.substring(2).split(",")[1];
+
+      const user = users.find(user => user.id == user1Id || user.id == user2Id)
+      user.notificationCount = 0;
+      this.setState({users})
+    }
+
+    axios(auth.includeAuth({
+      method: 'get',
+      url: `${BASE_URL}messages/GetMessagesinChat/${id}`,
+    })).then(response => {
+      this.setState({
+        currentChatId: id,
+        currentChatMessages: response.data
+      })
+      console.log("this is the messages",response);
+    })
   }
+  
+  setCurrentChannelName = (channelName) =>{
+    this.setState({
+      channelName: channelName
+    })
+  }
+
+  concatMessage = (singleMessage)=>
+  {
+      const currentChatMessages = this.state.currentChatMessages.concat([singleMessage]);
+      this.setState({ currentChatMessages });
+  }
+  
+  updateNotifications = (chatId) =>{
+    var channels = this.state.channels
+    var directMessages = this.state.directMessages
+    var users = this.state.users
+
+    const channel = this.state.channels.find(channel => channel.id == chatId);
+    const directMessage = this.state.directMessages.find(directMessage => directMessage.id == chatId);
+
+    if(channel != null){
+      channel.notificationCount = channel.notificationCount + 1;
+      this.setState({channels})
+    }
+
+    else if(directMessage != null){
+      const user1Id = directMessage.name.substring(2).split(",")[0];
+      const user2Id = directMessage.name.substring(2).split(",")[1];
+
+      const user = users.find(user => user.id == user1Id || user.id == user2Id)
+      user.notificationCount = user.notificationCount + 1;
+      this.setState({users})
+    }
+
+  }
+
+
+  // getUsersByWorkspaceId() {
+  //   var config = {
+  //     headers: {
+  //       Authorization: "bearer " + localStorage.getItem('token')
+  //     }
+  //   };
+  //   axios
+  //     .get(
+  //       `http://localhost:5000/api/workspaces/getusersbyworkspaceid/${this.state.CurrentWorkspace.Id}`,
+  //       config
+  //     )
+  //     .then(x => this.setState({ users: x.data }));
+  // }
 
 
   componentDidMount() {
     if(this.state.CurrentWorkspace!==undefined&&this.state.isLoading){
       axios(auth.includeAuth({
         method: 'get',
-        url: USERS_BASE_URL + `workspaces/GetUsersByWorkspaceId/${this.state.CurrentWorkspace.Id}`,
+        url: BASE_URL + `workspaces/GetUsersByWorkspaceId/${this.state.CurrentWorkspace.Id}`,
     }))
         .then(response => {
             this.setState({
-              users: response.data, isLoading:false 
+              users: response.data.filter(item => item.id != this.state.currentUserID),
+              isLoading:false 
             })
          
        })
@@ -160,7 +283,7 @@ class Workspace extends React.Component {
   
        axios(auth.includeAuth({
         method: 'get',
-        url: USERS_BASE_URL + `users/${auth.getCurrentUserId()}`,
+        url: BASE_URL + `users/${auth.getCurrentUserId()}`,
     }))
         .then(response => {
             this.setState({
@@ -172,16 +295,63 @@ class Workspace extends React.Component {
         
           console.log(error)
        })}
+
+       let hubConnection = new signalR.HubConnectionBuilder()
+       .withUrl("http://localhost:5000/chat") //http://localhost:5000/chat
+       .build();
+   
+       this.setState({
+         currentUserID: auth.getCurrentUserId(),
+         hubConnection
+       },() => {
+         console.log("Current User ID :",this.state.currentUserID)
+             //check after running 
+       hubConnection
+       .start()
+       .then(() => {
+         this.OnWorkspaceConnect()
+         console.log('Connection started!');
+       }).catch(err => console.log('Error while establishing connection :('));
+       });
+       
+       axios(auth.includeAuth({
+        method: 'get',
+        url: `${BASE_URL}chats/GetAllChannelsInsideWorkspace?workspaceId=${this.state.CurrentWorkspace.Id}`,
+  
+      }))
+     .then(response => {
+       //join user to groups available 
+        this.setState({
+          channels: response.data.filter(chat => !chat.isPrivate),
+          directMessages: response.data.filter(chat => chat.isPrivate)}, () => {
+            this.fetchNotifications()
+              // this.setState({currentChatId: this.state.channels[0].id})
+              if(this.state.channels.length != 0)
+                this.setCurrentChatId(this.state.channels[0].id)
+            } 
+          )
+      })
+      .catch(error =>{
+        console.log(error)
+      });
+
+      setTimeout(
+        function() {
+          this.setState({ isLoading: false });
+        }.bind(this),
+        1500
+      );
   }
   componentDidUpdate() {
   if(this.state.CurrentWorkspace!==undefined&&this.state.isLoading){
     axios(auth.includeAuth({
       method: 'get',
-      url: USERS_BASE_URL + `workspaces/GetUsersByWorkspaceId/${this.state.CurrentWorkspace.id}`,
+      url: BASE_URL + `workspaces/GetUsersByWorkspaceId/${this.state.CurrentWorkspace.Id}`,
   }))
       .then(response => {
           this.setState({
-            users: response.data, isLoading:false 
+            users: response.data.filter(item => item.id != this.state.currentUserID),
+            isLoading:false 
           })
        
      })
@@ -191,7 +361,7 @@ class Workspace extends React.Component {
      })
      axios(auth.includeAuth({
       method: 'get',
-      url: USERS_BASE_URL + `users/${auth.getCurrentUserId()}`,
+      url: BASE_URL + `users/${auth.getCurrentUserId()}`,
   }))
       .then(response => {
           this.setState({
@@ -208,7 +378,7 @@ class Workspace extends React.Component {
     if(this.state.CurrentWorkspace===undefined){
       axios(auth.includeAuth({
         method: 'get',
-        url: USERS_BASE_URL + `workspaces/getworkspaceById/${this.props.match.params.id}`,
+        url: BASE_URL + `workspaces/getworkspaceById/${this.props.match.params.id}`,
     }))
         .then(response => {
             this.setState({
@@ -223,6 +393,7 @@ class Workspace extends React.Component {
        
      }
   }
+
   render() { 
     return this.state.isLoading ? (
       <WorkSpaceLoadingScreen />
@@ -251,12 +422,27 @@ class Workspace extends React.Component {
               workspaceName={this.state.CurrentWorkspace.WorkspaceName}
               channelName={this.state.channelName}
               onSetSidebarOpen={this.onSetSidebarOpen} 
-              workSpaceImg={this.props.location.state.workSpaceImg}
+              // workSpaceImg={this.props.location.state.workSpaceImg}
             />
 
             <div id="workspace-body">
-              <WorkSpaceChannels CurrentUser={this.state.currentUser} users={this.state.users} channels={this.state.channels} workspaceId={this.props.match.params.id}/>
-              <WorkSpaceChat />
+            <WorkSpaceChannels users={this.state.users}
+                                 CurrentUser={this.state.currentUser}
+                                 CurrentWorkspace={this.state.CurrentWorkspace} 
+                                 setCurrentChatId = {this.setCurrentChatId}
+                                 setCurrentChannelName = {this.setCurrentChannelName}
+                                 channels={this.state.channels}
+                                 hubConnection={this.state.hubConnection}
+                                 workSpaceImg={this.state.workSpaceImg}
+                                 workspaceId={this.props.match.params.id} />
+            <ChatComponent 
+              hubConnection={this.state.hubConnection} 
+              userID ={this.state.currentUserID} 
+              chatID={this.state.currentChatId}
+              messages={this.state.currentChatMessages}
+              concatMessage = {this.concatMessage}
+              updateNotifications = {this.updateNotifications}
+            />
             </div>
           </div>
         </Sidebar>

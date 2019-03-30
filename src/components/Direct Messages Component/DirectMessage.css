@@ -16,4 +16,17 @@
     font-size: 1.2rem;
     font-weight: normal;
   }
+
+  .NameTags:hover {
+    background-color: #FFEB3B;
+  }
   
+  .notificationHolder
+  {
+    color: black;
+    font-weight: bolder; 
+    background-color: red;
+    border-radius: 50%;
+    margin:1rem;
+    padding: 0.2rem;
+  }

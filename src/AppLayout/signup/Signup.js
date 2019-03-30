@@ -5,7 +5,7 @@ import { Redirect } from 'react-router';
 
 import axios from 'axios';
 const Joi = require('joi');
-const USERS_BASE_URL = "http://10.0.67.127:8080/api/users"
+const USERS_BASE_URL = "http://localhost:5000/api/users"
 
 class Signup extends Component {
     constructor(props) {
@@ -269,12 +269,12 @@ class Signup extends Component {
                 })
             })
             .catch(error => {
-                this.setState({
-                    isUserNameValid: false,
-                    usernameError: error.response == null ? "The server encountered an error" : "ERRORRRRRRRRRR",
-                    validatingUserName: false
-                })
-            })
+              this.setState({
+                  isUserNameValid: false,
+                  usernameError: error.response==null? "The server encountered an error" : error.response.data,
+                  validatingUserName: false
+              })
+           })
     }
 
     validateEmail(e) {

@@ -1,0 +1,50 @@
+
+.stayAtBottomInput
+{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.message-user-details{
+    display:inline-flex;
+  }
+  .message-user-img{
+    width:60px; 
+    height:60px;
+  }
+  
+  .mainContainer
+  {
+    display: flex;
+    flex-direction: column;
+    margin:2rem;
+  }
+  
+  .SenderInfoContainer
+  {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .UserNameAndTimeContainer
+  {
+    display: flex;
+    flex-direction: column;
+    align-self:center;
+    margin-left: 1rem;
+    align-items: flex-start;
+  }
+  
+  .messageContainer
+  {
+    background-color: #FFFCE6;
+    margin-top: 1rem;
+    align-self: flex-start;
+    border-radius: 14px;
+      padding: 0.7rem;
+  }
+  .scrollableContainer
+  {
+    /* overflow-y: scroll; */
+  }
