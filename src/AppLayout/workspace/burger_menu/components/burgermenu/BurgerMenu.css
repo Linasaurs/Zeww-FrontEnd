@@ -17,12 +17,56 @@
     width:100%;
     height:100%;
     padding:0;
-    padding-top: 4rem;
+    padding-top: 3rem;
     margin:0;  
 }
 .burger-menu-li
 {
     background: white;
     margin-bottom:1rem;
-    opacity: 1;
+    opacity: 1; 
+    min-height: 50px; 
+    padding: 1rem;
+}
+.User{
+    height: 7rem;
+    background-color: white;
+}
+
+a{
+    color: #757575;
+    text-decoration: none;
+}
+
+a:hover{
+    color: #757575;
+    text-decoration: none;
+} 
+
+.userPlaceholder {
+    height: 135px;
+    background-color: white; 
+    padding: 2rem;
+} 
+.userImg {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%; 
+    margin-right: 0.5rem;
+} 
+.userInfo {
+    display: flex; 
+    align-items: center;
+} 
+.userStatus {
+    display: flex;
+    flex-direction: column; 
+    
+} 
+.status { 
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    background-color: greenyellow; 
+    margin-right: 0.4rem; 
 }

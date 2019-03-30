@@ -1,38 +1,57 @@
 .aboutContainer{
     min-width: -webkit-fill-available;
-    background-image:url(./imgs/background.png), linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5));
+    background-image:url(./imgs/test2.jpg), linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5));
     background-blend-mode: overlay;
     background-repeat: no-repeat;
-    background-size: cover;
     background-attachment: fixed;
     background-position: center;
     font-family: 'Lato', sans-serif;
+    background-size: cover;
+    min-height: 100vh;
 }
 #aboutHeader {
     color: white;
     font-size: 2rem;
-    margin-left: -59rem;
     padding-top: 2rem;
-    text-align: center;
+    margin-bottom: 4rem;
     font-weight: bold;
+
+    text-align: center;
+    margin-left:0;
 }
-.aboutDescription{
+.abouUsImg{
+    width: 250px;
+    height: auto;
+    border-radius: 30px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.aboutBody p{
     color: white;
     line-height: 3;
     font-size: medium;
-    padding: 10px;
-    text-align: left;
-}
-#tgpImg{
-    width: 40%;
-    height: 60%;
-    border-radius: 17px;
+    margin-left: auto;
+        margin-right: auto;
 }
 .aboutBody{
     max-width: 100%;
     display: flex;
-    flex-direction: row;
-    flex-flow: nowrap; 
+    flex-direction: column;
     margin-left: 4rem;
     margin-right: 4rem;
+}
+
+@media only screen  and (min-width: 800px){
+    .aboutBody{
+        flex-direction: row;
+    flex-flow: nowrap; 
+    }
+    #aboutHeader {
+        margin-left: 6.3rem;
+        text-align: left;
+    }
+    .abouUsImg{
+        width: 450px;
+        height: 300px;
+    }
 }

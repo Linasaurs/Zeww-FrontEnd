@@ -20,27 +20,15 @@ class CreateNewChannel extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            modal: 1,
+            modal: 0,
             channelName: "",
-            workspaceId: "",
+            workspaceId: this.props.workspaceId,
             isPrivate: false,
             channelPurpose: "",
             dataToSend: null,
             result: null
         };
         
-        this.toggle = this.toggle.bind(this);
-        this.setState = this.setState.bind(this);
-    }
-    
-    componentDidMount () {
-        auth.login("ziadalikhalifa@gmail.com", "Password");
-    }
-
-    toggle() {
-        this.setState(prevState => ({
-            modal: !prevState.modal
-        }));
     }
     
     handleChange(event) {
@@ -51,7 +39,7 @@ class CreateNewChannel extends Component {
 
         const result = Joi.validate({ channelName: value }, channelNameSchema);
         this.setState({ result: result });
-        console.log(result);
+        // console.log(result);
     }
 
     handleSubmit(event) {
@@ -61,14 +49,13 @@ class CreateNewChannel extends Component {
             alert("Channel name is not a valid name!");
 
         var chat = {};
-
-        chat.workspaceId = this.props.workspaceId;
+        chat.workspaceId = this.state.workspaceId;
         chat.name = this.state.channelName;
         chat.isPrivate = this.state.isPrivate;
         chat.channelPurpose = this.state.channelPurpose;
 
-        console.log(chat);
-
+        // console.log(chat);
+        var self=this
 
         axios(
             auth.includeAuth({
@@ -78,7 +65,7 @@ class CreateNewChannel extends Component {
                 data: chat
             })
         ).then(function(response) {
-            console.log(response.data);
+            self.props.toggle();
         });
     }
 
@@ -87,13 +74,13 @@ class CreateNewChannel extends Component {
     render() {
         return (
             <Modal
-                isOpen={this.state.modal}
-                toggle={this.toggle}
+                isOpen={this.props.createNewWorkspaceModalVisible}
+                toggle={this.props.toggle}
                 className="Modal"
-                dialogClassName="border-radius-2"
+                // dialogClassName="border-radius-2"
                 size="lg"
             >
-                <ModalHeader toggle={this.toggle} className="ModalHeader">
+                <ModalHeader toggle={this.props.toggle} className="ModalHeader">
                     <p className="modal-title">Create new channel</p>
                 </ModalHeader>
                 <ModalBody>
