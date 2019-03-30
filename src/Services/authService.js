@@ -1,7 +1,7 @@
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 
-const USERS_BASE_URL = "http://localhost:5000/api/users"; //"http://10.0.67.127:8080/api/users";
+const USERS_BASE_URL = "http://localhost:5000/api/users"; //"http://localhost:5000/api/users";
 
 async function login(email, password) {
     const { data: jwt } = await axios({
@@ -28,14 +28,14 @@ function getCurrentUserId() {
 function logout() {
     try {
         localStorage.removeItem("token");
-    } catch (ex) {}
+    } catch (ex) { }
 }
 
 function includeAuth(request) {
     let jwt = "";
     try {
         jwt = localStorage.getItem("token");
-    } catch (ex) {}
+    } catch (ex) { }
 
     if (request.headers) {
         request.headers["Authorization"] = "Bearer " + jwt;

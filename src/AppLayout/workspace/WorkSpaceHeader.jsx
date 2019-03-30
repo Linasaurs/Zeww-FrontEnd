@@ -13,7 +13,6 @@ export default class WorkSpaceHeader extends React.Component {
     state = {
         workspaceName: this.props.workspaceName,
         channelName: this.props.channelName,
-        workspaceImg: './imgs/logoplaceholder.svg'
     }
 
     render() {
@@ -21,7 +20,7 @@ export default class WorkSpaceHeader extends React.Component {
             <Container fluid className="class-sticky">
                 <Row id="workspace-header">
                     <Col id="workspace-header-details" xs="2">
-                        <img id="workspace-header-img" src={require('./imgs/logoplaceholder.svg')} />
+                        <img id="workspace-header-img" src={this.props.workSpaceImg} />
                         <div id="workspace-header-title">{this.state.workspaceName}</div>
                     </Col>
                     <Col>

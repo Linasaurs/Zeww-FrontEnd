@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import '../NavBar/NavBar.css'
-class NavBar extends Component {
+import '../NavBar/NavBar.css' 
+import {Link} from 'react-router-dom'
+class NavBar extends Component { 
     render() {
         return ( 
-<nav className="navbar navbar-expand-lg navbar-light bg-light zewwNavBar">
+<nav className={this.props.styleClass}>
   <img className="logo" href="#" src={require("../images/logo.png")}/>
   <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span className="navbar-toggler-icon"></span>
@@ -11,16 +12,16 @@ class NavBar extends Component {
   <div className="collapse navbar-collapse" id="navbarSupportedContent">
     <ul className="navbar-nav mr-auto">
       <li className="nav-item">
-        <a className="nav-link" href="#">Home</a>
+        <Link className="navBarLinks" to="/">Home</Link>
       </li>
       <li className="nav-item">
-        <a className="nav-link" href="#">Why Zeww?</a>
+        <a className="navBarLinks" href="/why-zeww">Why Zeww?</a>
       </li>
       <li className="nav-item">
-        <a className="nav-link" href="#" > Pricing </a>
+        <a className="navBarLinks" href="#" > Pricing </a>
       </li> 
       <li className="nav-item">
-        <a className="nav-link" href="#" > About Us </a>
+        <a className="navBarLinks" href="/aboutus" > About Us </a>
       </li>
     </ul>
   </div>

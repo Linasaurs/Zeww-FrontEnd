@@ -9,8 +9,8 @@ class LandingPage extends Component {
         return (
             <div>
                 <Home></Home>
-                <WhyZeww></WhyZeww>
-                <AboutUs></AboutUs>
+                {/* <WhyZeww></WhyZeww>
+                <AboutUs></AboutUs> */}
             </div>
         )
     }

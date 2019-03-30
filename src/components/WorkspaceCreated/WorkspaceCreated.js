@@ -3,6 +3,7 @@ import '../WorkspaceCreated/WorkspaceCreated.css'
 import ImageUpload from '../ImageUpload/ImageUpload'
 import {Link } from 'react-router-dom';
 import ImageUploadContainer from '../ImageUpload/ImageUploadContainer';
+import withAuthentication from '../../HOC/withAuthentication';
 class WorkspaceCreated extends Component {
     render () {
         return (
@@ -18,13 +19,12 @@ class WorkspaceCreated extends Component {
                      <div className="WSNameImage"> 
                        <ImageUploadContainer wsId={this.props.id} label={"Add image to"} wsName={this.props.data ? this.props.data.workspaceName : "WS Name"} /> 
                      </div>
-                    
-                     <Link to="/workspace" style={{alignItems: "center"}}className="btn createWS">Go to workspace</Link> 
-                     </div>
+                   
+                     </div> 
                 </div> 
             </div>
         )
     }
 }
 
-export default WorkspaceCreated
+export default withAuthentication(WorkspaceCreated)

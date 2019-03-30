@@ -9,21 +9,14 @@
    margin: 1rem; 
    margin-right: 5rem;
 } 
-.nav {
-    padding: 1.8rem;
-    margin-left: 5rem;
+.navBarLinks{
+    padding-left: 3.5rem;
+    padding-right: 3.5rem;
     color: white;
-}  
-
-
-.navbar-expand-lg .navbar-nav .nav-link {
-    padding-right: 2.5rem;
-    padding-left: 2.5rem; 
-    color: white; 
-    font-size: 1.3rem;
-} 
-.navbar-expand-lg .navbar-nav .nav-link:hover {
-    color:#FFEB3B; 
+    font-size: 1.2rem;
+}
+.navBarLinks:hover {
     text-decoration: underline;
-    text-decoration-color: #FFEB3B; 
+    color: #FFEB3B;  
+    background-color: transparent;
 } 

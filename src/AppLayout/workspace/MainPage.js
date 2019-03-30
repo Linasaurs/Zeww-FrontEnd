@@ -1,7 +1,7 @@
 import React from 'react';
 // import ReactDOM from 'react-dom';
 // import axios from "axios";
-// import DirectMessagesComponant from './DirectMessagesComponant';
+// import DirectMessagesOrChannelsComponent from './DirectMessagesOrChannelsComponent';
 
 export default class MainPage extends React.Component {
    

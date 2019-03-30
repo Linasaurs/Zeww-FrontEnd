@@ -5,7 +5,7 @@ const MainNavLayout = ({render: Component, ...rest}) => {
     return (
       <Route {...rest} render={matchProps => (
           <React.Fragment>
-            <NavBar/>
+            <NavBar styleClass="navbar navbar-expand-lg navbar-light bg-light zewwNavBar"/>
           <Component {...matchProps}/>
           </React.Fragment>
        

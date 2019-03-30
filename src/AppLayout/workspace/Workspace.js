@@ -1,23 +1,24 @@
-import React from 'react';
+import React from "react";
 import axios from "axios";
-import WorkSpaceLoadingScreen from "./WorkSpaceLoadingScreen"
-import WorkSpaceHeader from "./WorkSpaceHeader"
-import WorkSpaceChannels from "./WorkSpaceChannels"
-import WorkSpaceChat from "./WorkSpaceChat"
+import WorkSpaceLoadingScreen from "./WorkSpaceLoadingScreen";
+import WorkSpaceHeader from "./WorkSpaceHeader";
+import WorkSpaceChannels from "./WorkSpaceChannels";
+import WorkSpaceChat from "./WorkSpaceChat";
 import Sidebar from "react-sidebar";
 import BurgerMenu from './burger_menu/components/burgermenu/BurgerMenu'
 import FilesContainer from './burger_menu/components/files/FilesContainer'
 import ViewChannelDetails from './burger_menu/components/channeldetails/ViewChannelDetails'
 import '../workspace/ChannelView.css'
 import auth from '../../Services/authService'
+import withAuthentication from "../../HOC/withAuthentication";
 import ChatComponent from './ChatComponent'
+import AddUserToChannel from './burger_menu/components/adduserToChannel/AddUserToChannel'
 const signalR = require("@aspnet/signalr");
-const BASE_URL = "http://localhost:5000/api"
+const BASE_URL = "http://localhost:5000/api/"
 
 class Workspace extends React.Component {
   constructor(props) {
-
-    super(props)
+    super(props);
 
     this.state = {
       users: [],
@@ -26,36 +27,35 @@ class Workspace extends React.Component {
       currentChatMessages: [],
       hubConnection : null,
       channelName:"",
-      CurrentWorkspace:this.props.location.workspace,
       workSpaceImg: null,
+      CurrentWorkspace:this.props.location.Currentworkspace,
+      currentUser:{},
       isLoading: true,
       sidebarOpen: false,
-      files : 
-      [
+      files: [
         {
-          "name" : "Project Framework" , 
-          "sender" : "Ziad Ali" , 
-          "timestamp" : "Feb 22nd at 10:03 AM" , 
-          "extension" : "src" , 
-          "image" : "Orchestra" , 
-          "downloadUrl" : "someurl"
-
+          name: "Project Framework",
+          sender: "Ziad Ali",
+          timestamp: "Feb 22nd at 10:03 AM",
+          extension: "src",
+          image: "Orchestra",
+          downloadUrl: "someurl"
         },
         {
-            "name" : "Zeww UI" , 
-            "sender" : "Maha Elleci" , 
-            "timestamp" : "Feb 22nd at 10:03 AM" , 
-            "extension" : "xd" , 
-            "image" : "someurl" , 
-            "downloadUrl" : "someotherurl"
+          name: "Zeww UI",
+          sender: "Maha Elleci",
+          timestamp: "Feb 22nd at 10:03 AM",
+          extension: "xd",
+          image: "someurl",
+          downloadUrl: "someotherurl"
         },
         {
-            "name" : "Weird Files" , 
-            "sender" : "Mohamed Wa'el" , 
-            "timestamp" : "Feb 22nd at 10:03 AM" , 
-            "extension" : "" , 
-            "image" : "someurl" , 
-            "downloadUrl" : "justaurl"
+          name: "Weird Files",
+          sender: "Mohamed Wa'el",
+          timestamp: "Feb 22nd at 10:03 AM",
+          extension: "",
+          image: "someurl",
+          downloadUrl: "justaurl"
         }
       ],
 
@@ -69,89 +69,18 @@ class Workspace extends React.Component {
       filesContainerOpen : false,
       viewChannelDetailsToggle : false,
       currentChatId: null,
-      currentUserID: undefined
+      currentUserID: undefined,
+      addUserToChannelToggleFlag: false
 
-    }
+    };
 
     this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this);
   }
 
-  componentDidMount() 
-  {
-    let hubConnection = new signalR.HubConnectionBuilder()
-    .withUrl("http://localhost:5000/chat") //http://10.0.67.127:8080/chat
-    .build();
-
-    this.setState({
-      currentUserID: auth.getCurrentUserId(),
-      hubConnection
-    },() => {
-      console.log("Current User ID :",this.state.currentUserID)
-          //check after running 
-    hubConnection
-    .start()
-    .then(() => {
-      this.OnWorkspaceConnect()
-      console.log('Connection started!');
-    }).catch(err => console.log('Error while establishing connection :('));
-    });
-
-    // async function connect(conn){
-    //   hubConnection.start().catch( e => {
-    //       sleep(5000);
-    //       console.log("Reconnecting Socket");
-    //       connect(hubConnection);  
-    //   })
-    // }
-  
-    // hubConnection.onclose(function (e) {
-    //   connect(connection);
-    // });
-
-    var config = {
-      headers: { 'Authorization': "bearer " + localStorage.getItem('token')
-     }
-    };
-    var self = this
-    axios.get(`${BASE_URL}/workspaces/getusersbyworkspaceid/${self.state.CurrentWorkspace.Id}`, config)
-         .then(x => this.setState({ users: x.data.filter(item => item.id != this.state.currentUserID) }));
-
-    axios(auth.includeAuth({
-      method: 'get',
-      url: `${BASE_URL}/chats/GetAllChannelsInsideWorkspace?workspaceId=${this.state.CurrentWorkspace.Id}`,
-
-    }))
-   .then(response => {
-     //join user to groups available 
-      this.setState({
-        channels: response.data.filter(chat => !chat.isPrivate),
-        directMessages: response.data.filter(chat => chat.isPrivate)}, () => {
-          this.fetchNotifications()
-            // this.setState({currentChatId: this.state.channels[0].id})
-            this.setCurrentChatId(this.state.channels[0].id)
-          } 
-        )
-    });
-
-    setTimeout(
-      function() {
-        this.setState({ isLoading: false });
-      }.bind(this),
-      1500
-    );
-
-    
-  }
-
-  
-
-  // Associated Helper Functions
- /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/ 
-  
  fetchNotifications= () =>{
   axios(auth.includeAuth({
     method: 'get',
-    url: `${BASE_URL}/workspaces/GetUnseenMessagesCountPerChat/${this.state.CurrentWorkspace.Id}`,
+    url: `${BASE_URL}workspaces/GetUnseenMessagesCountPerChat/${this.state.CurrentWorkspace.Id}`,
 
   }))
   .then(response =>{
@@ -190,38 +119,51 @@ class Workspace extends React.Component {
     });
   };
 
-  toggleFilesContainer = () =>
-  {
+  toggleFilesContainer = () => {
     var flag = !this.state.filesContainerOpen;
-    this.setState({filesContainerOpen : flag});
-    console.log("Open Files Container")
-  }
+    this.setState({ filesContainerOpen: flag });
+    console.log("Open Files Container");
+  };
 
-  toggleViewChannelDetails = () =>
-  {
+  toggleViewChannelDetails = () => {
     var flag = !this.state.viewChannelDetailsToggle;
-    this.setState({viewChannelDetailsToggle : flag});
-    console.log(flag)
+    this.setState({ viewChannelDetailsToggle: flag });
+    console.log(flag);
+  };
+
+  // add user to channel modal toggle
+  toggleAddUserToChannel = () => {
+    var flag = !this.state.addUserToChannelToggleFlag;
+    this.setState({ addUserToChannelToggleFlag: flag });
+    console.log("Add User toggle setting : " + flag);
+  };
+
+  burgerMenuComponentSwitch() {
+    if (this.state.filesContainerOpen) {
+      return (
+        <FilesContainer
+          files={this.state.files}
+          getfiles={this.setFiles}
+          toggleFilesContainer={this.toggleFilesContainer}
+        />
+      );
+    } else {
+      return (
+        <BurgerMenu
+          toggleFilesContainer={this.toggleFilesContainer}
+          toggleViewChannelDetails={this.toggleViewChannelDetails}
+          toggleAddUserToChannel={this.toggleAddUserToChannel}
+          CurrentWorkspace={this.state.CurrentWorkspace}
+        />
+      );
+    }
   }
 
-  burgerMenuComponentSwitch()
-  {
-    if(this.state.filesContainerOpen)
-    {
-      return <FilesContainer files={this.state.files} getfiles={this.setFiles} toggleFilesContainer={this.toggleFilesContainer}/>
-    }
-    else
-    {
-      return <BurgerMenu toggleFilesContainer={this.toggleFilesContainer} toggleViewChannelDetails={this.toggleViewChannelDetails}/>
-    }
-  }
-
-  setFiles = (returnedFiles)=>
-  {
+  setFiles = returnedFiles => {
     this.setState({
-      files : returnedFiles
+      files: returnedFiles
     });
-  }
+  };
 
   
 
@@ -259,7 +201,7 @@ class Workspace extends React.Component {
 
     axios(auth.includeAuth({
       method: 'get',
-      url: `${BASE_URL}/messages/GetMessagesinChat/${id}`,
+      url: `${BASE_URL}messages/GetMessagesinChat/${id}`,
     })).then(response => {
       this.setState({
         currentChatId: id,
@@ -306,58 +248,206 @@ class Workspace extends React.Component {
   }
 
 
- // Associated Helper Functions END
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/ 
-   
-  render() {
-    return (
-      this.state.isLoading ? <WorkSpaceLoadingScreen /> :
+  // getUsersByWorkspaceId() {
+  //   var config = {
+  //     headers: {
+  //       Authorization: "bearer " + localStorage.getItem('token')
+  //     }
+  //   };
+  //   axios
+  //     .get(
+  //       `http://localhost:5000/api/workspaces/getusersbyworkspaceid/${this.state.CurrentWorkspace.Id}`,
+  //       config
+  //     )
+  //     .then(x => this.setState({ users: x.data }));
+  // }
 
+
+  componentDidMount() {
+    if(this.state.CurrentWorkspace!==undefined&&this.state.isLoading){
+      axios(auth.includeAuth({
+        method: 'get',
+        url: BASE_URL + `workspaces/GetUsersByWorkspaceId/${this.state.CurrentWorkspace.Id}`,
+    }))
+        .then(response => {
+            this.setState({
+              users: response.data.filter(item => item.id != this.state.currentUserID),
+              isLoading:false 
+            })
+         
+       })
+        .catch(error => {
+        
+          console.log(error)
+       })
+  
+       axios(auth.includeAuth({
+        method: 'get',
+        url: BASE_URL + `users/${auth.getCurrentUserId()}`,
+    }))
+        .then(response => {
+            this.setState({
+              currentUser:response.data
+            })
+         
+       })
+        .catch(error => {
+        
+          console.log(error)
+       })}
+
+       let hubConnection = new signalR.HubConnectionBuilder()
+       .withUrl("http://localhost:5000/chat") //http://localhost:5000/chat
+       .build();
+   
+       this.setState({
+         currentUserID: auth.getCurrentUserId(),
+         hubConnection
+       },() => {
+         console.log("Current User ID :",this.state.currentUserID)
+             //check after running 
+       hubConnection
+       .start()
+       .then(() => {
+         this.OnWorkspaceConnect()
+         console.log('Connection started!');
+       }).catch(err => console.log('Error while establishing connection :('));
+       });
+       
+       axios(auth.includeAuth({
+        method: 'get',
+        url: `${BASE_URL}chats/GetAllChannelsInsideWorkspace?workspaceId=${this.state.CurrentWorkspace.Id}`,
+  
+      }))
+     .then(response => {
+       //join user to groups available 
+        this.setState({
+          channels: response.data.filter(chat => !chat.isPrivate),
+          directMessages: response.data.filter(chat => chat.isPrivate)}, () => {
+            this.fetchNotifications()
+              // this.setState({currentChatId: this.state.channels[0].id})
+              if(this.state.channels.length != 0)
+                this.setCurrentChatId(this.state.channels[0].id)
+            } 
+          )
+      })
+      .catch(error =>{
+        console.log(error)
+      });
+
+      setTimeout(
+        function() {
+          this.setState({ isLoading: false });
+        }.bind(this),
+        1500
+      );
+  }
+  componentDidUpdate() {
+  if(this.state.CurrentWorkspace!==undefined&&this.state.isLoading){
+    axios(auth.includeAuth({
+      method: 'get',
+      url: BASE_URL + `workspaces/GetUsersByWorkspaceId/${this.state.CurrentWorkspace.Id}`,
+  }))
+      .then(response => {
+          this.setState({
+            users: response.data.filter(item => item.id != this.state.currentUserID),
+            isLoading:false 
+          })
+       
+     })
+      .catch(error => {
+      
+        console.log(error)
+     })
+     axios(auth.includeAuth({
+      method: 'get',
+      url: BASE_URL + `users/${auth.getCurrentUserId()}`,
+  }))
+      .then(response => {
+          this.setState({
+            currentUser:response.data
+          })
+       
+     })
+      .catch(error => {
+      
+        console.log(error)
+     })
+  }   }
+  componentWillMount(){
+    if(this.state.CurrentWorkspace===undefined){
+      axios(auth.includeAuth({
+        method: 'get',
+        url: BASE_URL + `workspaces/getworkspaceById/${this.props.match.params.id}`,
+    }))
+        .then(response => {
+            this.setState({
+             CurrentWorkspace:response.data
+            })
+         
+       })
+        .catch(error => {
+        
+          console.log(error)
+       })
+       
+     }
+  }
+
+  render() { 
+    return this.state.isLoading ? (
+      <WorkSpaceLoadingScreen />
+    ) : (
         <Sidebar
           sidebar={this.burgerMenuComponentSwitch()}
           open={this.state.sidebarOpen}
           onSetOpen={this.onSetSidebarOpen}
           pullRight={true}
-          styles={{ sidebar: { width: "30rem", height : "100%" } }}>
+          styles={{ sidebar: { width: "24rem", height: "100%" } }}
+        >
           <div>
-          <ViewChannelDetails
-            channelDetails={this.state.ChannelDetails}
-            setChannelDetails={this.setChannelDetails}
-            toggle={this.state.viewChannelDetailsToggle}
-            toggleViewChannelDetails={this.toggleViewChannelDetails}/>
+            <ViewChannelDetails
+              channelDetails={this.state.ChannelDetails}
+              setChannelDetails={this.setChannelDetails}
+              toggle={this.state.viewChannelDetailsToggle}
+              toggleViewChannelDetails={this.toggleViewChannelDetails}
+            />
 
-            <WorkSpaceHeader workspaceName={this.state.CurrentWorkspace.WorkspaceName} 
-                             channelName={this.state.channelName} 
-                             onSetSidebarOpen={this.onSetSidebarOpen} />
+            <AddUserToChannel
+              toggle={this.state.addUserToChannelToggleFlag}
+              toggleAddUserToChannel={this.toggleAddUserToChannel}
+            />
+
+            <WorkSpaceHeader
+              workspaceName={this.state.CurrentWorkspace.WorkspaceName}
+              channelName={this.state.channelName}
+              onSetSidebarOpen={this.onSetSidebarOpen} 
+              // workSpaceImg={this.props.location.state.workSpaceImg}
+            />
 
             <div id="workspace-body">
-              <WorkSpaceChannels users={this.state.users}
+            <WorkSpaceChannels users={this.state.users}
+                                 CurrentUser={this.state.currentUser}
                                  CurrentWorkspace={this.state.CurrentWorkspace} 
                                  setCurrentChatId = {this.setCurrentChatId}
                                  setCurrentChannelName = {this.setCurrentChannelName}
                                  channels={this.state.channels}
                                  hubConnection={this.state.hubConnection}
-                                 workSpaceImg={this.state.workSpaceImg} />
-                 {
-                //  (this.state.currentChatId) ?
-              <ChatComponent 
-                hubConnection={this.state.hubConnection} 
-                userID ={this.state.currentUserID} 
-                chatID={this.state.currentChatId}
-                messages={this.state.currentChatMessages}
-                concatMessage = {this.concatMessage}
-                updateNotifications = {this.updateNotifications}
-              />
-              // :
-              // <WorkSpaceChat />
-            }
+                                 workSpaceImg={this.state.workSpaceImg}
+                                 workspaceId={this.props.match.params.id} />
+            <ChatComponent 
+              hubConnection={this.state.hubConnection} 
+              userID ={this.state.currentUserID} 
+              chatID={this.state.currentChatId}
+              messages={this.state.currentChatMessages}
+              concatMessage = {this.concatMessage}
+              updateNotifications = {this.updateNotifications}
+            />
             </div>
           </div>
         </Sidebar>
-
-    )
+      );
   }
-
 }
 
-export default Workspace;
+export default withAuthentication(Workspace);

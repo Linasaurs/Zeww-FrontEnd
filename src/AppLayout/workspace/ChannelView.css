@@ -77,8 +77,11 @@
   }
   
   #workspace-header-img {
-    height: 40px;
-    width: auto;
+    height: 70px;
+    width: 70px; 
+    background-color: white;
+    border: 1px white solid;
+    border-radius: 50%;
   }
   
   #workspace-header-title {
@@ -88,15 +91,12 @@
     margin-left: 0.8rem;
   
   }
-  
-  #workspace-header-img {
-    background-color: white;
-    border: 1px white solid;
-    border-radius: 20px;
-  }
+
   
   #workspace-header-channeltitle {
-    font-size: 1.4rem;
+    font-size: 2.4rem;
+    justify-content: center;
+    display: flex;
   }
   
   #workspace-header-icons {
