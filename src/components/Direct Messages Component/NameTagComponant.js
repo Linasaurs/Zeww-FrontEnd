@@ -13,6 +13,16 @@ export default class NameTagComponant extends React.Component {
       else{
         this.props.setCurrentChannelName(this.props.obj.name)
         this.props.setCurrentChatId(this.props.obj.id)
+        axios(auth.includeAuth({
+          method: 'put',
+          url: `${BASE_URL}/users/setTimeStampForChat/${this.props.obj.id}`,
+        }))
+        .then(response =>{
+          console.log(response)
+        })
+        .catch(error =>{
+          console.log(error)
+        })
       }                 
     }  
 
@@ -26,6 +36,17 @@ export default class NameTagComponant extends React.Component {
         const chatId = response.data.id;
         this.props.setCurrentChatId(chatId);
         
+        axios(auth.includeAuth({
+          method: 'put',
+          url: `${BASE_URL}/users/setTimeStampForChat/${chatId}`,
+        }))
+        .then(response =>{
+          console.log(response)
+        })
+        .catch(error =>{
+          console.log(error)
+        })
+
         if(response.status == 201){
           var loggedInUser = auth.getCurrentUserId();
           //join current user to chatId group userId
@@ -64,9 +85,26 @@ export default class NameTagComponant extends React.Component {
                         >
           <label className="UserName">
             {this.props.isPrivate?
-              this.props.obj.userName
+            <span>
+              {this.props.obj.userName}
+              {
+                this.props.obj.notificationCount?
+                <span className="notificationHolder">
+                    {this.props.obj.notificationCount}
+                </span>
+                :null
+              }
+            </span>
               :
-              this.props.obj.name
+              <span>
+                {this.props.obj.name}
+                {this.props.obj.notificationCount?
+                  <span className="notificationHolder">
+                      {this.props.obj.notificationCount}
+                  </span>:
+                  null
+                }
+              </span>
             }
           </label>
         </div>

@@ -5,6 +5,7 @@ import axios from 'axios';
 import Message from "./MessageComponent"
 import auth from '../../Services/authService'
 import '../workspace/ChatComponent.css'
+const BASE_URL = "http://localhost:5000/api"
 
 const signalR = require("@aspnet/signalr");
 
@@ -17,7 +18,6 @@ class ChatComponent extends Component {
       chatID: '',
       userName: '',
       message: '',
-      messages: [],
       hubConnection: null,
     };
   }
@@ -38,27 +38,37 @@ class ChatComponent extends Component {
         if(this.props.chatID != chatID)
         {
           // handle notifications
+          this.props.updateNotifications(chatID)
           return;
         }
         
         const text = `${receivedMessage}`;
         this.fetchUsername(userID).then(res => {
           var senderName = res.data.name
-          const singleMessage = { text: `${receivedMessage}`, sender: senderName, currentTime: this.currentTime() }
-          const messages = this.state.messages.concat([singleMessage]);
-          this.setState({ messages });
-
+          const singleMessage = { 
+            message:{
+              "senderID": userID,
+              "chatId": chatID,
+              "messageContent": receivedMessage,
+              "timeStamp": this.currentTime()
+            },
+            "userName": senderName
+          }
+          this.props.concatMessage(singleMessage);
         });
       });
     });
   };
 
 
-  componentWillReceiveProps =() =>
-  {
-    const messages=[];
-    this.setState({messages})
-  }
+
+
+  // componentWillReceiveProps =() =>
+  // {
+   
+  //   const messages=[];
+  //   this.setState({messages})
+  // }
 
   
 
@@ -80,10 +90,20 @@ class ChatComponent extends Component {
     var currentDate = new Date();
     const hours = currentDate.getHours();
     const minutes = ("0" + currentDate.getMinutes()).slice(-2); //transform to 2 digit number
-    //const amPm = currentDate.get
-
-    // const properHours = Number.MIN_VALUE(Number.MAX_VALUE(Math.abs(12-hours),12),hours)
+    
     currentDate = (hours > 12 || hours == 0 ? Math.abs(hours - 12) : hours) + ':' + minutes + (hours < 12 ? ' am' : ' pm');
+    return currentDate;
+  }
+
+  standardizeTimeStamp = (timeStamp) =>{
+    //2019-03-30T12:54:01.867335
+    if(!timeStamp.includes("T")) //Don't do anything if time comes from front end
+      return(timeStamp)
+    var time = timeStamp.split("T")[1];
+    var hours = time.split(":")[0];
+    var minutes = time.split(":")[1];
+    
+    var currentDate = (hours > 12 || hours == 0 ? Math.abs(hours - 12) : hours) + ':' + minutes + (hours < 12 ? ' am' : ' pm');
     return currentDate;
   }
 
@@ -100,12 +120,12 @@ class ChatComponent extends Component {
     return (
       <div>
         <div className="scrollableContainer">
-          {this.state.messages.map((message, index) => (
+          {this.props.messages.map(({message,userName}, index) => (
             <Message
                   key={index} 
-                  userName={message.sender} 
-                  messageText={message.text} 
-                  currentTime={message.currentTime}
+                  userName={userName} 
+                  messageText={message.messageContent} 
+                  currentTime={this.standardizeTimeStamp(message.timeStamp)}
             />
           ))}
         </div>

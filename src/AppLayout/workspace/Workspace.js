@@ -23,6 +23,7 @@ class Workspace extends React.Component {
       users: [],
       channels: [],
       directMessages: [],
+      currentChatMessages: [],
       hubConnection : null,
       channelName:"",
       CurrentWorkspace:this.props.location.workspace,
@@ -85,12 +86,11 @@ class Workspace extends React.Component {
       currentUserID: auth.getCurrentUserId(),
       hubConnection
     },() => {
-      console.log(this.state.currentUserID)
+      console.log("Current User ID :",this.state.currentUserID)
           //check after running 
     hubConnection
     .start()
     .then(() => {
-      console.log(this.state.hubConnection)
       this.OnWorkspaceConnect()
       console.log('Connection started!');
     }).catch(err => console.log('Error while establishing connection :('));
@@ -125,7 +125,12 @@ class Workspace extends React.Component {
      //join user to groups available 
       this.setState({
         channels: response.data.filter(chat => !chat.isPrivate),
-        directMessages: response.data.filter(chat => chat.isPrivate)})
+        directMessages: response.data.filter(chat => chat.isPrivate)}, () => {
+          this.fetchNotifications()
+            // this.setState({currentChatId: this.state.channels[0].id})
+            this.setCurrentChatId(this.state.channels[0].id)
+          } 
+        )
     });
 
     setTimeout(
@@ -134,11 +139,51 @@ class Workspace extends React.Component {
       }.bind(this),
       1500
     );
+
+    
   }
+
+  
 
   // Associated Helper Functions
  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/ 
   
+ fetchNotifications= () =>{
+  axios(auth.includeAuth({
+    method: 'get',
+    url: `${BASE_URL}/workspaces/GetUnseenMessagesCountPerChat/${this.state.CurrentWorkspace.Id}`,
+
+  }))
+  .then(response =>{
+    const channels = this.state.channels
+    channels.forEach(channel => {
+      channel.notificationCount = response.data[channel.id]
+    });
+
+    const directMessages = this.state.directMessages
+    directMessages.forEach(directMessage => {
+      directMessage.notificationCount = response.data[directMessage.id]
+    });
+
+    const users = this.state.users
+    users.forEach(user => {
+      //user.notificationCount
+      var userId = user.id
+      directMessages.forEach(directMessage => {
+        const user1Id = directMessage.name.substring(2).split(",")[0];
+        const user2Id = directMessage.name.substring(2).split(",")[1];
+
+        if(userId == user1Id || userId == user2Id){
+          user.notificationCount = directMessage.notificationCount
+        }
+      })
+    });
+  })
+  .catch(error =>{
+    console.log("GetUnseenMessagesCountPerChat :",error)
+  })
+}
+
  setChannelDetails = Details => {
     this.setState({
       ChannelDetails: Details
@@ -191,16 +236,75 @@ class Workspace extends React.Component {
   };
 
   setCurrentChatId = (id) =>{
-    this.setState({
-      currentChatId: id
+
+    var channels = this.state.channels
+    var directMessages = this.state.directMessages
+    var users = this.state.users
+
+    const channel = this.state.channels.find(channel => channel.id == id);
+    const directMessage = this.state.directMessages.find(directMessage => directMessage.id == id);
+
+    if(channel != null){
+      channel.notificationCount = 0;
+      this.setState({channels})
+    }
+    else if(directMessage != null){
+      const user1Id = directMessage.name.substring(2).split(",")[0];
+      const user2Id = directMessage.name.substring(2).split(",")[1];
+
+      const user = users.find(user => user.id == user1Id || user.id == user2Id)
+      user.notificationCount = 0;
+      this.setState({users})
+    }
+
+    axios(auth.includeAuth({
+      method: 'get',
+      url: `${BASE_URL}/messages/GetMessagesinChat/${id}`,
+    })).then(response => {
+      this.setState({
+        currentChatId: id,
+        currentChatMessages: response.data
+      })
+      console.log("this is the messages",response);
     })
   }
-
+  
   setCurrentChannelName = (channelName) =>{
     this.setState({
       channelName: channelName
     })
   }
+
+  concatMessage = (singleMessage)=>
+  {
+      const currentChatMessages = this.state.currentChatMessages.concat([singleMessage]);
+      this.setState({ currentChatMessages });
+  }
+  
+  updateNotifications = (chatId) =>{
+    var channels = this.state.channels
+    var directMessages = this.state.directMessages
+    var users = this.state.users
+
+    const channel = this.state.channels.find(channel => channel.id == chatId);
+    const directMessage = this.state.directMessages.find(directMessage => directMessage.id == chatId);
+
+    if(channel != null){
+      channel.notificationCount = channel.notificationCount + 1;
+      this.setState({channels})
+    }
+
+    else if(directMessage != null){
+      const user1Id = directMessage.name.substring(2).split(",")[0];
+      const user2Id = directMessage.name.substring(2).split(",")[1];
+
+      const user = users.find(user => user.id == user1Id || user.id == user2Id)
+      user.notificationCount = user.notificationCount + 1;
+      this.setState({users})
+    }
+
+  }
+
 
  // Associated Helper Functions END
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/ 
@@ -235,14 +339,17 @@ class Workspace extends React.Component {
                                  hubConnection={this.state.hubConnection}
                                  workSpaceImg={this.state.workSpaceImg} />
                  {
-                 (this.state.currentChatId) ?
+                //  (this.state.currentChatId) ?
               <ChatComponent 
                 hubConnection={this.state.hubConnection} 
                 userID ={this.state.currentUserID} 
                 chatID={this.state.currentChatId}
+                messages={this.state.currentChatMessages}
+                concatMessage = {this.concatMessage}
+                updateNotifications = {this.updateNotifications}
               />
-              :
-              <WorkSpaceChat />
+              // :
+              // <WorkSpaceChat />
             }
             </div>
           </div>
