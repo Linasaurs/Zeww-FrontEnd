@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import { Redirect } from 'react-router-dom'
 import axios from "axios";
+import config from '../../../../../config'
 
 class SetDefaultWorkspaceHours extends Component {
   constructor(props) {
@@ -25,7 +26,11 @@ class SetDefaultWorkspaceHours extends Component {
         'Authorization': "bearer " + localStorage.getItem('token')
       },
       url:
+<<<<<<< HEAD
         "http://10.0.67.127:8080/api/workspaces" +
+=======
+        `${config.BASE_URL}/workspaces` +
+>>>>>>> Master
         "/WorkspaceDoNotDisturbPeriod/" + this.state.id,
       data: {
         DoNotDisturbFrom: this.state.DoNotDisturbFrom,

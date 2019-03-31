@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom'
 import "./ChangeWorkspacename.css";
 import axios from "axios";
 import withAuthentication from "../../../../../HOC/withAuthentication";
+import config from "../../../../../config"
 const Joi = require("joi");
 
 class ChangeWorkspacename extends Component {
@@ -35,7 +36,11 @@ class ChangeWorkspacename extends Component {
         'Authorization': "bearer " + localStorage.getItem('token')
       },
       url:
+<<<<<<< HEAD
         "http://10.0.67.127:8080/api/workspaces" +
+=======
+        `${config.BASE_URL}/workspaces` +
+>>>>>>> Master
         "/EditWorkspaceName/" +
         this.state.id,
       data: {

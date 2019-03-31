@@ -4,6 +4,7 @@ import axios from 'axios'
 import WorkspaceCreated from '../WorkspaceCreated/WorkspaceCreated';
 import {Redirect, Route} from 'react-router-dom'
 import auth from '../../Services/authService'
+import config from '../../config'
 class CreateWorkspaceFormContainer extends Component { 
     constructor(props){
         super(props)
@@ -25,7 +26,11 @@ class CreateWorkspaceFormContainer extends Component {
         axios(auth.includeAuth({
             method: "post",
             headers: { "Content-Type": "application/json" },
+<<<<<<< HEAD
             url: 'http://10.0.67.127:8080/api/workspaces/CreateWorkspace',
+=======
+            url: `${config.BASE_URL}/workspaces/CreateWorkspace`,
+>>>>>>> Master
             data: _data 
         })).then(res => {  
             console.log(res)
@@ -39,7 +44,6 @@ class CreateWorkspaceFormContainer extends Component {
                 } 
             }
           });
-
     } 
     handleInputChange(event){
      this.setState({

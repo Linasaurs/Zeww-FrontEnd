@@ -3,6 +3,7 @@ import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
 import "./CreateNewChannel.css";
 import axios from "axios";
 import auth from "../../Services/authService";
+import config from '../../config'
 
 const Joi = require("joi");
 
@@ -60,7 +61,11 @@ class CreateNewChannel extends Component {
         axios(
             auth.includeAuth({
                 method: "post",
+<<<<<<< HEAD
                 url: "http://10.0.67.127:8080/api/chats/createnewchannel",
+=======
+                url: `${config.BASE_URL}/chats/createnewchannel`,
+>>>>>>> Master
                 responseType: "json",
                 data: chat
             })

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Button, Modal, ModalHeader, ModalBody} from 'reactstrap';
 import './AddUserToChannel.css'
+import config from '../../../../../config'
 
 class AddUserToChannel extends Component {
     constructor(props) {
@@ -19,7 +20,11 @@ class AddUserToChannel extends Component {
     handleSubmit(event) {
         event.preventDefault();
         this.props.toggleAddUserToChannel();
+<<<<<<< HEAD
         fetch(`http://10.0.67.127:8080/api/chats/AddUserToChannel/${this.props.channelId}`, {
+=======
+        fetch(`${config.BASE_URL}/api/chats/AddUserToChannel/1`, {
+>>>>>>> Master
             method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(this.state.userName)
         }).then(function (response) {
             return response.json();

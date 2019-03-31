@@ -2,14 +2,28 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom"; 
 import UserProfile from '../UserProfile/UserProfile'
 import "./BurgerMenu.css";
-
+import authService from "../../../../../Services/authService"; 
+import axios from 'axios'
 class BurgerMenu extends Component {
   constructor(props) {
     super(props);
-    this.state = { showProfile: false}; 
-    
+    this.state = { showProfile: false, currentUser: null}; 
+    this.getCurrentUserData = this.getCurrentUserData.bind(this);  
+  
+  } 
+  
+  componentDidMount(){
+    this.getCurrentUserData();
   }
-  render() {
+  getCurrentUserData(){ 
+    const currentUser = authService.getCurrentUserId();
+      axios.get(`http://10.0.67.127:8080/api/users/${currentUser}`).then(res=> {
+            this.setState({currentUser:res.data});
+      });
+  } 
+
+  render() { 
+  
     return ( 
       <React.Fragment>
       <div className="userPlaceholder"> 
@@ -17,11 +31,11 @@ class BurgerMenu extends Component {
           <img className="userImg" src={require('../burgermenu/logoplaceholder.svg')}/> 
           <div className="userStatus"> 
             <div style={{display:'flex'}}>
-             <label style={{fontSize: '1.2rem'}}>Zeww User</label>    
+             <label style={{fontSize: '1.2rem'}}>{this.state.currentUser?this.state.currentUser.name:"Zeww User"}</label>    
              </div>
           <div style={{display:'flex'}}>  
               <div className="status"></div>
-              <small>Online</small>
+              <small>{this.state.currentUser?this.state.currentUser.connectionStatus == 0? "Active" : "Away" : "Online"}</small>
           </div> 
           </div>
           </div>
@@ -29,7 +43,7 @@ class BurgerMenu extends Component {
         
         </div>
         <div className="burger-menu-div-ul">  
-          {this.state.showProfile && <UserProfile/> }
+          {this.state.showProfile && <UserProfile userData={this.state.currentUser} /> }
           <ul className="burger-menu-ul">
             <li
               className="burger-menu-li"
