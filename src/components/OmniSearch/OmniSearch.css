@@ -22,7 +22,7 @@
     border-radius: 10px;
 }
 
-li {
+.classTemp {
     background-color: white;
     border-radius: 10px;
     width: inherit - 1rem;
