@@ -15,7 +15,7 @@ import ChatComponent from './ChatComponent'
 import AddUserToChannel from './burger_menu/components/adduserToChannel/AddUserToChannel'
 import config from '../../config'
 const signalR = require("@aspnet/signalr");
-const BASE_URL = config.BASE_URL;
+const BASE_URL = config.BASE_URL+"/";
 
 class Workspace extends React.Component {
   constructor(props) {
@@ -81,7 +81,7 @@ class Workspace extends React.Component {
  fetchNotifications= () =>{
   axios(auth.includeAuth({
     method: 'get',
-    url: `${BASE_URL}workspaces/GetUnseenMessagesCountPerChat/${this.state.CurrentWorkspace.Id}`,
+    url: `${BASE_URL}workspaces/GetUnseenMessagesCountPerChat/${(this.state.CurrentWorkspace["id"] || this.state.CurrentWorkspace["Id"])}`,
 
   }))
   .then(response =>{
@@ -174,7 +174,7 @@ class Workspace extends React.Component {
 
   OnWorkspaceConnect = () => {
     this.state.hubConnection
-      .invoke('OnWorkspaceConnect', this.state.currentUserID,this.state.CurrentWorkspace.Id)
+      .invoke('OnWorkspaceConnect', this.state.currentUserID,(this.state.CurrentWorkspace["id"] || this.state.CurrentWorkspace["Id"]))
       .catch(err => console.error(err));
   };
 
@@ -248,27 +248,19 @@ class Workspace extends React.Component {
 
   }
 
-
-  // getUsersByWorkspaceId() {
-  //   var config = {
-  //     headers: {
-  //       Authorization: "bearer " + localStorage.getItem('token')
-  //     }
-  //   };
-  //   axios
-  //     .get(
-  //       `http://localhost:5000/api/workspaces/getusersbyworkspaceid/${this.state.CurrentWorkspace.Id}`,
-  //       config
-  //     )
-  //     .then(x => this.setState({ users: x.data }));
-  // }
-
+  concatenateChatinChannelList = (chat) =>{
+    console.log(chat);
+    let tempChannels = this.state.channels;
+    tempChannels.push(chat);
+    this.OnWorkspaceConnect();
+    this.setState({channels: tempChannels, currentChatId: chat.id });
+  }
 
   componentDidMount() {
     if(this.state.CurrentWorkspace!==undefined&&this.state.isLoading){
       axios(auth.includeAuth({
         method: 'get',
-        url: BASE_URL + `workspaces/GetUsersByWorkspaceId/${this.state.CurrentWorkspace.Id}`,
+        url: BASE_URL + `workspaces/GetUsersByWorkspaceId/${(this.state.CurrentWorkspace["id"] || this.state.CurrentWorkspace["Id"])}`,
     }))
         .then(response => {
             this.setState({
@@ -315,27 +307,6 @@ class Workspace extends React.Component {
        }).catch(err => console.log('Error while establishing connection :('));
        });
        
-       axios(auth.includeAuth({
-        method: 'get',
-        url: `${BASE_URL}chats/GetAllChannelsInsideWorkspace?workspaceId=${this.state.CurrentWorkspace.Id}`,
-  
-      }))
-     .then(response => {
-       //join user to groups available 
-        this.setState({
-          channels: response.data.filter(chat => !chat.isPrivate),
-          directMessages: response.data.filter(chat => chat.isPrivate)}, () => {
-            this.fetchNotifications()
-              // this.setState({currentChatId: this.state.channels[0].id})
-              if(this.state.channels.length != 0)
-                this.setCurrentChatId(this.state.channels[0].id)
-            } 
-          )
-      })
-      .catch(error =>{
-        console.log(error)
-      });
-
       setTimeout(
         function() {
           this.setState({ isLoading: false });
@@ -347,7 +318,7 @@ class Workspace extends React.Component {
   if(this.state.CurrentWorkspace!==undefined&&this.state.isLoading){
     axios(auth.includeAuth({
       method: 'get',
-      url: BASE_URL + `workspaces/GetUsersByWorkspaceId/${this.state.CurrentWorkspace.Id}`,
+      url: BASE_URL + `workspaces/GetUsersByWorkspaceId/${(this.state.CurrentWorkspace["id"] || this.state.CurrentWorkspace["Id"])}`,
   }))
       .then(response => {
           this.setState({
@@ -374,7 +345,47 @@ class Workspace extends React.Component {
       
         console.log(error)
      })
-  }   }
+
+     axios(auth.includeAuth({
+      method: 'get',
+      url: `${BASE_URL}chats/GetAllChannelsInsideWorkspace?workspaceId=${(this.state.CurrentWorkspace["id"] || this.state.CurrentWorkspace["Id"])}`,
+
+    }))
+   .then(response => {
+     //join user to groups available 
+      this.setState({
+        channels: response.data.filter(chat => !chat.isPrivate),
+        directMessages: response.data.filter(chat => chat.isPrivate)}, () => {
+          this.fetchNotifications()
+            // this.setState({currentChatId: this.state.channels[0].id})
+            if(this.state.channels.length != 0)
+              this.setCurrentChatId(this.state.channels[0].id)
+            else if(this.state.directMessages.length != 0)
+              this.setCurrentChatId(this.state.directMessages[0].id)
+          } 
+        )
+    })
+    .catch(error =>{
+      console.log(error)
+    });
+  }   
+  if(this.state.CurrentWorkspace===undefined){
+    axios(auth.includeAuth({
+      method: 'get',
+      url: BASE_URL + `workspaces/getworkspaceById/${this.props.match.params.id}`,
+  }))
+      .then(response => {
+          this.setState({
+           CurrentWorkspace:response.data
+          })
+       
+     })
+      .catch(error => {
+      
+        console.log(error)
+     })
+     
+   }}
   componentWillMount(){
     if(this.state.CurrentWorkspace===undefined){
       axios(auth.includeAuth({
@@ -435,7 +446,8 @@ class Workspace extends React.Component {
                                  channels={this.state.channels}
                                  hubConnection={this.state.hubConnection}
                                  workSpaceImg={this.state.workSpaceImg}
-                                 workspaceId={this.props.match.params.id} />
+                                 workspaceId={this.props.match.params.id}
+                                 concatenateChatinChannelList={this.concatenateChatinChannelList} />
             <ChatComponent 
               hubConnection={this.state.hubConnection} 
               userID ={this.state.currentUserID} 
