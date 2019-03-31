@@ -46,8 +46,8 @@ class CreateNewChannel extends Component {
     handleSubmit(event) {
         event.preventDefault();
         console.log("Submit pressed!");
-        if (this.state.result.error != null)
-            alert("Channel name is not a valid name!");
+        // if (this.state.result.error != null)
+        //      alert("Channel name is not a valid name!");
 
         var chat = {};
         chat.workspaceId = this.state.workspaceId;
@@ -66,6 +66,7 @@ class CreateNewChannel extends Component {
                 data: chat
             })
         ).then(function(response) {
+            self.props.concatenateChatinChannelList(response.data[0])
             self.props.toggle();
         });
     }

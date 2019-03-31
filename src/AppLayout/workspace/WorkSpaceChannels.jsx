@@ -28,7 +28,7 @@ export default class WorkSpaceChannels extends React.Component {
                 <Row className="workspace-body-title">
                     Channels
            <button onClick={this.toggle.bind(this)} className="showModal"><FontAwesomeIcon icon={faPlusCircle}/></button>
-            <CreateNewChannel toggle={this.toggle.bind(this)} createNewWorkspaceModalVisible={this.state.createNewWorkspaceModalVisible} workspaceId={this.props.workspaceId} />
+            <CreateNewChannel concatenateChatinChannelList={this.props.concatenateChatinChannelList} toggle={this.toggle.bind(this)} createNewWorkspaceModalVisible={this.state.createNewWorkspaceModalVisible} workspaceId={this.props.workspaceId} />
                 </Row>
                 <Row className="workspace-body-information">
                     <DirectMessagesOrChannelsComponent title="Channels"

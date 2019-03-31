@@ -30,7 +30,7 @@ export default class NameTagComponant extends React.Component {
     userClicked = (userId) => {
       axios(auth.includeAuth({
         method: 'get',
-        url: `${BASE_URL}/users/getprivatechat/${userId}/${this.props.CurrentWorkspace.Id}`,
+        url: `${BASE_URL}/users/getprivatechat/${userId}/${(this.props.CurrentWorkspace["id"] || this.props.CurrentWorkspace["Id"])}`,
       }))
       .then(response => {
         console.log(response.data)

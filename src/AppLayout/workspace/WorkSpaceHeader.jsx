@@ -31,7 +31,6 @@ export default class WorkSpaceHeader extends React.Component {
                         </div>
                     </Col>
                     <Col id="workspace-header-icons" xs="2">
-                    {console.log( this.props.WorkspaceId)}
                      <OmniSearch workspaceId={this.props.WorkspaceId}/>
                         <span onClick={() => this.props.onSetSidebarOpen(true)}> <FontAwesomeIcon icon={faBars} /> </span>
                     </Col>
