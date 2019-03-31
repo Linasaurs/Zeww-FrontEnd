@@ -52,7 +52,7 @@ export default class OmniSearch extends Component {
     render() {
         return (
             <React.Fragment>
-                <div className="input-group">
+                <div className="input-group input-groups">
                     <input
                         name="searchQuery"
                         placeholder="Search for anything!"

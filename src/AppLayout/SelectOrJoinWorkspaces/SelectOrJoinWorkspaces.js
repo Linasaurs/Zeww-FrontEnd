@@ -32,7 +32,7 @@ class SelectOrJoinWorkspaces extends Component {
                </React.Fragment>} 
            </React.Fragment>
         );
-    }
+     }
 }
 
 export default withAuthentication(SelectOrJoinWorkspaces)
