@@ -5,6 +5,7 @@ import './ListofWorkspacesPage.css'
 import auth from '../../Services/authService';
 import axios from "axios";
 import withAuthentication from '../../HOC/withAuthentication';
+import configuration from '../../config'
 
 
 class SelectOrJoinWorkspaces extends Component {
@@ -14,7 +15,7 @@ class SelectOrJoinWorkspaces extends Component {
            headers: { 'Authorization': "bearer " + localStorage.getItem('token')
           }
          };
-         axios.get(`http://localhost:5000/api/users/GetworkspacesbyUserId/${auth.getCurrentUserId()}`, config).then(x => this.setState({ workspaces: x.data ,isloading:false}));
+         axios.get(`${configuration.BASE_URL}/users/GetworkspacesbyUserId/${auth.getCurrentUserId()}`, config).then(x => this.setState({ workspaces: x.data ,isloading:false}));
 
     }
     render () {

@@ -2,7 +2,8 @@ import React from 'react';
 import './DirectMessage.css';
 import auth from '../../Services/authService';
 import axios from 'axios'
-const BASE_URL = "http://localhost:5000/api"
+import config from '../../config'
+const BASE_URL = config.BASE_URL
 
 export default class NameTagComponant extends React.Component {
     handleClick = () => {

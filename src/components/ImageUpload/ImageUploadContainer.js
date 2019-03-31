@@ -3,6 +3,7 @@ import ImageUpload from './ImageUpload';
 import axios, { post } from 'axios'; 
 import auth from '../../Services/authService' 
 import {Link} from 'react-router-dom'
+import configuration from '../../config'
 class ImageUploadContainer extends Component { 
     constructor(props){
         super(props)
@@ -15,7 +16,7 @@ class ImageUploadContainer extends Component {
         this.setState({file:e.target.files[0]})
       }
     uploadImage(file) {  
-       const url = `http://localhost:5000/api/workspaces/Upload/${this.props.wsId}`
+       const url = `${configuration.BASE_URL}/workspaces/Upload/${this.props.wsId}`
        const formData = new FormData();
        formData.append('file',file)
        const config = {

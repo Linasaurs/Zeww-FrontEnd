@@ -1,7 +1,8 @@
 import axios from "axios";
 import jwtDecode from "jwt-decode";
+import config from '../config'
 
-const USERS_BASE_URL = "http://localhost:5000/api/users"; //"http://localhost:5000/api/users";
+const USERS_BASE_URL = `${config.BASE_URL}/users`;
 
 async function login(email, password) {
     const { data: jwt } = await axios({
