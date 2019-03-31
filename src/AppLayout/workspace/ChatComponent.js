@@ -123,9 +123,12 @@ class ChatComponent extends Component {
         <div className="scrollableContainer">
           {this.props.messages.map(({message,userName}, index) => (
             <Message
-                  key={index} 
-                  userName={userName} 
+                  key={index}
+                  senderId = {message.senderID}
+                  messageId = {message.id}
+                  userName={userName}
                   messageText={message.messageContent} 
+                  likeCount= {message.likeCount}
                   currentTime={this.standardizeTimeStamp(message.timeStamp)}
             />
           ))}
