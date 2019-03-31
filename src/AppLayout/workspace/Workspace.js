@@ -298,7 +298,7 @@ class Workspace extends React.Component {
        })}
 
        let hubConnection = new signalR.HubConnectionBuilder()
-       .withUrl(`http://10.0.67.127:8080/chat`)
+       .withUrl("http://10.0.67.127:8080/chat") //http://localhost:5000/chat
        .build();
    
        this.setState({
@@ -423,7 +423,7 @@ class Workspace extends React.Component {
               workspaceName={this.state.CurrentWorkspace.WorkspaceName}
               channelName={this.state.channelName}
               onSetSidebarOpen={this.onSetSidebarOpen} 
-              // workSpaceImg={this.props.location.state.workSpaceImg}
+              workSpaceImg={this.props.location.state? this.props.location.state.workSpaceImg : require('./imgs/logoplaceholder.svg')}
             />
 
             <div id="workspace-body">

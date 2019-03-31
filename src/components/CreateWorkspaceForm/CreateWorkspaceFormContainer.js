@@ -40,7 +40,6 @@ class CreateWorkspaceFormContainer extends Component {
                 } 
             }
           });
-
     } 
     handleInputChange(event){
      this.setState({
