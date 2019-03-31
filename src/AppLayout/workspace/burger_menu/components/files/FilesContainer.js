@@ -3,13 +3,14 @@ import FileTemplate from './FileTemplate'
 import Axios from 'axios'
 import './file.css'
 import 'bootstrap/dist/css/bootstrap.css'
+import config from '../../../../../config'
 
 class FilesContainer extends Component
 {
 
     fetchData()
     {
-        Axios.get(`http://localhost:5000/api/chats/GetFiles/wael`)
+        Axios.get(`${config.BASE_URL}/chats/GetFiles/wael`)
         .then(res => {
           console.log(res.data);
           this.props.getfiles(res.data);
