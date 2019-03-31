@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.css'
-import DirectMessagesComponant from './DirectMessagesComponant';
+import DirectMessagesOrChannelsComponent from './DirectMessagesOrChannelsComponent';
  class Profile extends React.Component {
     constructor(props) {
         super(props)
@@ -14,7 +14,7 @@ import DirectMessagesComponant from './DirectMessagesComponant';
         var config = {
           headers: {'Authorization': "bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjgiLCJuYmYiOjE1NTIzMTMyOTYsImV4cCI6MTU1MjkxODA5NiwiaWF0IjoxNTUyMzEzMjk2fQ.WvHOnsYCgtNFSEmoxzB_h0h09XRBkx0SGIZekKpGYoI"}
       };
-        var users = axios.get("https://localhost:44346/api/workspaces/getusersbyworkspaceid/3",config).then(x => x.data);
+        var users = axios.get("http://localhost:5000/api/workspaces/getusersbyworkspaceid/3",config).then(x => x.data);
         
         this.setState({users:users})
       }

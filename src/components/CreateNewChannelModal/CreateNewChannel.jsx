@@ -60,7 +60,7 @@ class CreateNewChannel extends Component {
         axios(
             auth.includeAuth({
                 method: "post",
-                url: "http://10.0.67.127:8080/api/chats/createnewchannel",
+                url: "http://localhost:5000/api/chats/createnewchannel",
                 responseType: "json",
                 data: chat
             })
