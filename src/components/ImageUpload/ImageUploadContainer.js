@@ -15,7 +15,7 @@ class ImageUploadContainer extends Component {
         this.setState({file:e.target.files[0]})
       }
     uploadImage(file) {  
-       const url = `http://localhost:5000/api/workspaces/Upload/${this.props.wsId}`
+       const url = `http://10.0.67.127:8080/api/workspaces/Upload/${this.props.wsId}`
        const formData = new FormData();
        formData.append('file',file)
        const config = {
