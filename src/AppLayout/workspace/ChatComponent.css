@@ -48,3 +48,15 @@
   {
     /* overflow-y: scroll; */
   }
+  .message-buttons{
+    display: inline-flex;
+    margin-left: auto;
+  }
+  
+  .displayNone{
+    display: none;
+  }
+  
+  .editableMessageText{
+    width:90vw;
+  }
