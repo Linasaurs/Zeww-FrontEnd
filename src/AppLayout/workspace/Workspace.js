@@ -15,7 +15,7 @@ import ChatComponent from './ChatComponent'
 import AddUserToChannel from './burger_menu/components/adduserToChannel/AddUserToChannel'
 import config from '../../config'
 const signalR = require("@aspnet/signalr");
-const BASE_URL = config.BASE_URL;
+const BASE_URL = config.BASE_URL+"/";
 
 class Workspace extends React.Component {
   constructor(props) {
@@ -253,7 +253,7 @@ class Workspace extends React.Component {
     let tempChannels = this.state.channels;
     tempChannels.push(chat);
     this.OnWorkspaceConnect();
-    this.setState({channels: tempChannels });
+    this.setState({channels: tempChannels, currentChatId: chat.id });
   }
 
   componentDidMount() {
@@ -360,6 +360,8 @@ class Workspace extends React.Component {
             // this.setState({currentChatId: this.state.channels[0].id})
             if(this.state.channels.length != 0)
               this.setCurrentChatId(this.state.channels[0].id)
+            else if(this.state.directMessages.length != 0)
+              this.setCurrentChatId(this.state.directMessages[0].id)
           } 
         )
     })

@@ -32,7 +32,7 @@ class ChatComponent extends Component {
 
       this.fetchUsername(userID).then(res => {
         console.log(res)
-        this.setState({userName:res.data.name})
+        this.setState({userName:res.data.userName})
       });
 
       this.state.hubConnection.on('ReceiveMessage', (userID, receivedMessage, chatID) => {
@@ -45,7 +45,7 @@ class ChatComponent extends Component {
         
         const text = `${receivedMessage}`;
         this.fetchUsername(userID).then(res => {
-          var senderName = res.data.name
+          var senderName = res.data.userName
           const singleMessage = { 
             message:{
               "senderID": userID,
