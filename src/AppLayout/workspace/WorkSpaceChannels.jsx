@@ -4,7 +4,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import DirectMessagesOrChannelsComponent from "../../components/Direct Messages Component/DirectMessagesOrChannelsComponent";
-import {Link} from 'react-router-dom'
+// import {Link} from 'react-router-dom'
 import CreateNewChannel from "../../components/CreateNewChannelModal/CreateNewChannel";
 import './WorkspaceChannel.css'
 library.add(faPlusCircle);

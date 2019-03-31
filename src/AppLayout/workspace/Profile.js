@@ -1,9 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+// import ReactDOM from 'react-dom';
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.css'
 import configuration from '../../config'
-import DirectMessagesOrChannelsComponent from './DirectMessagesOrChannelsComponent';
+// import DirectMessagesOrChannelsComponent from './DirectMessagesOrChannelsComponent';
  class Profile extends React.Component {
     constructor(props) {
         super(props)

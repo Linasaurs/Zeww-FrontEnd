@@ -4,6 +4,7 @@ import { Container, Row, Col } from "reactstrap";
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faInfoCircle, faBars } from '@fortawesome/free-solid-svg-icons'
+import OmniSearch from "../../components/OmniSearch/OmniSearch";
 
 library.add(faInfoCircle)
 library.add(faBars)
@@ -14,8 +15,9 @@ export default class WorkSpaceHeader extends React.Component {
         workspaceName: this.props.workspaceName,
         channelName: this.props.channelName,
     }
-
+    
     render() {
+        
         return (
             <Container fluid className="class-sticky">
                 <Row id="workspace-header">
@@ -29,7 +31,7 @@ export default class WorkSpaceHeader extends React.Component {
                         </div>
                     </Col>
                     <Col id="workspace-header-icons" xs="2">
-                        <FontAwesomeIcon icon={faInfoCircle} />
+                     <OmniSearch workspaceId={this.props.WorkspaceId}/>
                         <span onClick={() => this.props.onSetSidebarOpen(true)}> <FontAwesomeIcon icon={faBars} /> </span>
                     </Col>
                 </Row>

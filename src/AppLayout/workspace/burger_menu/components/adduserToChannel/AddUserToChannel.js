@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Button, Modal, ModalHeader, ModalBody} from 'reactstrap';
 import './AddUserToChannel.css'
 import config from '../../../../../config'
+import auth from '../../../../../Services/authService'
+import axios from 'axios'
 
 class AddUserToChannel extends Component {
     constructor(props) {
@@ -16,21 +18,40 @@ class AddUserToChannel extends Component {
     handleChange(event) {
         this.setState({ userName: event.target.value });
     }
-
     handleSubmit(event) {
+        alert(this.state.userName)
         event.preventDefault();
-        this.props.toggleAddUserToChannel();
-        fetch(`${config.BASE_URL}/api/chats/AddUserToChannel/1`, {
-            method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(this.state.userName)
-        }).then(function (response) {
-            return response.json();
-        }).then(function (data) {
-            console.log('Created: ', data);
-        });
-        this.setState({
-            userName: ""
-        });
+        
+        axios(
+            auth.includeAuth({
+                method: "post",
+                url: `${config.BASE_URL}/chats/AddUserToChannel/${this.props.channelId}`,
+                responseType: "json",
+                headers: { 'Content-Type': 'text/plain' },
+                data: JSON.stringify({userName:this.state.userName})
+            })
+        ).then(function(response) {
+         
+            // self.props.concatenateChatinChannelList(response.data[0])
+            // self.props.toggle();
+        })
     }
+
+    // handleSubmit(event) {
+    //     event.preventDefault();
+    //     this.props.toggleAddUserToChannel();
+    //     fetch(auth.includeAuth( {
+    //         url:`${config.BASE_URL}/chats/AddUserToChannel/${this.props.channelId}`,
+    //         method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(this.state.userName)
+    //     })).then(function (response) {
+    //         return response.json();
+    //     }).then(function (data) {
+    //         console.log('Created: ', data);
+    //     });
+    //     this.setState({
+    //         userName: ""
+    //     });
+    // }
 
     render() {
         return (

@@ -52,7 +52,7 @@ export default class OmniSearch extends Component {
     render() {
         return (
             <React.Fragment>
-                <div className="input-group">
+                <div className="input-group input-groups">
                     <input
                         name="searchQuery"
                         placeholder="Search for anything!"
@@ -76,13 +76,13 @@ export default class OmniSearch extends Component {
                 <section className="section">
                     <ul className="search-results">
                         {this.state.returnedUsers.map(item => (
-                            <li key={item.id}>{item.name}</li>
+                            <li className="classTemp" key={item.id}>{item.name}</li>
                         ))}
                     </ul>
                     {this.state.returnedChannels && (
                         <ul className="search-results">
                             {this.state.returnedChannels.map(item => (
-                                <li key={item.id}>{item.name}</li>
+                                <li className="classTemp" key={item.id}>{item.name}</li>
                             ))}
                         </ul>
                     )}

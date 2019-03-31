@@ -9,14 +9,12 @@
     background-color: #ffeb3b;
 }
 
-.input-group {
+.input-groups {
     width: 19rem;
     height: 3rem;
-    border: #ffeb3b 1px solid;
 }
 
 .search-results {
-    border: 1px solid #ffeb3b;
     background-color: #ffface;
     position: absolute;
     margin-left: 1rem;
@@ -24,7 +22,7 @@
     border-radius: 10px;
 }
 
-li {
+.classTemp {
     background-color: white;
     border-radius: 10px;
     width: inherit - 1rem;

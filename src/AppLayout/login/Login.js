@@ -18,7 +18,7 @@ class Login extends Component {
     render() {  
         return ( 
             <React.Fragment>
-                {this.state.loginSucceeded? <Redirect to="/workspaces"/>:
+                {this.state.loginSucceeded? <Redirect to="/workspace"/>:
                 <div id="loginComponent">
                 <h2>Login</h2>
                 <form>

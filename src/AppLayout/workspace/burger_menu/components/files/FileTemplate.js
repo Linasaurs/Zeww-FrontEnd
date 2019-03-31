@@ -20,7 +20,7 @@ const FileTemplate = ({name , sender , timestamp , extension , image , download 
                     </div>
                 </div>
                 <div className="file-buttons float-right">
-                    <span onClick={()=>download(downloadUrl)}>
+                    <span onClick={()=>download(name,extension)}>
                         <FontAwesomeIcon 
                                 className="file-download-button" 
                                 size='lg'
