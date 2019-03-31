@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import './Signup.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import { Redirect } from 'react-router';
+import config from '../../config';
 
 import axios from 'axios';
 const Joi = require('joi');
-const USERS_BASE_URL = "http://10.0.67.127:8080/api/users"
+const USERS_BASE_URL = `${config.BASE_URL}/users`
 
 class Signup extends Component {
     constructor(props) {
