@@ -25,7 +25,7 @@ class CreateWorkspaceFormContainer extends Component {
         axios(auth.includeAuth({
             method: "post",
             headers: { "Content-Type": "application/json" },
-            url: 'http://localhost:5000/api/workspaces/CreateWorkspace',
+            url: 'http://10.0.67.127:8080/api/workspaces/CreateWorkspace',
             data: _data 
         })).then(res => {  
             console.log(res)
@@ -39,7 +39,6 @@ class CreateWorkspaceFormContainer extends Component {
                 } 
             }
           });
-
     } 
     handleInputChange(event){
      this.setState({
