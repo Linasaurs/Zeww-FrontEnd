@@ -24,7 +24,7 @@ class Routing extends Component {
                 <MainNavLayout path="/login" render={()=><Login/>}/>   
                 <MainNavLayout path="/createWorkspace" render={()=><CreateWorkspace/>}/> 
                 <MainNavLayout path="/created/:id"  render={(props)=><WorkspaceCreated data={props.location.state} id={props.match.params.id}/>} /> 
-                <MainNavLayout path="/workspaces" render={()=><SelectOrJoinWorkspaces/>}/>
+                <MainNavLayout path="/workspace" render={()=><SelectOrJoinWorkspaces/>}/>
                 <Route path="/workspace/:id" render={(props)=><Workspace {...props}/>}/>   
                 <Route path="/" render={() => <Home />} exact />
                 <Route path="/why-zeww" render={() => <WhyZeww />} exact />

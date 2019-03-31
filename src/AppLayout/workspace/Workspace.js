@@ -431,7 +431,7 @@ class Workspace extends React.Component {
             />
 
             <WorkSpaceHeader
-              workspaceName={this.state.CurrentWorkspace.WorkspaceName}
+              workspaceName={this.state.CurrentWorkspace.WorkspaceName ||this.props.location.state.wsName}
               channelName={this.state.channelName}
               onSetSidebarOpen={this.onSetSidebarOpen} 
               workSpaceImg={this.props.location.state? this.props.location.state.workSpaceImg : require('./imgs/logoplaceholder.svg')}
