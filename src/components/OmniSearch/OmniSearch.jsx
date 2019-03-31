@@ -1,8 +1,5 @@
 import React, { Component } from "react";
 import "./OmniSearch.css";
-import { Button } from "reactstrap";
-import InputGroup from "react-bootstrap/InputGroup";
-import FormControl from "react-bootstrap/FormControl";
 import axios from "axios";
 import auth from "../../Services/authService";
 
@@ -11,7 +8,9 @@ export default class OmniSearch extends Component {
         super(props);
         this.state = {
             workspaceId: this.props.workspaceId,
-            searchQuery: ""
+            searchQuery: "",
+            returnedChannels: [],
+            returnedUsers: []
         };
     }
 
@@ -27,43 +26,66 @@ export default class OmniSearch extends Component {
     }
 
     handleSearch() {
+        var workspaceIdToSearchIn = this.state.workspaceId;
+        var searchQueryToSearchWith = this.state.searchQuery;
+        var self = this;
         axios(
             auth.includeAuth({
                 method: "get",
-                url: "http://10.0.67.127:8080/api/workspaces/OmniSearch",
-                responseType: "json",
-                data: {
-                    workspaceId: this.state.workspaceId,
-                    searchQuery: this.state.searchQuery
-                }
+                url: `http://10.0.67.127:8080/api/workspaces/omnisearch?searchQuery=${searchQueryToSearchWith}&workspaceId=${workspaceIdToSearchIn}`,
+                responseType: "json"
+                // data: {
+                //     searchQuery: searchQueryToSearchWith
+                //     workspaceId: workspaceIdToSearchIn
+                // }
             })
         ).then(function(response) {
             console.log(response.data);
+            self.setState({
+                returnedChannels: response.data.returnedChannels,
+                returnedUsers: response.data.returnedUsers
+            });
         });
     }
 
     render() {
         return (
             <React.Fragment>
-                <InputGroup className="mb-3">
-                    <FormControl
+                <div className="input-group">
+                    <input
                         name="searchQuery"
                         placeholder="Search for anything!"
                         aria-label="search"
-                        className="search-bar"
                         aria-describedby="basic-addon2"
                         onChange={this.handleChange.bind(this)}
+                        className="form-control search-form"
                     />
-                    <InputGroup.Append>
-                        <Button
-                            variant="outline-secondary"
-                            className="search-btn"
+                    <span className="input-group-btn">
+                        <button
+                            type="submit"
+                            className="btn search-btn"
+                            data-target="#search-form"
+                            name="search-button"
                             onClick={this.handleSearch.bind(this)}
                         >
-                            Search
-                        </Button>
-                    </InputGroup.Append>
-                </InputGroup>
+                            <i className="fa fa-search" />
+                        </button>
+                    </span>
+                </div>
+                <section className="section">
+                    <ul className="search-results">
+                        {this.state.returnedUsers.map(item => (
+                            <li key={item.id}>{item.name}</li>
+                        ))}
+                    </ul>
+                    {this.state.returnedChannels && (
+                        <ul className="search-results">
+                            {this.state.returnedChannels.map(item => (
+                                <li key={item.id}>{item.name}</li>
+                            ))}
+                        </ul>
+                    )}
+                </section>
             </React.Fragment>
         );
     }

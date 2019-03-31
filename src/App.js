@@ -7,7 +7,7 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-                <OmniSearch workspaceId={1} />
+                <OmniSearch workspaceId={12} />
             </div>
         );
     }
