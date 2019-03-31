@@ -25,7 +25,7 @@ export default class WorkSpaceHeader extends React.Component {
                     </Col>
                     <Col>
                         <div id="workspace-header-channeltitle">
-                            {this.state.channelName}
+                            {this.props.channelName}
                         </div>
                     </Col>
                     <Col id="workspace-header-icons" xs="2">
