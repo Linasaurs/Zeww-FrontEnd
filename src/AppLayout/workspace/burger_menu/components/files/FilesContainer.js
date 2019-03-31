@@ -1,19 +1,24 @@
 import React, {Component} from 'react'
 import FileTemplate from './FileTemplate'
-import Axios from 'axios'
+import axios from 'axios'
 import './file.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import config from '../../../../../config'
+import auth from '../../../../../Services/authService'
+const BASE_URL = config.BASE_URL+"/";
 
 class FilesContainer extends Component
 {
 
     fetchData()
     {
-        Axios.get(`${config.BASE_URL}/chats/GetFiles/wael`)
-        .then(res => {
-          console.log(res.data);
-          this.props.getfiles(res.data);
+        var currentChannelName = this.props.currentChannel.name;
+        axios(auth.includeAuth({
+            method: 'get',
+            url: `${BASE_URL}chats/GetFiles/${currentChannelName}`,
+          })).then(response => {
+            console.log(response.data);
+          this.props.getfiles(response.data);
         })
     }
 
@@ -22,18 +27,25 @@ class FilesContainer extends Component
        this.fetchData()
     }
 
-    download(downloadUrl)
+    download(fileName)
     {
-        //api call to download
-        console.log(downloadUrl);
-    }
+        var fileToDownload = fileName
+        console.log(fileToDownload)
+        axios({
+            method: 'get',
+            url: `${BASE_URL}users/download/${fileToDownload}`,
+          })
+        }
 
     render()
     {
         const {files} = this.props
         if(files.length < 1)
         {
-            return(<h1>No Files</h1>)
+            return(<div className="container files-container">
+                    <h1>No Files</h1>
+                    </div>
+                    )
         }
         else
         {

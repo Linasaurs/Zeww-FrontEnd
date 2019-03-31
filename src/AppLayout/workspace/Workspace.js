@@ -140,12 +140,14 @@ class Workspace extends React.Component {
   };
 
   burgerMenuComponentSwitch() {
+    var currentChannel = this.state.channels.find(channel => channel.id == this.state.currentChatId);
     if (this.state.filesContainerOpen) {
       return (
         <FilesContainer
           files={this.state.files}
           getfiles={this.setFiles}
           toggleFilesContainer={this.toggleFilesContainer}
+          currentChannel = {currentChannel}
         />
       );
     } else {
@@ -432,7 +434,7 @@ class Workspace extends React.Component {
             />
 
             <WorkSpaceHeader
-              workspaceName={this.state.CurrentWorkspace.WorkspaceName}
+              workspaceName={this.state.CurrentWorkspace.WorkspaceName ||this.props.location.state.wsName}
               channelName={this.state.channelName}
               onSetSidebarOpen={this.onSetSidebarOpen} 
               WorkspaceId={this.state.CurrentWorkspace.Id || this.state.CurrentWorkspace.id}
