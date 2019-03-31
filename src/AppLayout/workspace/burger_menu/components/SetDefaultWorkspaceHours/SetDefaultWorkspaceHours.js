@@ -25,7 +25,7 @@ class SetDefaultWorkspaceHours extends Component {
         'Authorization': "bearer " + localStorage.getItem('token')
       },
       url:
-        "http://localhost:5000/api/workspaces" +
+        "http://10.0.67.127:8080/api/workspaces" +
         "/WorkspaceDoNotDisturbPeriod/" + this.state.id,
       data: {
         DoNotDisturbFrom: this.state.DoNotDisturbFrom,

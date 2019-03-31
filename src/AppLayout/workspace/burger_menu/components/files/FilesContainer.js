@@ -9,7 +9,7 @@ class FilesContainer extends Component
 
     fetchData()
     {
-        Axios.get(`http://localhost:5000/api/chats/GetFiles/wael`)
+        Axios.get(`http://10.0.67.127:8080/api/chats/GetFiles/wael`)
         .then(res => {
           console.log(res.data);
           this.props.getfiles(res.data);

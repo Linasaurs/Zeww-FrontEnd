@@ -16,7 +16,7 @@ class ViewChannelDetails extends Component {
 
 
   fetchData() {
-    /*Axios.get(`https://localhost:5000/api/chats/GetChannelDetails/1`).then(
+    Axios.get(`http://10.0.67.127:8080/api/chats/GetChannelDetails/${this.props.channelId}`).then(
       res => {
         // console.log(res.data);
         var channelDetailObject = new Object();
@@ -25,10 +25,10 @@ class ViewChannelDetails extends Component {
         channelDetailObject.purpose = res.data.chatDetails.purpose;
         channelDetailObject.creator = res.data.chatDetails.creatorID;
         channelDetailObject.numberOfMembers = res.data.numberOfUsers;
-        // console.log(channelDetailObject);
+        console.log("channelDetail::",channelDetailObject);
         this.props.setChannelDetails(channelDetailObject);
       }
-    );*/
+    );
   }
 
   toggle() {

@@ -14,7 +14,7 @@ import DirectMessagesOrChannelsComponent from './DirectMessagesOrChannelsCompone
         var config = {
           headers: {'Authorization': "bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjgiLCJuYmYiOjE1NTIzMTMyOTYsImV4cCI6MTU1MjkxODA5NiwiaWF0IjoxNTUyMzEzMjk2fQ.WvHOnsYCgtNFSEmoxzB_h0h09XRBkx0SGIZekKpGYoI"}
       };
-        var users = axios.get("http://localhost:5000/api/workspaces/getusersbyworkspaceid/3",config).then(x => x.data);
+        var users = axios.get("http://10.0.67.127:8080/api/workspaces/getusersbyworkspaceid/3",config).then(x => x.data);
         
         this.setState({users:users})
       }

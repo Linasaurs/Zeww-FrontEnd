@@ -256,7 +256,7 @@ class Workspace extends React.Component {
   //   };
   //   axios
   //     .get(
-  //       `http://localhost:5000/api/workspaces/getusersbyworkspaceid/${this.state.CurrentWorkspace.Id}`,
+  //       `http://10.0.67.127:8080/api/workspaces/getusersbyworkspaceid/${this.state.CurrentWorkspace.Id}`,
   //       config
   //     )
   //     .then(x => this.setState({ users: x.data }));
@@ -297,7 +297,7 @@ class Workspace extends React.Component {
        })}
 
        let hubConnection = new signalR.HubConnectionBuilder()
-       .withUrl("http://10.0.67.127:8080/chat") //http://localhost:5000/chat
+       .withUrl("http://10.0.67.127:8080/chat") //http://10.0.67.127:8080/chat
        .build();
    
        this.setState({
@@ -373,7 +373,25 @@ class Workspace extends React.Component {
       
         console.log(error)
      })
-  }   }
+  }   
+  if(this.state.CurrentWorkspace===undefined){
+    axios(auth.includeAuth({
+      method: 'get',
+      url: BASE_URL + `workspaces/getworkspaceById/${this.props.match.params.id}`,
+  }))
+      .then(response => {
+          this.setState({
+           CurrentWorkspace:response.data
+          })
+       
+     })
+      .catch(error => {
+      
+        console.log(error)
+     })
+     
+   }
+}
   componentWillMount(){
     if(this.state.CurrentWorkspace===undefined){
       axios(auth.includeAuth({
@@ -411,6 +429,7 @@ class Workspace extends React.Component {
               setChannelDetails={this.setChannelDetails}
               toggle={this.state.viewChannelDetailsToggle}
               toggleViewChannelDetails={this.toggleViewChannelDetails}
+              channelId={this.state.currentChatId}
             />
 {console.log(this.state.currentChatId)}
             <AddUserToChannel
@@ -423,6 +442,7 @@ class Workspace extends React.Component {
               workspaceName={this.state.CurrentWorkspace.WorkspaceName}
               channelName={this.state.channelName}
               onSetSidebarOpen={this.onSetSidebarOpen} 
+              WorkspaceId={this.state.CurrentWorkspace.Id || this.state.CurrentWorkspace.id}
               // workSpaceImg={this.props.location.state.workSpaceImg}
             />
 

@@ -35,7 +35,7 @@ class ChangeWorkspacename extends Component {
         'Authorization': "bearer " + localStorage.getItem('token')
       },
       url:
-        "http://localhost:5000/api/workspaces" +
+        "http://10.0.67.127:8080/api/workspaces" +
         "/EditWorkspaceName/" +
         this.state.id,
       data: {

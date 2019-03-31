@@ -5,7 +5,7 @@ import axios from 'axios';
 import Message from "./MessageComponent"
 import auth from '../../Services/authService'
 import '../workspace/ChatComponent.css'
-const BASE_URL = "http://localhost:5000/api"
+const BASE_URL = "http://10.0.67.127:8080/api"
 
 const signalR = require("@aspnet/signalr");
 
@@ -111,7 +111,7 @@ class ChatComponent extends Component {
     // needs authentication
     return axios(auth.includeAuth({
       method: 'get',
-      url: `http://localhost:5000/api/users/${userID}`,
+      url: `http://10.0.67.127:8080/api/users/${userID}`,
 
     }))
   };

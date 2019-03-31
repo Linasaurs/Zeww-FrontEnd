@@ -33,11 +33,6 @@ export default class OmniSearch extends Component {
             auth.includeAuth({
                 method: "get",
                 url: `http://10.0.67.127:8080/api/workspaces/omnisearch?searchQuery=${searchQueryToSearchWith}&workspaceId=${workspaceIdToSearchIn}`,
-                responseType: "json"
-                // data: {
-                //     searchQuery: searchQueryToSearchWith
-                //     workspaceId: workspaceIdToSearchIn
-                // }
             })
         ).then(function(response) {
             console.log(response.data);
@@ -51,7 +46,7 @@ export default class OmniSearch extends Component {
     render() {
         return (
             <React.Fragment>
-                <div className="input-group">
+                <div className="input-group input-groups">
                     <input
                         name="searchQuery"
                         placeholder="Search for anything!"
