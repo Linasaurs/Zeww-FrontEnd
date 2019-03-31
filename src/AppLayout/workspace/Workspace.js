@@ -14,7 +14,7 @@ import withAuthentication from "../../HOC/withAuthentication";
 import ChatComponent from './ChatComponent'
 import AddUserToChannel from './burger_menu/components/adduserToChannel/AddUserToChannel'
 const signalR = require("@aspnet/signalr");
-const BASE_URL = "http://localhost:5000/api/"
+const BASE_URL = "http://10.0.67.127:8080/api/"
 
 class Workspace extends React.Component {
   constructor(props) {
@@ -297,7 +297,7 @@ class Workspace extends React.Component {
        })}
 
        let hubConnection = new signalR.HubConnectionBuilder()
-       .withUrl("http://localhost:5000/chat") //http://localhost:5000/chat
+       .withUrl("http://10.0.67.127:8080/chat") //http://localhost:5000/chat
        .build();
    
        this.setState({
@@ -412,10 +412,11 @@ class Workspace extends React.Component {
               toggle={this.state.viewChannelDetailsToggle}
               toggleViewChannelDetails={this.toggleViewChannelDetails}
             />
-
+{console.log(this.state.currentChatId)}
             <AddUserToChannel
               toggle={this.state.addUserToChannelToggleFlag}
               toggleAddUserToChannel={this.toggleAddUserToChannel}
+              channelId={this.state.currentChatId}
             />
 
             <WorkSpaceHeader

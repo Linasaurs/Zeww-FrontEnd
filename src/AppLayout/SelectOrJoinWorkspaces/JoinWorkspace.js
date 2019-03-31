@@ -9,7 +9,7 @@ import auth from '../../Services/authService';
 import {Redirect } from 'react-router';
 import {Link} from 'react-router-dom'
 
-const USERS_BASE_URL = "http://localhost:5000/api/workspaces"
+const USERS_BASE_URL = "http://10.0.67.127/api/workspaces"
 class JoinWorkspace extends Component {
     constructor (props) {
         super(props)

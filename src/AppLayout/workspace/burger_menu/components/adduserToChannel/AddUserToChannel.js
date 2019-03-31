@@ -19,7 +19,7 @@ class AddUserToChannel extends Component {
     handleSubmit(event) {
         event.preventDefault();
         this.props.toggleAddUserToChannel();
-        fetch('http://localhost:5000/api/chats/AddUserToChannel/1', {
+        fetch(`http://10.0.67.127:8080/api/chats/AddUserToChannel/${this.props.channelId}`, {
             method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(this.state.userName)
         }).then(function (response) {
             return response.json();
