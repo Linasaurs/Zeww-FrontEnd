@@ -33,16 +33,12 @@ export default class OmniSearch extends Component {
         axios(
             auth.includeAuth({
                 method: "get",
-<<<<<<< HEAD
-                url: `http://10.0.67.127:8080/api/workspaces/omnisearch?searchQuery=${searchQueryToSearchWith}&workspaceId=${workspaceIdToSearchIn}`,
-=======
                 url: `${config.BASE_URL}/workspaces/omnisearch?searchQuery=${searchQueryToSearchWith}&workspaceId=${workspaceIdToSearchIn}`,
                 responseType: "json"
                 // data: {
                 //     searchQuery: searchQueryToSearchWith
                 //     workspaceId: workspaceIdToSearchIn
                 // }
->>>>>>> Master
             })
         ).then(function(response) {
             console.log(response.data);

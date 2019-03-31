@@ -31,11 +31,7 @@ class ChangeWorkspaceUrl extends Component {
         "Content-Type": "application/json",
         'Authorization': "bearer " + localStorage.getItem('token')
       },
-<<<<<<< HEAD
-      url: "http://10.0.67.127:8080/api/workspaces" + "/EditWorkspaceURL/" + this.state.id,
-=======
       url: `${config.BASE_URL}/workspaces` + "/EditWorkspaceURL/" + this.state.id,
->>>>>>> Master
       data: {
         WorkspaceName: this.props.CurrentWorkspace.WorkspaceName,
         URL: this.state.newURL

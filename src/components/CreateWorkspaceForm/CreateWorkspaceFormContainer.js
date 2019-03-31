@@ -26,11 +26,7 @@ class CreateWorkspaceFormContainer extends Component {
         axios(auth.includeAuth({
             method: "post",
             headers: { "Content-Type": "application/json" },
-<<<<<<< HEAD
-            url: 'http://10.0.67.127:8080/api/workspaces/CreateWorkspace',
-=======
             url: `${config.BASE_URL}/workspaces/CreateWorkspace`,
->>>>>>> Master
             data: _data 
         })).then(res => {  
             console.log(res)

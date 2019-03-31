@@ -15,11 +15,7 @@ import ChatComponent from './ChatComponent'
 import AddUserToChannel from './burger_menu/components/adduserToChannel/AddUserToChannel'
 import config from '../../config'
 const signalR = require("@aspnet/signalr");
-<<<<<<< HEAD
-const BASE_URL = "http://10.0.67.127:8080/api/"
-=======
 const BASE_URL = config.BASE_URL;
->>>>>>> Master
 
 class Workspace extends React.Component {
   constructor(props) {
@@ -302,11 +298,7 @@ class Workspace extends React.Component {
        })}
 
        let hubConnection = new signalR.HubConnectionBuilder()
-<<<<<<< HEAD
-       .withUrl("http://10.0.67.127:8080/chat") //http://10.0.67.127:8080/chat
-=======
        .withUrl("http://10.0.67.127:8080/chat") //http://localhost:5000/chat
->>>>>>> Master
        .build();
    
        this.setState({
@@ -451,12 +443,8 @@ class Workspace extends React.Component {
               workspaceName={this.state.CurrentWorkspace.WorkspaceName}
               channelName={this.state.channelName}
               onSetSidebarOpen={this.onSetSidebarOpen} 
-<<<<<<< HEAD
               WorkspaceId={this.state.CurrentWorkspace.Id || this.state.CurrentWorkspace.id}
               // workSpaceImg={this.props.location.state.workSpaceImg}
-=======
-              workSpaceImg={this.props.location.state? this.props.location.state.workSpaceImg : require('./imgs/logoplaceholder.svg')}
->>>>>>> Master
             />
 
             <div id="workspace-body">

@@ -10,11 +10,7 @@ class FilesContainer extends Component
 
     fetchData()
     {
-<<<<<<< HEAD
-        Axios.get(`http://10.0.67.127:8080/api/chats/GetFiles/wael`)
-=======
         Axios.get(`${config.BASE_URL}/chats/GetFiles/wael`)
->>>>>>> Master
         .then(res => {
           console.log(res.data);
           this.props.getfiles(res.data);

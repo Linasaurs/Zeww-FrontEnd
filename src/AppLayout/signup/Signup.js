@@ -6,11 +6,7 @@ import config from '../../config';
 
 import axios from 'axios';
 const Joi = require('joi');
-<<<<<<< HEAD
-const USERS_BASE_URL = "http://10.0.67.127:8080/api/users"
-=======
 const USERS_BASE_URL = `${config.BASE_URL}/users`
->>>>>>> Master
 
 class Signup extends Component {
     constructor(props) {

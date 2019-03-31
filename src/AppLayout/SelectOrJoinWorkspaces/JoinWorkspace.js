@@ -10,11 +10,7 @@ import {Redirect } from 'react-router';
 import {Link} from 'react-router-dom'
 import config from '../../config'
 
-<<<<<<< HEAD
-const USERS_BASE_URL = "http://10.0.67.127/api/workspaces"
-=======
 const USERS_BASE_URL = `${config.BASE_URL}/workspaces`
->>>>>>> Master
 class JoinWorkspace extends Component {
     constructor (props) {
         super(props)
