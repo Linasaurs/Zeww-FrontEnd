@@ -140,12 +140,14 @@ class Workspace extends React.Component {
   };
 
   burgerMenuComponentSwitch() {
+    var currentChannel = this.state.channels.find(channel => channel.id == this.state.currentChatId);
     if (this.state.filesContainerOpen) {
       return (
         <FilesContainer
           files={this.state.files}
           getfiles={this.setFiles}
           toggleFilesContainer={this.toggleFilesContainer}
+          currentChannel = {currentChannel}
         />
       );
     } else {
